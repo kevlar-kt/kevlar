@@ -1,0 +1,8 @@
+/**
+ * App-only configuration
+ * */
+apply plugin: "com.android.application"
+
+android.defaultConfig.applicationId = "com.kevlar.showcase"
+
+apply from: rootProject.file("scripts/commons/common_config.gradle")

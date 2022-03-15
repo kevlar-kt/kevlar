@@ -1,0 +1,53 @@
+name: Build
+
+# TODO:
+#    - Replace `sample` with your android app module name
+
+on:
+    push:
+    pull_request:
+
+jobs:
+    build:
+        name: Build project
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Project Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup JDK 11
+              uses: actions/setup-java@v1
+              with:
+                  java-version: '11'
+
+            - name: System Information
+              run: printf "\nKernel:\n " && uname -a && printf "\n\nMemory:\n " && free -h && printf "\n\nStorage:\n" && df -h && ls -la && pwd
+
+            - name: Build project
+              run: ./gradlew build --stacktrace
+
+    apk:
+        name: Generate APK
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v1
+
+            -   name: Setup JDK 11
+                uses: actions/setup-java@v1
+                with:
+                    java-version: '11'
+
+            -   name: System Information         
+                run: printf "\nKernel:\n " && uname -a && printf "\n\nMemory:\n " && free -h && printf "\n\nStorage:\n" && df -h && ls -la && pwd
+
+            -   name: Build APK
+                run: bash ./gradlew assembleDebug --stacktrace
+
+            -   name: Upload APK
+                uses: actions/upload-artifact@v1
+                with:
+                    name: debug-apk-artifact
+                    path: sample/build/outputs/apk/debug/sample-debug.apk # appears 2 times

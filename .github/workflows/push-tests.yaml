@@ -1,0 +1,65 @@
+name: Run Tests
+
+# TODO:
+#    - Replace `complex_numbers` with your android app module name
+
+on:
+    push:
+    pull_request:
+
+jobs:
+    test:
+        name: Run Tests
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Project Checkout
+                uses: actions/checkout@v2
+
+            -   name: Setup JDK 11
+                uses: actions/setup-java@v1
+                with:
+                    java-version: '11'
+
+            -   name: System Information         
+                run: printf "\nKernel:\n " && uname -a && printf "\n\nMemory:\n " && free -h && printf "\n\nStorage:\n" && df -h && ls -la && pwd
+
+            -   name: Build
+                run: ./gradlew build --stacktrace
+
+            -   name: Run tests
+                run: ./gradlew test --stacktrace # testDebug or testRelease (if you have any)
+
+            -   name: Unit tests results
+                uses: actions/upload-artifact@v1
+                with:
+                    name: test-report
+                    path: complex_numbers/build/reports/tests/testDebugUnitTest/
+
+    link:
+        name: Lint
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Project Checkout
+                uses: actions/checkout@v2
+
+            -   name: Setup JDK 11
+                uses: actions/setup-java@v1
+                with:
+                    java-version: '11'
+
+            -   name: System Information         
+                run: printf "\nKernel:\n " && uname -a && printf "\n\nMemory:\n " && free -h && printf "\n\nStorage:\n" && df -h && ls -la && pwd
+
+            -   name: Build
+                run: ./gradlew build --stacktrace
+
+            -   name: Lint
+                run: ./gradlew lint --stacktrace
+
+            -   name: Lint results
+                uses: actions/upload-artifact@v1
+                with:
+                    name: lint-report
+                    path: complex_numbers/build/reports/

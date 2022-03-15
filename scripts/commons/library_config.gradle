@@ -1,0 +1,5 @@
+/**
+ * Library-only configuration
+ * */
+apply plugin: "com.android.library"
+apply from: rootProject.file("scripts/commons/common_config.gradle")

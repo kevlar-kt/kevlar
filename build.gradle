@@ -1,0 +1,44 @@
+apply from: rootProject.file("scripts/custom/versions.gradle")
+apply plugin: 'io.codearte.nexus-staging'
+
+buildscript {
+    ext {
+        kotlin_version = "1.6.10"
+    }
+    
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.1.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.42.0"
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.41'
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.30.0"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+subprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        // Kotlin compiler JVM-target version (as string)
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_1_8
+            freeCompilerArgs += ["-module-name", project.path.replace(':', '')]
+        }
+    
+        // Kotlin compiler JVM-target version (as int)
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}

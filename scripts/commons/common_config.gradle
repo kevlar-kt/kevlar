@@ -1,0 +1,38 @@
+/**
+ * Common code between App and Library modules
+ * */
+apply plugin: "kotlin-android"
+
+android {
+    compileSdkVersion 31
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+    
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 31
+    }
+    
+    sourceSets {
+        main.res.srcDirs = [
+                "src/main/res",
+                "src/main/res-public"
+        ]
+        
+        android.sourceSets.all {
+            java.srcDir("src/$name/kotlin}")
+        }
+    }
+    
+    packagingOptions {
+        //exclude("DebugProbesKt.bin")
+        //exclude("LICENSE.txt")
+    }
+}
