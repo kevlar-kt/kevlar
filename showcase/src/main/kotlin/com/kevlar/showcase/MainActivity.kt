@@ -16,12 +16,14 @@
 package com.kevlar.showcase
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.kevlar.antipiracy.KevlarAntipiracy
 import com.kevlar.showcase.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -40,8 +42,12 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-
+                vm.attestation.collectLatest {
+                    Toast.makeText(this@MainActivity, it.toString(), Toast.LENGTH_LONG).show()
+                }
             }
         }
+
+
     }
 }

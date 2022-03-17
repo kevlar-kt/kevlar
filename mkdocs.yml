@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+
+site_name: Kevlar
+site_url: https://kevlar-kt.github.io/kevlar/
+repo_name: Kevlar
+repo_url: https://github.com/kevlar-kt/kevlar
+site_description: "Android Security Framework"
+site_author: kevlar
+remote_branch: gh-pages
+edit_uri: ""
+
+theme:
+    name: material
+    palette:
+        - media: "(prefers-color-scheme: light)"
+          scheme: default
+          primary: cyan
+          toggle:
+              icon: material/lightbulb-outline
+              name: Switch to dark mode
+        - media: "(prefers-color-scheme: dark)"
+          scheme: slate
+          primary: cyan
+          toggle:
+              icon: material/lightbulb
+              name: Switch to light mode

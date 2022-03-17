@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JsonSchemaMappingsProjectConfiguration">
+    <state>
+      <map>
+        <entry key="MkDocs">
+          <value>
+            <SchemaInfo>
+              <option name="name" value="MkDocs" />
+              <option name="relativePathToSchema" value="https://squidfunk.github.io/mkdocs-material/schema.json" />
+              <option name="patterns">
+                <list>
+                  <Item>
+                    <option name="path" value="mkdocs.yml" />
+                  </Item>
+                </list>
+              </option>
+            </SchemaInfo>
+          </value>
+        </entry>
+      </map>
+    </state>
+  </component>
+</project>

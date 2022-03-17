@@ -1,8 +1,5 @@
 name: Run Tests
 
-# TODO:
-#    - Replace `complex_numbers` with your android app module name
-
 on:
     push:
     pull_request:
@@ -30,11 +27,25 @@ jobs:
             -   name: Run tests
                 run: ./gradlew test --stacktrace # testDebug or testRelease (if you have any)
 
-            -   name: Unit tests results
+            -   name: Unit tests results [antipiracy]
                 uses: actions/upload-artifact@v1
                 with:
                     name: test-report
-                    path: complex_numbers/build/reports/tests/testDebugUnitTest/
+                    path: antipiracy/build/reports/tests/testDebugUnitTest/
+
+            -   name: Unit tests results [integrity]
+                uses: actions/upload-artifact@v1
+                with:
+                    name: test-report
+                    path: integrity/build/reports/tests/testDebugUnitTest/
+
+            -   name: Unit tests results [rooting]
+                uses: actions/upload-artifact@v1
+                with:
+                    name: test-report
+                    path: rooting/build/reports/tests/testDebugUnitTest/
+
+
 
     link:
         name: Lint
@@ -58,8 +69,20 @@ jobs:
             -   name: Lint
                 run: ./gradlew lint --stacktrace
 
-            -   name: Lint results
+            -   name: Lint results [antipiracy]
                 uses: actions/upload-artifact@v1
                 with:
                     name: lint-report
-                    path: complex_numbers/build/reports/
+                    path: antipiracy/build/reports/
+
+            -   name: Lint results [integrity]
+                uses: actions/upload-artifact@v1
+                with:
+                    name: lint-report
+                    path: integrity/build/reports/
+
+            -   name: Lint results [rooting]
+                uses: actions/upload-artifact@v1
+                with:
+                    name: lint-report
+                    path: rooting/build/reports/

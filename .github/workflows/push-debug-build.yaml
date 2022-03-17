@@ -1,8 +1,5 @@
 name: Build
 
-# TODO:
-#    - Replace `sample` with your android app module name
-
 on:
     push:
     pull_request:
@@ -50,4 +47,4 @@ jobs:
                 uses: actions/upload-artifact@v1
                 with:
                     name: debug-apk-artifact
-                    path: sample/build/outputs/apk/debug/sample-debug.apk # appears 2 times
+                    path: showcase/build/outputs/apk/debug/showcase-debug.apk # appears 2 times
