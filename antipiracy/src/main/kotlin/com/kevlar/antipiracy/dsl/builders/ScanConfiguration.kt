@@ -7,9 +7,9 @@ import com.kevlar.antipiracy.dsl.DslBuilder
  * Contains global scan details
  * */
 public class ScanConfiguration(
-    private val pirate: PirateSoftwareScan,
-    private val stores: PirateStoreScan,
-    private val custom: CustomScan,
+    public val pirate: PirateSoftwareScan,
+    public val stores: PirateStoreScan,
+    public val custom: CustomScan,
 ) {
 
     public companion object {

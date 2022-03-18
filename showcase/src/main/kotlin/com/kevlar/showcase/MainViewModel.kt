@@ -3,20 +3,24 @@ package com.kevlar.showcase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kevlar.antipiracy.AntipiracyAttestation
+import com.kevlar.antipiracy.KevlarAntipiracy
 import com.kevlar.showcase.data.repo.SecurityRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class MainViewModel @Inject constructor(
     private val securityRepository: SecurityRepository
 ) : ViewModel() {
 
-    private val _attestationState = MutableStateFlow<AntipiracyAttestation>(AntipiracyAttestation.Idle())
+    private val _attestationState = MutableStateFlow(KevlarAntipiracy.defaultAttestation())
+
     val attestation: SharedFlow<AntipiracyAttestation> = _attestationState.stateIn(
         viewModelScope,
         SharingStarted.Eagerly,
-        initialValue = AntipiracyAttestation.Idle()
+        initialValue = KevlarAntipiracy.defaultAttestation()
     )
 
     fun requestAttestation() {

@@ -1,4 +1,4 @@
-package com.kevlar.antipiracy.alphabet
+package com.kevlar.antipiracy.detection.alphabet
 
 internal class AsciiVariations {
     companion object {

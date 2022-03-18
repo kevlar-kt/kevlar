@@ -1,4 +1,4 @@
 package com.kevlar.antipiracy.dsl
 
 @DslMarker
-public annotation class AntipiracyDslMarker
+internal annotation class AntipiracyDslMarker

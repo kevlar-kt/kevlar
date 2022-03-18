@@ -1,11 +1,14 @@
 package com.kevlar.antipiracy.dsl.builders
 
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageItemInfo
 import com.kevlar.antipiracy.dsl.AntipiracyDslMarker
 import com.kevlar.antipiracy.dsl.DslBuilder
 
 public abstract class Scan {
     public abstract val enabled: Boolean
 }
+
 
 
 public data class PirateSoftwareScan(
@@ -19,6 +22,21 @@ public data class PirateStoreScan(
 public data class CustomScan(
     override val enabled: Boolean
 ): Scan()
+
+
+
+
+public data class ScanResult(
+    val packages: List<ApplicationInfo>
+) {
+    public companion object {
+        public fun empty(): ScanResult = ScanResult(listOf())
+    }
+
+    public fun isClear(): Boolean = packages.isEmpty()
+
+    public operator fun plus(other: ScanResult): ScanResult = ScanResult(packages + other.packages)
+}
 
 
 

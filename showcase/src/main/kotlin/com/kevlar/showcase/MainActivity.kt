@@ -26,6 +26,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.kevlar.antipiracy.KevlarAntipiracy
 import com.kevlar.showcase.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -46,6 +49,15 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity, it.toString(), Toast.LENGTH_LONG).show()
                 }
             }
+
+        }
+
+
+        CoroutineScope(Dispatchers.Main).launch {
+
+            delay(3000)
+            vm.requestAttestation()
+
         }
 
 
