@@ -15,12 +15,12 @@ class MainViewModel @Inject constructor(
     private val securityRepository: SecurityRepository
 ) : ViewModel() {
 
-    private val _attestationState = MutableStateFlow(KevlarAntipiracy.defaultAttestation())
+    private val _attestationState = MutableStateFlow(KevlarAntipiracy.blankAttestation())
 
     val attestation: SharedFlow<AntipiracyAttestation> = _attestationState.stateIn(
         viewModelScope,
         SharingStarted.Eagerly,
-        initialValue = KevlarAntipiracy.defaultAttestation()
+        initialValue = KevlarAntipiracy.blankAttestation()
     )
 
     fun requestAttestation() {

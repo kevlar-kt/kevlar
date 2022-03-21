@@ -14,6 +14,6 @@ public class KevlarAntipiracy(
     public companion object {
         private var index = 0
 
-        public fun defaultAttestation(): AntipiracyAttestation = AntipiracyAttestation.Unknown(0)
+        public fun blankAttestation(): AntipiracyAttestation = AntipiracyAttestation.Blank(0)
     }
 }

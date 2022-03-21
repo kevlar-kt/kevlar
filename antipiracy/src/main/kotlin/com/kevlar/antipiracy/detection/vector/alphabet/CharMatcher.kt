@@ -1,8 +1,7 @@
-package com.kevlar.antipiracy.detection.alphabet
+package com.kevlar.antipiracy.detection.vector.alphabet
 
-public object CharMatcher {
-
-    public fun identify(char: Char): AlphabetUnit = when {
+internal object CharMatcher {
+    fun identify(char: Char): AlphabetUnit = when {
         AsciiVariations.a.contains(char) -> AlphabetUnit.A
         AsciiVariations.b.contains(char) -> AlphabetUnit.B
         AsciiVariations.c.contains(char) -> AlphabetUnit.C

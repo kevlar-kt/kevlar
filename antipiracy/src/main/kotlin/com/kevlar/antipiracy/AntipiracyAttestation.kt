@@ -15,7 +15,7 @@ public sealed class AntipiracyAttestation {
     /**
      * Attestation has not been verified yet
      * */
-    public class Unknown(
+    public class Blank(
         override val index: Int
     ) : AntipiracyAttestation()
 

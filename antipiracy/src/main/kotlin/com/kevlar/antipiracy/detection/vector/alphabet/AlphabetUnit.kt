@@ -1,6 +1,6 @@
-package com.kevlar.antipiracy.detection.alphabet
+package com.kevlar.antipiracy.detection.vector.alphabet
 
-public enum class AlphabetUnit(public val asciiLower: Char, public val asciiUpper: Char) {
+internal enum class AlphabetUnit(public val asciiLower: Char, public val asciiUpper: Char) {
     A('a', 'A'),
     B('b', 'B'),
     C('c', 'C'),

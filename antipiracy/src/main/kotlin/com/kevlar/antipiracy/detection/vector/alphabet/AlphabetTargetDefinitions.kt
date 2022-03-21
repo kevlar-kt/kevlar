@@ -1,7 +1,7 @@
-package com.kevlar.antipiracy.detection.alphabet
+package com.kevlar.antipiracy.detection.vector.alphabet
 
-public object AlphabetTargetDefinitions {
-    public val luckyPatcherUnitString: Array<AlphabetUnit> = arrayOf(
+internal object AlphabetTargetDefinitions {
+    val luckyPatcherUnitString: Array<AlphabetUnit> = arrayOf(
         AlphabetUnit.L, AlphabetUnit.U, AlphabetUnit.C, AlphabetUnit.K, AlphabetUnit.Y,
 
         AlphabetUnit.SEPARATOR,

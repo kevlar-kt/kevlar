@@ -1,5 +1,6 @@
-package com.kevlar.antipiracy.detection.alphabet
+package com.kevlar.antipiracy.detection.vector.alphabet
 
+@Suppress("SpellCheckingInspection")
 internal class AsciiVariations {
     companion object {
         val a = charArrayOf(
@@ -7,8 +8,15 @@ internal class AsciiVariations {
             'A',
             'a',
 
+            // Cyrillic
+            'А',
+            'а', 'ӑ', 'ӓ',
+
+            // Fullwidth
+            'ａ',
+
             /*
-        // Descendants
+        if we wanna go nukes on 'em
         'Æ',
         'æ',
         'Å',
@@ -92,8 +100,6 @@ internal class AsciiVariations {
         'Ꞻ',
         'ꞻ',
 
-        */
-
             // Derived
             'ª',
             'Å',
@@ -103,16 +109,11 @@ internal class AsciiVariations {
             'Α',
             'α',
 
-            // Cyrillic
-            'А',
-            'а',
-            'ӓ',
-            'Ӓ',
-
             // Coptic
             'Ⲁ',
             'ⲁ',
             'ᚨ',
+             */
         )
 
         val b = charArrayOf(
@@ -122,7 +123,17 @@ internal class AsciiVariations {
 
 
         val c = charArrayOf(
+            // Basic Latin
             'с', 'c',
+
+            // Cyrillic C
+            'с',
+
+            // Fullwidth
+            'ｃ',
+
+            // Cedilla
+            'ç',
         )
 
 
@@ -132,7 +143,17 @@ internal class AsciiVariations {
         )
 
         val e = charArrayOf(
+            // Basic latin
             'e', 'е',
+
+            // Cyrillic
+            'є', 'ё', 'е', 'ҽ', 'з', 'э', 'ҿ',
+
+            // Fullwidth
+            'ｅ',
+
+            // Boh
+            'µ'
         )
 
         val f = charArrayOf(
@@ -148,6 +169,15 @@ internal class AsciiVariations {
         val h = charArrayOf(
             // Basic Latin
             'H', 'h',
+
+            // Cyrillic
+            'н', 'һ', 'ӈ', 'Һ',
+
+            // Fullwidth
+            'ｈ',
+
+            // Boh
+            'Ð',
         )
 
         val i = charArrayOf(
@@ -167,13 +197,22 @@ internal class AsciiVariations {
             // Basic Latin
             'K', 'k',
 
-            // Inside LP
-            'k', 'к',
+            // Cyrillic
+            'к', 'ќ', 'ӄ',
+
+            // Fullwidth
+            'ｋ',
         )
 
         val l = charArrayOf(
             // Basic Latin
             'L', 'l',
+
+            // Fullwidth
+            'Ｌ',
+
+            // Cyrillic El
+            'л', 'Л'
         )
 
 
@@ -200,8 +239,11 @@ internal class AsciiVariations {
             // Basic Latin
             'P', 'p',
 
-            // Inside LP
-            'P', 'Р',
+            // Cyrillic Er
+            'P', 'Р', 'Ҏ', 'ҏ', 'р',
+
+            // Fullwidth
+            'Ｐ', 'ｐ'
         )
 
         val q = charArrayOf(
@@ -212,22 +254,49 @@ internal class AsciiVariations {
         val r = charArrayOf(
             // Basic Latin
             'r', 'r',
+
+            // Cyrillic
+            'я',
+
+            // Fullwidth
+            'ｒ',
+
+            // Boh
+            'µ'
         )
 
         val s = charArrayOf(
             // Basic Latin
             'S', 's',
+
+            // Latin small
+            'ꜱ',
+
+            // Cyrillic
+            'ѕ',
         )
 
         val t = charArrayOf(
             // Basic Latin
             'T', 't',
+
+            // Cyrillic
+            'т',
+
+            // Fullwidth
+            'ｔ',
         )
 
 
         val u = charArrayOf(
             // Basic Latin
             'U', 'u',
+
+            // Cyrillic
+            'ц', 'џ',
+
+            // Fullwidth
+            'ｕ',
         )
 
 
@@ -249,7 +318,14 @@ internal class AsciiVariations {
         )
 
         val y = charArrayOf(
+            // Basic Latin
             'у', 'y',
+
+            // Cyrillic
+            'у', 'ӳ', 'ӱ', 'Ӱ', 'ӯ', 'Ӯ', 'У', 'ў',
+
+            // Fullwidth
+            'ｙ',
         )
 
         val z = charArrayOf(
@@ -258,7 +334,26 @@ internal class AsciiVariations {
         )
 
         val sepatator = charArrayOf(
-            ' ', '_', '+', '*', '`', '-', '~', '#',
+            // Quotes
+            '"', '`', '´', '\'', '‘', '’', '“', '”',
+
+            // Commons
+            '+', '*', '~', '#', '@', '$', '!', '?',
+
+            // Dashes
+            ' ', '_', '-', '–', '—', '─',
+
+            // Slashes
+            '/', '\\', '﹨', '＼', '／',
+
+            // Fking spaces
+            ' ', ' ', '　',
+
+            // Supplements
+            '¨',
+
+            // Against Geneva Conventions
+            ' ', ' ', ' ', '⁠', ' ', ' ',
         )
     }
 }

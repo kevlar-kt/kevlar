@@ -28,14 +28,14 @@ public class ScanConfigurationsBuilder : DslBuilder<ScanConfiguration>() {
     private var store = PirateStoreScan(enabled = false)
     private var custom = CustomScan(enabled = false)
 
-    public fun pirate(block: PirateSoftwareScanBuilder.() -> Unit) {
+    public fun pirate(block: PirateSoftwareScanBuilder.() -> Unit = {}) {
         pirate = PirateSoftwareScanBuilder().apply {
             block()
             enable()
         }.build()
     }
 
-    public fun store(block: PirateStoreScanBuilder.() -> Unit) {
+    public fun store(block: PirateStoreScanBuilder.() -> Unit = {}) {
         store = PirateStoreScanBuilder().apply {
             block()
             enable()

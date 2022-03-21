@@ -49,17 +49,12 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity, it.toString(), Toast.LENGTH_LONG).show()
                 }
             }
-
         }
 
 
         CoroutineScope(Dispatchers.Main).launch {
-
             delay(3000)
             vm.requestAttestation()
-
         }
-
-
     }
 }

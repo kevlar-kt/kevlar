@@ -13,12 +13,11 @@ class SecurityRepository @Inject constructor(
     @ApplicationContext val context: Context,
     @IoDispatcher val externalDispatcher: CoroutineDispatcher
 ) {
-
     private val antipiracy by lazy {
         KevlarAntipiracy {
             scan {
-                pirate {  }
-                store {  }
+                pirate()
+                store()
             }
         }
     }
@@ -26,5 +25,4 @@ class SecurityRepository @Inject constructor(
     suspend fun attestate(): AntipiracyAttestation = withContext(externalDispatcher) {
         antipiracy.attestate(context)
     }
-
 }

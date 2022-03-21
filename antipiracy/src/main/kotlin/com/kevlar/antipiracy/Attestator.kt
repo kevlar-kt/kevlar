@@ -2,11 +2,9 @@ package com.kevlar.antipiracy
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
-import android.content.pm.PackageInfo
-import android.content.pm.PackageItemInfo
 import android.content.pm.PackageManager
-import com.kevlar.antipiracy.detection.alphabet.AlphabetTargetDefinitions
-import com.kevlar.antipiracy.detection.alphabet.StringReducer
+import com.kevlar.antipiracy.detection.vector.alphabet.AlphabetTargetDefinitions
+import com.kevlar.antipiracy.detection.vector.alphabet.StringReducer
 import com.kevlar.antipiracy.dsl.builders.*
 import kotlinx.coroutines.*
 
