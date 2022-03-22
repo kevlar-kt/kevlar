@@ -16,14 +16,14 @@
 package com.kevlar.showcase
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.kevlar.antipiracy.KevlarAntipiracy
+import com.kevlar.antipiracy.AntipiracyAttestation
+import com.kevlar.antipiracy.detection.dataset.DatasetEntry
 import com.kevlar.showcase.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -46,7 +46,24 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.attestation.collectLatest {
-                    Toast.makeText(this@MainActivity, it.toString(), Toast.LENGTH_LONG).show()
+                    when (it) {
+                        is AntipiracyAttestation.Blank -> {
+                            binding.debugText.text = "Blank attestation"
+                        }
+                        is AntipiracyAttestation.Clear -> {
+                            binding.debugText.text = "Clear attestation"
+                        }
+                        is AntipiracyAttestation.Failed -> {
+                            binding.debugText.text = buildString {
+                                appendLine("Failed attestation")
+                                appendLine()
+
+                                it.scanResult.detectedEntries.forEachIndexed { i, it: DatasetEntry ->
+                                    appendLine("[$i] $it")
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

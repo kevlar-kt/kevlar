@@ -4,7 +4,8 @@ import android.content.pm.ApplicationInfo
 import com.kevlar.antipiracy.detection.vectors.OutputVector
 
 /**
- * Set of vector results
+ * Full scan specter containing probing results
+ * for each vector in the [VectorSpecter] space.
  * */
 internal class OutputSpecter(
     val applicationInfo: ApplicationInfo,

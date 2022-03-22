@@ -2,85 +2,89 @@
 
 package com.kevlar.antipiracy.detection.vectors.heuristic
 
-import com.kevlar.antipiracy.detection.dataset.DetectionPolicy
-import com.kevlar.antipiracy.detection.dataset.DatasetUnit
 import com.kevlar.antipiracy.detection.dataset.DatasetEntry
 
 /**
- * Partitioned
+ * Dataset for heuristic piracy detection.
+ * The complete dataset is partitioned in different lists, each one
+ * containing a specific type of pirate software.
  * */
 internal object HeuristicDataset {
 
+    /**
+     * Packages which are straightforward to pick up
+     * since they don't actively try to disguise themselves
+     * */
     val identifiableHeuristicsPirateApps = arrayOf(
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.URET_PATCHER,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "uret.jasi2169.patcher",
                 "zone.jasi2169.uretpatcher",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.CREEPLAYS_PATCHER,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "org.creeplays.hack"
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.CREE_HACK,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "apps.zhasik007.hack",
                 "org.creeplays.hack"
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.LEO_PLAYCARDS,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.leo.playcard",
                 /* com.hakiansatu.leohhf */
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.APP_SARA,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.appsara.app",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.XMG,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.xmodgame",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.GAME_HACKER,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "org.sbtools.gamehack",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.GAME_KILLER,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.zune.gamekiller",
                 "com.killerapp.gamekiller",
                 "cn.lm.sq",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.AGK,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.aag.killer",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.CONTENT_GUARD_DISABLER,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.github.oneminusone.disablecontentguard",
                 "com.oneminusone.disablecontentguard",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.FREEDOM,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "madkite.freedom",
                 "jase.freedom",
                 "cc.jase.freedom",
@@ -91,101 +95,110 @@ internal object HeuristicDataset {
     )
 
 
+    /**
+     * Basically no store has active disguising methods
+     * */
     val identifiableHeuristicStores = arrayOf(
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.APTOIDE,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "cm.aptoide.pt",
             )
         ),
 
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.HAPPYMOD,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.happymod.apk",
             )
         ),
 
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.HAPPYMOD,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
 
                 "org.blackmart.market",
                 "com.blackmartalpha",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.MOB_GENIE,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.mobogenie",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.ONE_MOBILE,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "me.onemobile.android",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.GET_APK,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.repodroid.app",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.GET_JAR,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.getjar.reward",
             )
         ),
 
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.SLIDE_ME,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.slideme.sam.manager",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.AC_MARKET,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "net.appcake",
                 "ac.market.store",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.APP_CAKE,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.appcake",
             )
         ),
 
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.Z_MARKET,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.zmapp",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.MOBILISM,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "org.mobilism.android",
             )
         ),
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.AIOD,
-            DetectionPolicy.packageName(
+            DetectionPolicy.packageNames(
                 "com.allinone.free",
             )
         ),
     )
 
 
+    /**
+     * [MatchableHeuristicDatasetEntry]s which are harder to detect with heuristic methods, but
+     * still do a good job at catching old versions / tertiary components
+     * associated with one [DatasetEntry]
+     * */
     val nonIdentifiableHeuristicApps = arrayOf(
-        DatasetUnit(
+        MatchableHeuristicDatasetEntry(
             DatasetEntry.LUCKY_PATCHER,
             listOf(
                 DetectionPolicy.PackageNameDetection(
                     listOf(
+                        // Lucky patcher app
                         """com.chelpus.lackypatch""",
                         """com.dimonvideo.luckypatcher""",
                         """com.forpda.lp""",
@@ -195,8 +208,17 @@ internal object HeuristicDataset {
                     )
                 ),
                 DetectionPolicy.PackageNameRegex(
+                    // Lucky patcher app
                     """com.android.vending.billing.InAppBillingService.*"""
                 ),
+                DetectionPolicy.PackageNameRegex(
+                    // Lukcy Patcher Installer
+                    """ru\..?.?[a]{3,}.?.?.?.?.?\.installer"""
+                ),
+                DetectionPolicy.ClassNameNameRegex(
+                    // Lucky patcher app
+                    """com.lp"""
+                )
             )
         )
     )

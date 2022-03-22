@@ -1,7 +1,6 @@
 package com.kevlar.antipiracy.dsl.builders
 
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageItemInfo
+import com.kevlar.antipiracy.detection.dataset.DatasetEntry
 import com.kevlar.antipiracy.dsl.AntipiracyDslMarker
 import com.kevlar.antipiracy.dsl.DslBuilder
 
@@ -27,15 +26,13 @@ public data class CustomScan(
 
 
 public data class ScanResult(
-    val packages: List<ApplicationInfo>
+    val detectedEntries: List<DatasetEntry>
 ) {
     public companion object {
         public fun empty(): ScanResult = ScanResult(listOf())
     }
 
-    public fun isClear(): Boolean = packages.isEmpty()
-
-    public operator fun plus(other: ScanResult): ScanResult = ScanResult(packages + other.packages)
+    public fun isClear(): Boolean = detectedEntries.isEmpty()
 }
 
 

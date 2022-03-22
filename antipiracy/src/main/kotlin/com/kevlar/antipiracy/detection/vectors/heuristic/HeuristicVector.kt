@@ -1,8 +1,6 @@
 package com.kevlar.antipiracy.detection.vectors.heuristic
 
 import android.content.pm.ApplicationInfo
-import com.kevlar.antipiracy.detection.dataset.DatasetUnit
-import com.kevlar.antipiracy.detection.dataset.DetectionPolicy
 import com.kevlar.antipiracy.detection.vectors.AntipiracyVector
 import com.kevlar.antipiracy.detection.vectors.InputVector
 import com.kevlar.antipiracy.detection.vectors.OutputVector
@@ -12,9 +10,9 @@ internal class HeuristicVector(private val inputVector: InputVector) :
 
     private fun runDetection(
         applicationInfo: ApplicationInfo,
-        dataset: Array<DatasetUnit>
+        targets: Array<MatchableHeuristicDatasetEntry>
     ): OutputVector {
-        dataset.forEach { dataSetUnit ->
+        targets.forEach { dataSetUnit ->
             // Can have multiple detection policies
             dataSetUnit.detectionPolicies.forEach { detectionPolicy ->
                 when (detectionPolicy) {
@@ -27,6 +25,18 @@ internal class HeuristicVector(private val inputVector: InputVector) :
                     is DetectionPolicy.PackageNameRegex -> {
                         // We match the blacklisted package names and check if any is present in applicationInfo
                         if (detectionPolicy.regex.toRegex().matches(applicationInfo.packageName)) {
+                            return OutputVector(dataSetUnit.datasetEntry)
+                        }
+                    }
+                    is DetectionPolicy.ClassNameNameRegex -> {
+                        // We match the blacklisted class name and check if any is present in applicationInfo
+                        if (detectionPolicy.regex.toRegex().matches(applicationInfo.className)) {
+                            return OutputVector(dataSetUnit.datasetEntry)
+                        }
+                    }
+                    is DetectionPolicy.LabelNameRegex -> {
+                        // We match the blacklisted label name and check if any is present in applicationInfo
+                        if (detectionPolicy.regex.toRegex().matches(applicationInfo.nonLocalizedLabel)) {
                             return OutputVector(dataSetUnit.datasetEntry)
                         }
                     }
@@ -57,7 +67,6 @@ internal class HeuristicVector(private val inputVector: InputVector) :
         if (inputVector.scanConfiguration.custom.enabled) {
 
         }
-
 
         return OutputVector(matchingDataset = null)
     }

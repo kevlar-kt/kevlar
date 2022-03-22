@@ -2,6 +2,9 @@
 
 package com.kevlar.antipiracy.detection.dataset
 
+/**
+ * Synthetizes a target software, with its essential metadata.
+ * */
 public enum class DatasetEntry(
     public val type: DatasetType,
     public val softwareName: String

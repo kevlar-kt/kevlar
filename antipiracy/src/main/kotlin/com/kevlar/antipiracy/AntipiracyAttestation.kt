@@ -15,21 +15,21 @@ public sealed class AntipiracyAttestation {
     /**
      * Attestation has not been verified yet
      * */
-    public class Blank(
+    public data class Blank(
         override val index: Int
     ) : AntipiracyAttestation()
 
     /**
      * Attestation result is green light.
      * */
-    public class Clear(
+    public data class Clear(
         override val index: Int
     ) : AntipiracyAttestation()
 
     /**
      * Attestation detected pirate software installed.
      * */
-    public class Failed(
+    public data class Failed(
         override val index: Int,
         public val scanResult: ScanResult
     ) : AntipiracyAttestation()
