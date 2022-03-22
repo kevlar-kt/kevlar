@@ -1,4 +1,4 @@
-package com.kevlar.antipiracy.detection.vector.alphabet
+package com.kevlar.antipiracy.detection.vectors.alphabet
 
 @Suppress("SpellCheckingInspection")
 internal class AsciiVariations {

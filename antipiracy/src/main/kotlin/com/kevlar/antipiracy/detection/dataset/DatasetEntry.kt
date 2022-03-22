@@ -34,7 +34,3 @@ public enum class DatasetEntry(
     MOBILISM(DatasetType.PIRATE_STORE, "Mobilism"),
     AIOD(DatasetType.PIRATE_STORE, "All In One Downloader"),
 }
-
-public enum class DatasetType {
-    PIRATE_APP, PIRATE_STORE
-}

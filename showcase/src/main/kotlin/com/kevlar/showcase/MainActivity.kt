@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         CoroutineScope(Dispatchers.Main).launch {
             delay(3000)
             vm.requestAttestation()

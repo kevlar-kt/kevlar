@@ -1,7 +1,9 @@
 @file:Suppress("SpellCheckingInspection")
 
-package com.kevlar.antipiracy.detection.vector.euristic
+package com.kevlar.antipiracy.detection.vectors.heuristic
 
+import com.kevlar.antipiracy.detection.dataset.DetectionPolicy
+import com.kevlar.antipiracy.detection.dataset.DatasetUnit
 import com.kevlar.antipiracy.detection.dataset.DatasetEntry
 
 /**
@@ -9,76 +11,76 @@ import com.kevlar.antipiracy.detection.dataset.DatasetEntry
  * */
 internal object HeuristicDataset {
 
-    val identifiableHeuristicsApps = arrayOf(
-        HeuristicUnit(
+    val identifiableHeuristicsPirateApps = arrayOf(
+        DatasetUnit(
             DatasetEntry.URET_PATCHER,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "uret.jasi2169.patcher",
                 "zone.jasi2169.uretpatcher",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.CREEPLAYS_PATCHER,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "org.creeplays.hack"
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.CREE_HACK,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "apps.zhasik007.hack",
                 "org.creeplays.hack"
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.LEO_PLAYCARDS,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.leo.playcard",
                 /* com.hakiansatu.leohhf */
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.APP_SARA,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.appsara.app",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.XMG,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.xmodgame",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.GAME_HACKER,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "org.sbtools.gamehack",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.GAME_KILLER,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.zune.gamekiller",
                 "com.killerapp.gamekiller",
                 "cn.lm.sq",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.AGK,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.aag.killer",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.CONTENT_GUARD_DISABLER,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.github.oneminusone.disablecontentguard",
                 "com.oneminusone.disablecontentguard",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.FREEDOM,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "madkite.freedom",
                 "jase.freedom",
                 "cc.jase.freedom",
@@ -90,88 +92,88 @@ internal object HeuristicDataset {
 
 
     val identifiableHeuristicStores = arrayOf(
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.APTOIDE,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "cm.aptoide.pt",
             )
         ),
 
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.HAPPYMOD,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.happymod.apk",
             )
         ),
 
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.HAPPYMOD,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
 
                 "org.blackmart.market",
                 "com.blackmartalpha",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.MOB_GENIE,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.mobogenie",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.ONE_MOBILE,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "me.onemobile.android",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.GET_APK,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.repodroid.app",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.GET_JAR,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.getjar.reward",
             )
         ),
 
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.SLIDE_ME,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.slideme.sam.manager",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.AC_MARKET,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "net.appcake",
                 "ac.market.store",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.APP_CAKE,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.appcake",
             )
         ),
 
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.Z_MARKET,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.zmapp",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.MOBILISM,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "org.mobilism.android",
             )
         ),
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.AIOD,
-            HeuristicDetectionPolicy.packageName(
+            DetectionPolicy.packageName(
                 "com.allinone.free",
             )
         ),
@@ -179,10 +181,10 @@ internal object HeuristicDataset {
 
 
     val nonIdentifiableHeuristicApps = arrayOf(
-        HeuristicUnit(
+        DatasetUnit(
             DatasetEntry.LUCKY_PATCHER,
             listOf(
-                HeuristicDetectionPolicy.PackageNameDetection(
+                DetectionPolicy.PackageNameDetection(
                     listOf(
                         """com.chelpus.lackypatch""",
                         """com.dimonvideo.luckypatcher""",
@@ -192,7 +194,7 @@ internal object HeuristicDataset {
                         """com.android.vending.billing.InAppBillingService""",
                     )
                 ),
-                HeuristicDetectionPolicy.PackageNameRegex(
+                DetectionPolicy.PackageNameRegex(
                     """com.android.vending.billing.InAppBillingService.*"""
                 ),
             )

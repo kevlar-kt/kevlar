@@ -26,7 +26,6 @@ public sealed class AntipiracyAttestation {
         override val index: Int
     ) : AntipiracyAttestation()
 
-
     /**
      * Attestation detected pirate software installed.
      * */
