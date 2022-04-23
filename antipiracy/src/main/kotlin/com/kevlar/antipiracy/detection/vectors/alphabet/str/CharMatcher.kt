@@ -1,6 +1,6 @@
 package com.kevlar.antipiracy.detection.vectors.alphabet.str
 
-import com.kevlar.antipiracy.detection.vectors.alphabet.AsciiVariations
+import com.kevlar.antipiracy.detection.vectors.alphabet.ascii.AsciiVariations
 import com.kevlar.antipiracy.detection.vectors.alphabet.units.AlphabetUnit
 
 internal object CharMatcher {

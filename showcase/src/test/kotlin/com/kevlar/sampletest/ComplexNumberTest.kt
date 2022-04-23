@@ -15,18 +15,7 @@
  */
 package com.kevlar.sampletest
 
-import com.kevlar.antipiracy.ComplexNumber
-import com.google.common.truth.Truth.assertThat
-import org.junit.Test
 
 class ComplexNumberTest {
 
-    @Test
-    fun conjugate() {
-        assertThat(
-            ComplexNumber(1.0, 2.0)
-                .conjugate()
-                .imaginaryPart
-        ).isEqualTo(-2.0)
-    }
 }

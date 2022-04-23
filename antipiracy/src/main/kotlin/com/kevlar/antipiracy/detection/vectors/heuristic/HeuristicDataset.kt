@@ -15,7 +15,7 @@ internal object HeuristicDataset {
      * Packages which are straightforward to pick up
      * since they don't actively try to disguise themselves
      * */
-    val identifiableHeuristicsPirateApps = arrayOf(
+    val identifiableHeuristicsPirateApps: Array<MatchableHeuristicDatasetEntry> = arrayOf(
         MatchableHeuristicDatasetEntry(
             DatasetEntry.URET_PATCHER,
             DetectionPolicy.packageNames(
@@ -98,7 +98,7 @@ internal object HeuristicDataset {
     /**
      * Basically no store has active disguising methods
      * */
-    val identifiableHeuristicStores = arrayOf(
+    val identifiableHeuristicStores: Array<MatchableHeuristicDatasetEntry> = arrayOf(
         MatchableHeuristicDatasetEntry(
             DatasetEntry.APTOIDE,
             DetectionPolicy.packageNames(
@@ -192,7 +192,7 @@ internal object HeuristicDataset {
      * still do a good job at catching old versions / tertiary components
      * associated with one [DatasetEntry]
      * */
-    val nonIdentifiableHeuristicApps = arrayOf(
+    val nonIdentifiableHeuristicApps: Array<MatchableHeuristicDatasetEntry> = arrayOf(
         MatchableHeuristicDatasetEntry(
             DatasetEntry.LUCKY_PATCHER,
             listOf(
@@ -203,12 +203,13 @@ internal object HeuristicDataset {
                         """com.dimonvideo.luckypatcher""",
                         """com.forpda.lp""",
                         """com.android.vendinc""",
+
+                        // Lucky patcher proxy server for license verification
                         """com.android.vending.licensing.ILicensingService""",
-                        """com.android.vending.billing.InAppBillingService""",
                     )
                 ),
                 DetectionPolicy.PackageNameRegex(
-                    // Lucky patcher app
+                    // Lucky patcher proxy server for inppp purchases
                     """com.android.vending.billing.InAppBillingService.*"""
                 ),
                 DetectionPolicy.PackageNameRegex(
@@ -223,4 +224,19 @@ internal object HeuristicDataset {
         )
     )
 
+
+    val collateralPirateApps: Array<MatchableHeuristicDatasetEntry> = arrayOf(
+        MatchableHeuristicDatasetEntry(
+            DatasetEntry.LUCKY_PATCHER,
+            listOf(
+                DetectionPolicy.TokenizedPackageName(
+                    listOf(
+                        DetectionPolicy.TokenizedPackageName.PackageToken.Content("ru"),
+                        DetectionPolicy.TokenizedPackageName.PackageToken.Size(8),
+                        DetectionPolicy.TokenizedPackageName.PackageToken.Size(9),
+                    )
+                )
+            )
+        ),
+    )
 }

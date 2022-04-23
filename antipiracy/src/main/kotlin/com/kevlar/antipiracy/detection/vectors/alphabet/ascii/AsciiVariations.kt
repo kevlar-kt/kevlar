@@ -1,4 +1,4 @@
-package com.kevlar.antipiracy.detection.vectors.alphabet
+package com.kevlar.antipiracy.detection.vectors.alphabet.ascii
 
 @Suppress("SpellCheckingInspection")
 internal class AsciiVariations {
@@ -14,106 +14,6 @@ internal class AsciiVariations {
 
             // Fullwidth
             'ａ',
-
-            /*
-        if we wanna go nukes on 'em
-        'Æ',
-        'æ',
-        'Å',
-        'å',
-        'Ǻ',
-        'ǻ',
-        'Ḁ',
-        'ḁ',
-        'ẚ',
-        'Ă',
-        'ă',
-        'Ặ',
-        'ặ',
-        'Ắ',
-        'ắ',
-        'Ằ',
-        'ằ',
-        'Ẳ',
-        'ẳ',
-        'Ẵ',
-        'ẵ',
-        'Ȃ',
-        'ȃ',
-        'Â',
-        'â',
-        'Ậ',
-        'ậ',
-        'Ấ',
-        'ấ',
-        'Ầ',
-        'ầ',
-        'Ẫ',
-        'ẫ',
-        'Ẩ',
-        'ẩ',
-        'Ả',
-        'ả',
-        'Ǎ',
-        'ǎ',
-        'Ⱥ',
-        'ⱥ',
-        'Ȧ',
-        'ȧ',
-        'Ǡ',
-        'ǡ',
-        'Ạ',
-        'ạ',
-        'Ä',
-        'ä',
-        'Ǟ',
-        'ǟ',
-        'À',
-        'à',
-        'Ȁ',
-        'ȁ',
-        'Á',
-        'á',
-        'Ā',
-        'ā',
-        'Ã',
-        'ã',
-        'Ą',
-        'ą',
-        'ᶏ',
-        'Ɑ',
-        'ɑ',
-        'ᶐ',
-        'Ɐ',
-        'ɐ',
-        'Λ',
-        'ʌ',
-        'Ɒ',
-        'ɒ',
-        'ᶛ',
-        'ᴀ',
-        'A',
-        'a',
-        'ᵄ',
-        'a',
-        'ꬱ',
-        'Ꞻ',
-        'ꞻ',
-
-            // Derived
-            'ª',
-            'Å',
-            '∀',
-            '@',
-            '₳',
-            'Α',
-            'α',
-
-            // Coptic
-            'Ⲁ',
-            'ⲁ',
-            'ᚨ',
-             */
         )
 
         val b = charArrayOf(
@@ -240,7 +140,7 @@ internal class AsciiVariations {
             'P', 'p',
 
             // Cyrillic Er
-            'P', 'Р', 'Ҏ', 'ҏ', 'р',
+            'Р', 'Ҏ', 'ҏ', 'р',
 
             // Fullwidth
             'Ｐ', 'ｐ'
@@ -344,7 +244,7 @@ internal class AsciiVariations {
             ' ', '_', '-', '–', '—', '─',
 
             // Slashes
-            '/', '\\', '﹨', '＼', '／',
+            '/', '\\', '﹨', '＼', '／', '/',
 
             // Fking spaces
             ' ', ' ', '　',
@@ -352,7 +252,7 @@ internal class AsciiVariations {
             // Supplements
             '¨',
 
-            // Against Geneva Conventions
+            // Characters going against Geneva Conventions
             ' ', ' ', ' ', '⁠', ' ', ' ',
         )
     }

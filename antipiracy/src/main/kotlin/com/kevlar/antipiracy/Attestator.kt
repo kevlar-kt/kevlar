@@ -16,8 +16,7 @@ import kotlinx.coroutines.*
 public object Attestator {
 
     @SuppressLint("QueryPermissionsNeeded")
-    private fun buildPackageList(context: Context) =
-        context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+    private fun buildPackageList(context: Context) = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
 
     public suspend fun attestate(
         armament: AntipiracyArmament,
@@ -40,12 +39,14 @@ public object Attestator {
         outputSpecters: List<OutputSpecter>,
         index: Int
     ): AntipiracyAttestation {
-        val detectedDatasetEntries: List<DatasetEntry> = outputSpecters
+        val detectedDatasetEntries: Set<DatasetEntry> = outputSpecters
+            .asSequence()
             .filter {
                 it.matchingVectors.any(OutputVector::isNotEmpty) }
             .map(OutputSpecter::matchingVectors)
             .flatten()
             .mapNotNull(OutputVector::matchingDataset)
+            .toSet()
 
         return when {
             detectedDatasetEntries.isEmpty() -> {

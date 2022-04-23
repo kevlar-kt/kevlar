@@ -9,6 +9,7 @@ import com.kevlar.antipiracy.dsl.DslBuilder
 public class ScanConfiguration(
     public val pirate: PirateSoftwareScan,
     public val stores: PirateStoreScan,
+    public val collateral: CollateralScan,
     public val custom: CustomScan,
 ) {
 
@@ -16,6 +17,7 @@ public class ScanConfiguration(
         public fun default(): ScanConfiguration = ScanConfiguration(
             PirateSoftwareScan(enabled = false),
             PirateStoreScan(enabled = false),
+            CollateralScan(enabled = false),
             CustomScan(enabled = false)
         )
     }
@@ -26,6 +28,7 @@ public class ScanConfiguration(
 public class ScanConfigurationsBuilder : DslBuilder<ScanConfiguration>() {
     private var pirate = PirateSoftwareScan(enabled = false)
     private var store = PirateStoreScan(enabled = false)
+    private var collateral = CollateralScan(enabled = false)
     private var custom = CustomScan(enabled = false)
 
     public fun pirate(block: PirateSoftwareScanBuilder.() -> Unit = {}) {
@@ -42,6 +45,13 @@ public class ScanConfigurationsBuilder : DslBuilder<ScanConfiguration>() {
         }.build()
     }
 
+    public fun collateral(block: CollateralScanBuilder.() -> Unit = {}) {
+        collateral = CollateralScanBuilder().apply {
+            block()
+            enable()
+        }.build()
+    }
+
     public fun custom(block: CustomScanBuilder.() -> Unit) {
         custom = CustomScanBuilder().apply {
             block()
@@ -49,5 +59,8 @@ public class ScanConfigurationsBuilder : DslBuilder<ScanConfiguration>() {
         }.build()
     }
 
-    override fun build(): ScanConfiguration = ScanConfiguration(pirate, store, custom)
+    /**
+     * Builds the scan configuration
+     * */
+    override fun build(): ScanConfiguration = ScanConfiguration(pirate, store, collateral, custom)
 }

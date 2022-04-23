@@ -1,8 +1,6 @@
 package com.kevlar.antipiracy.detection.vectors.alphabet.units
 
-import androidx.annotation.IntRange
-
-internal enum class AlphabetUnit(val asciiLower: Char, val asciiUpper: Char) {
+internal enum class AlphabetUnit(public val asciiLower: Char, public val asciiUpper: Char) {
     A('a', 'A'),
     B('b', 'B'),
     C('c', 'C'),
@@ -31,28 +29,4 @@ internal enum class AlphabetUnit(val asciiLower: Char, val asciiUpper: Char) {
     Z('z', 'Z'),
     SEPARATOR(' ', ' '),
     NOT_EXHAUSTIVE('?', '?');
-}
-
-
-/**
- * We assume that both packages have the same length and
- * we start from the leftmost character.
- *
- * This can easily be changed, tuned and adapter to find
- * more intricate patterns.
- * */
-internal fun List<AlphabetUnit>.equalsWithProbabilityGreaterOrEqual(
-    @IntRange(from = 1L, to = 100L) probability: Int,
-    other: List<AlphabetUnit>
-): Boolean {
-    var matchCount = 0
-
-    zip(other).forEach {
-        if (it.first == it.second) {
-            matchCount++
-        }
-    }
-
-    // If our match rate is greater than the required probability
-    return matchCount / size >= probability / 100
 }

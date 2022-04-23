@@ -4,10 +4,12 @@ import com.kevlar.antipiracy.detection.dataset.DatasetEntry
 import com.kevlar.antipiracy.dsl.AntipiracyDslMarker
 import com.kevlar.antipiracy.dsl.DslBuilder
 
+/**
+ * [Scan] structure
+ * */
 public abstract class Scan {
     public abstract val enabled: Boolean
 }
-
 
 
 public data class PirateSoftwareScan(
@@ -15,6 +17,10 @@ public data class PirateSoftwareScan(
 ) : Scan()
 
 public data class PirateStoreScan(
+    override val enabled: Boolean
+): Scan()
+
+public data class CollateralScan(
     override val enabled: Boolean
 ): Scan()
 
@@ -26,10 +32,10 @@ public data class CustomScan(
 
 
 public data class ScanResult(
-    val detectedEntries: List<DatasetEntry>
+    val detectedEntries: Set<DatasetEntry>
 ) {
     public companion object {
-        public fun empty(): ScanResult = ScanResult(listOf())
+        public fun empty(): ScanResult = ScanResult(setOf())
     }
 
     public fun isClear(): Boolean = detectedEntries.isEmpty()
@@ -66,6 +72,22 @@ public class PirateStoreScanBuilder() : DslBuilder<PirateStoreScan>() {
     }
 
     public override fun build(): PirateStoreScan = PirateStoreScan(enabled)
+}
+
+
+@AntipiracyDslMarker
+public class CollateralScanBuilder() : DslBuilder<CollateralScan>() {
+    private var enabled: Boolean = false
+
+    internal fun enable() {
+        enabled = true
+    }
+
+    internal fun disable() {
+        enabled = false
+    }
+
+    public override fun build(): CollateralScan = CollateralScan(enabled)
 }
 
 

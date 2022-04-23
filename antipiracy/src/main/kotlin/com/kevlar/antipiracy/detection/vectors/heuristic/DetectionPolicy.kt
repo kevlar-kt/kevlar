@@ -7,14 +7,14 @@ import com.kevlar.antipiracy.detection.dataset.DatasetEntry
  * */
 internal sealed class DetectionPolicy {
     /**
-     * Software package name matching
+     * Package name matching
      * */
     data class PackageNameDetection(
         val packageNames: List<String>
     ) : DetectionPolicy()
 
     /**
-     * Software package name regex.
+     * Package name regex.
      * Separated from [PackageNameDetection] to speed up
      * package search which covers most of the use cases.
      * */
@@ -23,18 +23,30 @@ internal sealed class DetectionPolicy {
     ) : DetectionPolicy()
 
     /**
-     * Application nonLocalizedLabel matching
+     * nonLocalizedLabel matching
      * */
     data class LabelNameRegex(
         val regex: String
     ) : DetectionPolicy()
 
     /**
-     * Application specific main class name matching
+     * Main class name matching
      * */
     data class ClassNameNameRegex(
         val regex: String
     ) : DetectionPolicy()
+
+    /**
+     * Package name
+     * */
+    data class TokenizedPackageName(
+        val tokens: List<PackageToken>
+    ) : DetectionPolicy() {
+        sealed class PackageToken {
+            class Size(val size: Int) : PackageToken()
+            class Content(val content: String) : PackageToken()
+        }
+    }
 
     companion object {
         /**
