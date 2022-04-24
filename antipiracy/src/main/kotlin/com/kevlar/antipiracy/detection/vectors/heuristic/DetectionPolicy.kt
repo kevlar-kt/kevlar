@@ -7,7 +7,12 @@ import com.kevlar.antipiracy.detection.dataset.DatasetEntry
  * */
 internal sealed class DetectionPolicy {
     /**
-     * Package name matching
+     * Package name matching.
+     *
+     * This has been separated from [PackageNameDetection]
+     * to speed up package search (since we could match strings
+     * with regex but it would take a long time, and most of our dataset
+     * is basically pn-matching) which covers most of the use cases.
      * */
     data class PackageNameDetection(
         val packageNames: List<String>
@@ -15,8 +20,9 @@ internal sealed class DetectionPolicy {
 
     /**
      * Package name regex.
-     * Separated from [PackageNameDetection] to speed up
-     * package search which covers most of the use cases.
+     *
+     * Runs the regex and checks if the entire package name
+     * matches with the given pattern.
      * */
     data class PackageNameRegex(
         val regex: String
@@ -24,6 +30,9 @@ internal sealed class DetectionPolicy {
 
     /**
      * nonLocalizedLabel matching
+     *
+     * Runs the regex and checks if the entire all label
+     * matches with the given pattern.
      * */
     data class LabelNameRegex(
         val regex: String
@@ -31,22 +40,13 @@ internal sealed class DetectionPolicy {
 
     /**
      * Main class name matching
+     *
+     * Runs the regex and checks if the entire class name
+     * matches with the given pattern.
      * */
     data class ClassNameNameRegex(
         val regex: String
     ) : DetectionPolicy()
-
-    /**
-     * Package name
-     * */
-    data class TokenizedPackageName(
-        val tokens: List<PackageToken>
-    ) : DetectionPolicy() {
-        sealed class PackageToken {
-            class Size(val size: Int) : PackageToken()
-            class Content(val content: String) : PackageToken()
-        }
-    }
 
     companion object {
         /**

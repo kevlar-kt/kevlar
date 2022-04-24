@@ -1,4 +1,4 @@
-package com.kevlar.showcase
+package com.kevlar.showcase.ui.activities.antipiracy
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class APActivityViewModel @Inject constructor(
     private val securityRepository: SecurityRepository
 ) : ViewModel() {
 

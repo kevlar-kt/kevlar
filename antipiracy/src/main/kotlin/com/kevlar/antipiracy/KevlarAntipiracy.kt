@@ -1,8 +1,6 @@
 package com.kevlar.antipiracy
 
 import android.content.Context
-import com.kevlar.antipiracy.dsl.builders.AntipiracyArmament
-import com.kevlar.antipiracy.dsl.builders.AntipiracyArmamentBuilder
 
 public class KevlarAntipiracy(
     block: AntipiracyArmamentBuilder.() -> Unit

@@ -16,7 +16,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.kevlar.showcase.MainActivity"
+            android:name="com.kevlar.showcase.ui.activities.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,5 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.kevlar.showcase.ui.activities.antipiracy.AntipiracyActivity"
+            android:exported="true" />
     </application>
 </manifest>

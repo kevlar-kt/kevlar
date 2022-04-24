@@ -1,4 +1,4 @@
-package com.kevlar.showcase
+package com.kevlar.showcase.concurrency
 
 import javax.inject.Qualifier
 

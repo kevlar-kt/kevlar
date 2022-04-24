@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.kevlar.showcase
+package com.kevlar.showcase.ui.activities.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -24,7 +25,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.kevlar.antipiracy.AntipiracyAttestation
 import com.kevlar.antipiracy.detection.dataset.DatasetEntry
+import com.kevlar.showcase.R
 import com.kevlar.showcase.databinding.ActivityMainBinding
+import com.kevlar.showcase.ui.activities.antipiracy.AntipiracyActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,34 +46,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                vm.attestation.collectLatest {
-                    when (it) {
-                        is AntipiracyAttestation.Blank -> {
-                            binding.debugText.text = "Blank attestation"
-                        }
-                        is AntipiracyAttestation.Clear -> {
-                            binding.debugText.text = "Clear attestation"
-                        }
-                        is AntipiracyAttestation.Failed -> {
-                            binding.debugText.text = buildString {
-                                appendLine("Failed attestation")
-                                appendLine()
-
-                                it.scanResult.detectedEntries.forEachIndexed { i, it: DatasetEntry ->
-                                    appendLine("[$i] $it")
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(3000)
-            vm.requestAttestation()
+        binding.buttonAntipiracy.setOnClickListener {
+            startActivity(
+                Intent(this, AntipiracyActivity::class.java)
+            )
         }
     }
 }

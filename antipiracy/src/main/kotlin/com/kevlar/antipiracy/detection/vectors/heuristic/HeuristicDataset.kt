@@ -192,7 +192,7 @@ internal object HeuristicDataset {
      * still do a good job at catching old versions / tertiary components
      * associated with one [DatasetEntry]
      * */
-    val nonIdentifiableHeuristicApps: Array<MatchableHeuristicDatasetEntry> = arrayOf(
+    val nonIdentifiableHeuristicPirateApps: Array<MatchableHeuristicDatasetEntry> = arrayOf(
         MatchableHeuristicDatasetEntry(
             DatasetEntry.LUCKY_PATCHER,
             listOf(
@@ -229,12 +229,9 @@ internal object HeuristicDataset {
         MatchableHeuristicDatasetEntry(
             DatasetEntry.LUCKY_PATCHER,
             listOf(
-                DetectionPolicy.TokenizedPackageName(
-                    listOf(
-                        DetectionPolicy.TokenizedPackageName.PackageToken.Content("ru"),
-                        DetectionPolicy.TokenizedPackageName.PackageToken.Size(8),
-                        DetectionPolicy.TokenizedPackageName.PackageToken.Size(9),
-                    )
+                DetectionPolicy.PackageNameRegex(
+                    // ru.********.*********
+                    """ru\.........\.........."""
                 )
             )
         ),

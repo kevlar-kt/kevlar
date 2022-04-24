@@ -1,4 +1,4 @@
-# Welcome to MkDocs
+# Welcome to Kevlar
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
@@ -10,6 +10,10 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 * `mkdocs -h` - Print help message and exit.
 
 ## Project layout
+
+[:octicons-tag-24: 0.2.0][palette.primary support] ·
+:octicons-milestone-24: Default: `indigo`
+
 
     mkdocs.yml    # The configuration file.
     docs/
