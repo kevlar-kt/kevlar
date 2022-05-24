@@ -28,7 +28,7 @@ theme:
         - navigation.tabs
         - navigation.indexes
         # - navigation.tabs.sticky
-        - navigation.tracking
+        # - navigation.tracking
         - navigation.indexes
         - search.highlight
         - search.share
@@ -64,8 +64,9 @@ plugins:
 nav:
     - 'Index':
           - 'Overview': index.md
-          - 'Dependencies & Integration': pages/overview/dependencies_integration.md
           - 'Philosophy': pages/overview/philosophy.md
+          - 'Terminology': pages/overview/terminology.md
+          - 'Dependencies & Integration': pages/overview/dependencies_integration.md
     - Antipiracy:
           - 'Overview' : pages/modules/antipiracy/antipiracy.md
           - 'Privacy' : pages/modules/antipiracy/privacy.md
@@ -88,7 +89,6 @@ markdown_extensions:
     - pymdownx.emoji:
           emoji_index: !!python/name:materialx.emoji.twemoji
           emoji_generator: !!python/name:materialx.emoji.to_svg
-
     - def_list
     - md_in_html
     - toc:
