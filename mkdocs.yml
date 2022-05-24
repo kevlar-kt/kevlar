@@ -3,7 +3,7 @@ site_name: Kevlar
 site_url: https://kevlar-kt.github.io/kevlar
 site_author: Kevlar
 site_description: >-
-    Android Security Framework
+    Android Security Toolkit
 
 repo_name: Kevlar
 repo_url: https://github.com/kevlar-kt/kevlar
@@ -14,6 +14,7 @@ edit_uri: ""
 theme:
     name: material
     language: en
+
     logo: assets/images/shield_light.png
     favicon: assets/images/shield_light.png
 
@@ -21,17 +22,18 @@ theme:
         - content.code.annotate
         # - content.tabs.link
         # - header.autohide
-        # - navigation.expand
         - navigation.instant
-        # - navigation.instant
+        # - navigation.expand
         - navigation.sections
         - navigation.tabs
+        - navigation.indexes
         # - navigation.tabs.sticky
         - navigation.tracking
         - navigation.indexes
         - search.highlight
         - search.share
         - search.suggest
+
         # - toc.integrate
     palette:
         - media: "(prefers-color-scheme: light)"
@@ -49,16 +51,28 @@ theme:
               icon: material/lightbulb
               name: Switch to light mode
 
-extra_css:
-  - 'assets/css/app.css'
 
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/kevlar-kt
+plugins:
+    - search:
+          lang: en
+    - redirects:
+          redirect_maps:
+    - minify:
+          minify_html: true
 
-    - icon: fontawesome/brands/twitter 
-      link: https://twitter.com/cioccarellia
+
+nav:
+    - 'Index':
+          - 'Overview': index.md
+          - 'Dependencies & Integration': pages/overview/dependencies_integration.md
+          - 'Philosophy': pages/overview/philosophy.md
+    - Antipiracy:
+          - 'Overview' : pages/modules/antipiracy/antipiracy.md
+          - 'Privacy' : pages/modules/antipiracy/privacy.md
+    - 'Integrity':
+          - 'Overview': pages/modules/integrity/integrity.md
+    - 'Rooting':
+          - 'Overview' : pages/modules/rooting/rooting.md
 
 markdown_extensions:
     - tables
@@ -67,17 +81,26 @@ markdown_extensions:
           anchor_linenums: true
     - pymdownx.inlinehilite
     - pymdownx.snippets
+    - pymdownx.details
     - pymdownx.superfences
     - abbr
     - admonition
-    - attr_list
+    - pymdownx.emoji:
+          emoji_index: !!python/name:materialx.emoji.twemoji
+          emoji_generator: !!python/name:materialx.emoji.to_svg
+
     - def_list
     - md_in_html
+    - toc:
+          permalink: true
 
-nav:
-    - 'Overview':
-        - 'Overview': index.md
-    - 'Modules':
-         - 'Antipiracy': modules/antipiracy.md
-         - 'Integrity': modules/integrity.md
-         - 'Rooting': modules/rooting.md
+extra:
+    social:
+        - icon: fontawesome/brands/github
+          link: https://github.com/kevlar-kt
+
+        - icon: fontawesome/brands/twitter
+          link: https://twitter.com/cioccarellia
+
+extra_css:
+    - 'assets/css/app.css'

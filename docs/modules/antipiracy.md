@@ -1,4 +1,0 @@
-
-
-!!! abstract "Summary"
-    Antipiracy
