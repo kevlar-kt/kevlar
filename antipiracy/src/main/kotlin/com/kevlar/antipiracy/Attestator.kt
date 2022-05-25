@@ -11,15 +11,21 @@ import com.kevlar.antipiracy.detection.vectors.OutputVector
 import com.kevlar.antipiracy.detection.vectors.specter.OutputSpecter
 import com.kevlar.antipiracy.detection.vectors.specter.VectorSpecter
 import com.kevlar.antipiracy.dsl.builders.*
-import com.kevlar.antipiracy.parallel.mapParallel
 import kotlinx.coroutines.*
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
 public object Attestator {
 
+    /**
+     * Method retrieving the installed package list.
+     * It is crucial tu receive all the installed applications,
+     * otherwise the piracy test would be useless.
+     * */
     @SuppressLint("QueryPermissionsNeeded")
-    private fun buildPackageList(context: Context) = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+    private fun queryPackageList(context: Context) =
+        context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+
 
     @OptIn(ExperimentalTime::class)
     public suspend fun attestate(
@@ -27,20 +33,14 @@ public object Attestator {
         context: Context,
         index: Int
     ): AntipiracyAttestation = withContext(Dispatchers.Default) {
-        val installedApplicationList: List<ApplicationInfo> = buildPackageList(context)
+        val installedApplicationList: List<ApplicationInfo> = queryPackageList(context)
 
         val input = InputVector(scanConfiguration = armament.scanConfiguration)
         val vectors = VectorSpecter(input)
 
-
-        var outputSpecters: List<OutputSpecter> = listOf()
-        val time = measureTime {
-            outputSpecters = installedApplicationList.map {
-                vectors.probeSpace(it)
-            }
+        val outputSpecters: List<OutputSpecter> = installedApplicationList.map {
+            vectors.probeSpace(it)
         }
-
-        Log.d(TAG, "time: $time")
 
         return@withContext craftAttestation(outputSpecters, index)
     }
@@ -52,7 +52,8 @@ public object Attestator {
         val detectedDatasetEntries: Set<DatasetEntry> = outputSpecters
             .asSequence()
             .filter {
-                it.matchingVectors.any(OutputVector::isNotEmpty) }
+                it.matchingVectors.any(OutputVector::isNotEmpty)
+            }
             .map(OutputSpecter::matchingVectors)
             .flatten()
             .mapNotNull(OutputVector::matchingDataset)

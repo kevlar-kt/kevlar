@@ -1,11 +1,9 @@
 # Philosophy
 
 ## what does it do
-Kevlar assests the security state of an Android device running your app. 
-Since there are many different security aspects that you might care to measure, each package can inspect different areas:
-- antipiracy attestates whether some kind of pirate software is running on the device, it identifies it and provides the app knowledge about which kind of ;
-- integrity attestates whether the running app version is original, without modificarions;
-- rooting attestates whether the environment the device runs in has root access / custom binaries / emulator.
+Kevlar produces attestation regarding the security state of an Android device running your app.
+The idea behind it is to be able to capture every meaningful information about the security environment,
+
 
 These modules provide an array of detection methods which can be used to ensure the app is running in its proper intended environment
 
@@ -33,7 +31,7 @@ If you are being targeted with high precision sniper fire, or a javelin anti-tan
 
 If your app is reverse engineered, the security bits stripped away and then recompiled, you are going to be vulnerable, and there is nothing you can do about it. But while being inperfect, it manages to be efficient and deflect the majority of automated and non-specialized patches and attacks, which is the majority of what you will (hopefully) be exposed to.
 
-And anither similarity is about what you want to protect. People don't usually wear bulletproof vest at home ([redacted us joke]). It doesn't make sense, since the attack is not likely. Same thing goes with putting kevlar on a calculator app. You can. It does not make sense.
+And another similarity is about what you want to protect. People don't usually wear bulletproof vest at home ([redacted us joke]). It doesn't make sense, since the attack is not likely. Same thing goes with putting kevlar on a calculator app. You can. It does not make sense.
 
 --- Now, given the success rate of this library vs the success rate of kevlar vests against bullets, this could have easily been called full body armor, but that definitely didn't sound good.
 

@@ -93,6 +93,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         freeCompilerArgs += [
                 //'-progressive',
                 '-Xexplicit-api=strict',
+                //'-opt-in=kotlin.RequiresOptIn',
         ]
     }
 }
