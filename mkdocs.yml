@@ -68,6 +68,9 @@ nav:
           - 'Dependencies & Integration': pages/overview/dependencies_integration.md
     - Antipiracy:
           - 'Overview' : pages/modules/antipiracy/antipiracy.md
+          - 'Implementation' : pages/modules/antipiracy/implementation.md
+          - 'Detection' : pages/modules/antipiracy/detection.md
+          - 'Database' : pages/modules/antipiracy/database.md
           - 'Privacy' : pages/modules/antipiracy/privacy.md
     - 'Integrity':
           - 'Overview': pages/modules/integrity/integrity.md
