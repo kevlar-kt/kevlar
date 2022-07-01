@@ -8,19 +8,21 @@ It is divided in 3 packages ([antipiracy], [integrity] and [rooting]), each cont
 [integrity]: pages/modules/integrity/integrity.md
 [rooting]: pages/modules/rooting/rooting.md
 
-Its purpose is to be an auditing tool which can be used to inspect the security environment on an Android device it is running on.
-A security environment is the state of a device, which can be probed with the different modules. 
+Its purpose is to be an auditing tool, used to inspect the security environment on Android devices.
 
-Each module focuses on a specific area:
-- antipiracy detects the presence of pirate software installed on the device;
-- integrity detects certain types of tampering your app may have been targeted with;
-- rooting detects the presence of root access and custom binaries on the system.
+A security environment is the security state of a device, which can be probed with the different packages. 
+
+Each package focuses on a specific security environment area:
+
+- antipiracy detects the presence of pirate software installed on the device (user-wise security);
+- integrity detects certain types of tampering your app may have been targeted with (app-wise security);
+- rooting detects the presence of root access and custom binaries on the system (system-wise security).
 
 Kevlar is intended to be used any time it is deemed necessary to determine whether the device your app is running on can be regarded as secure, 
 according to your policies and security requirements.
 
-Common use cases for security environment checks are applications managing sensitive resources (billing transactions, private user data, )
-- In app purchases protection (billing)
+Common use cases for security environment checks are applications managing sensitive resources, such as in-app purchases and subscriptions, 
+costly server-side resources, financial transactions, and anything that has value.
 
 
 ## Security Environment

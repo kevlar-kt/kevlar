@@ -1,5 +1,8 @@
 package com.kevlar.antipiracy.detection.vectors.alphabet.units
 
+/**
+ * Models an abstract alphabet letter
+ * */
 internal enum class AlphabetUnit(public val asciiLower: Char, public val asciiUpper: Char) {
     A('a', 'A'),
     B('b', 'B'),

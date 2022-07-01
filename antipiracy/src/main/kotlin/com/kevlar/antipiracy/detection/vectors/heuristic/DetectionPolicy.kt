@@ -11,8 +11,8 @@ internal sealed class DetectionPolicy {
      *
      * This has been separated from [PackageNameDetection]
      * to speed up package search (since we could match strings
-     * with regex but it would take a long time, and most of our dataset
-     * is basically pn-matching) which covers most of the use cases.
+     * with regex but it would take more: most of our dataset
+     * is basic string matching) which covers most of the use cases.
      * */
     data class PackageNameDetection(
         val packageNames: List<String>
@@ -31,7 +31,7 @@ internal sealed class DetectionPolicy {
     /**
      * nonLocalizedLabel matching
      *
-     * Runs the regex and checks if the entire all label
+     * Runs the regex and checks if the entire non-localized label
      * matches with the given pattern.
      * */
     data class LabelNameRegex(

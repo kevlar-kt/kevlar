@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.kevlar.antipiracy
 
 import android.annotation.SuppressLint
@@ -11,10 +13,15 @@ import com.kevlar.antipiracy.detection.vectors.OutputVector
 import com.kevlar.antipiracy.detection.vectors.specter.OutputSpecter
 import com.kevlar.antipiracy.detection.vectors.specter.VectorSpecter
 import com.kevlar.antipiracy.dsl.builders.*
+import com.kevlar.antipiracy.parallel.mapParallel
 import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
+/**
+ * Package queries, scan initializer, vector specter manager & attestation producer
+ * */
 public object Attestator {
 
     /**
@@ -23,11 +30,12 @@ public object Attestator {
      * otherwise the piracy test would be useless.
      * */
     @SuppressLint("QueryPermissionsNeeded")
-    private fun queryPackageList(context: Context) =
+    private inline fun queryPackageList(context: Context) =
         context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
 
-
-    @OptIn(ExperimentalTime::class)
+    /**
+     * Produces an [AntipiracyAttestation] for the given [AntipiracyArmament]
+     * */
     public suspend fun attestate(
         armament: AntipiracyArmament,
         context: Context,
@@ -38,22 +46,23 @@ public object Attestator {
         val input = InputVector(scanConfiguration = armament.scanConfiguration)
         val vectors = VectorSpecter(input)
 
-        val outputSpecters: List<OutputSpecter> = installedApplicationList.map {
-            vectors.probeSpace(it)
+        val outputSpecters: List<OutputSpecter> = installedApplicationList.mapParallel { appInfo ->
+            vectors.probeSpace(appInfo)
         }
 
         return@withContext craftAttestation(outputSpecters, index)
     }
 
+    /**
+     * Converts the given vector output specters to an attestation
+     * */
     private fun craftAttestation(
         outputSpecters: List<OutputSpecter>,
         index: Int
     ): AntipiracyAttestation {
         val detectedDatasetEntries: Set<DatasetEntry> = outputSpecters
             .asSequence()
-            .filter {
-                it.matchingVectors.any(OutputVector::isNotEmpty)
-            }
+            .filter { it.matchingVectors.any(OutputVector::isNotEmpty) }
             .map(OutputSpecter::matchingVectors)
             .flatten()
             .mapNotNull(OutputVector::matchingDataset)

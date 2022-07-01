@@ -9,6 +9,7 @@ public enum class DatasetEntry(
     public val type: DatasetType,
     public val softwareName: String
 ) {
+    // Pirate software
     URET_PATCHER(DatasetType.PIRATE_APP, "Uret Patcher"),
     CREEPLAYS_PATCHER(DatasetType.PIRATE_APP, "Creeplays Patcher"),
     ACTION_LAUNCHER_PATCHER(DatasetType.PIRATE_APP, "Action Launcher Patcher"),
@@ -23,6 +24,7 @@ public enum class DatasetEntry(
     FREEDOM(DatasetType.PIRATE_APP, "Freedom"),
     LUCKY_PATCHER(DatasetType.PIRATE_APP, "Lucky Patcher"),
 
+    // Pirate stores
     APTOIDE(DatasetType.PIRATE_STORE, "Aptoide"),
     HAPPYMOD(DatasetType.PIRATE_STORE, "Happymod"),
     BLACK_MART(DatasetType.PIRATE_STORE, "Black Mart"),

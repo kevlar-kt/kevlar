@@ -27,7 +27,7 @@ internal class VectorSpecter(
      * */
     suspend fun probeSpace(applicationInfo: ApplicationInfo): OutputSpecter = OutputSpecter(
         applicationInfo,
-        space.mapParallel {
+        space.map {
             it.probe(applicationInfo)
         }
     )

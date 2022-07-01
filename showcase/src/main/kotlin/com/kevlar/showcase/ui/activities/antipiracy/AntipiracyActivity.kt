@@ -1,6 +1,7 @@
 package com.kevlar.showcase.ui.activities.antipiracy
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -35,9 +36,11 @@ class AntipiracyActivity : AppCompatActivity() {
                     when (it) {
                         is AntipiracyAttestation.Blank -> {
                             binding.debugText.text = "Blank attestation"
+                            binding.progressBar.visibility = View.VISIBLE
                         }
                         is AntipiracyAttestation.Clear -> {
                             binding.debugText.text = "Clear attestation"
+                            binding.progressBar.visibility = View.GONE
                         }
                         is AntipiracyAttestation.Failed -> {
                             binding.debugText.text = buildString {
@@ -47,6 +50,8 @@ class AntipiracyActivity : AppCompatActivity() {
                                 it.scanResult.detectedEntries.forEachIndexed { i, it: DatasetEntry ->
                                     appendLine("[$i] $it")
                                 }
+
+                                binding.progressBar.visibility = View.GONE
                             }
                         }
                     }

@@ -1,5 +1,8 @@
 package com.kevlar.antipiracy.detection.vectors.alphabet.ascii
 
+/**
+ * Contains
+ * */
 @Suppress("SpellCheckingInspection")
 internal class AsciiVariations {
     companion object {
@@ -237,7 +240,7 @@ internal class AsciiVariations {
             // Quotes
             '"', '`', '´', '\'', '‘', '’', '“', '”',
 
-            // Commons
+            // Mashes
             '+', '*', '~', '#', '@', '$', '!', '?',
 
             // Dashes
@@ -246,13 +249,16 @@ internal class AsciiVariations {
             // Slashes
             '/', '\\', '﹨', '＼', '／', '/',
 
+            // Braces
+            '(', ')', '[', ']',
+
             // Fking spaces
             ' ', ' ', '　',
 
             // Supplements
             '¨',
 
-            // Characters going against Geneva Conventions
+            // Characters thst should by all means be against Geneva Conventions
             ' ', ' ', ' ', '⁠', ' ', ' ',
         )
     }

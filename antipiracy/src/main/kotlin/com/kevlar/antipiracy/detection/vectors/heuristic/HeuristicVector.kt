@@ -5,8 +5,7 @@ import com.kevlar.antipiracy.detection.vectors.AntipiracyVector
 import com.kevlar.antipiracy.detection.vectors.InputVector
 import com.kevlar.antipiracy.detection.vectors.OutputVector
 
-internal class HeuristicVector(private val inputVector: InputVector) :
-    AntipiracyVector(inputVector) {
+internal class HeuristicVector(private val inputVector: InputVector) : AntipiracyVector(inputVector) {
 
     private fun runDetection(
         applicationInfo: ApplicationInfo,

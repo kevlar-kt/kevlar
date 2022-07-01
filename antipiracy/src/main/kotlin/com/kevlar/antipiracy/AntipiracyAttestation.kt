@@ -8,16 +8,12 @@ import com.kevlar.antipiracy.dsl.builders.ScanResult
 public sealed class AntipiracyAttestation {
 
     /**
-     * Counts the number of attestation released
-     * */
-    public abstract val index: Int
-
-    /**
-     * Attestation has not been verified yet
+     * Attestation has *not* been verified yet
      * */
     public data class Blank(
         override val index: Int
     ) : AntipiracyAttestation()
+
 
     /**
      * Attestation result is green light.
@@ -33,4 +29,9 @@ public sealed class AntipiracyAttestation {
         override val index: Int,
         public val scanResult: ScanResult
     ) : AntipiracyAttestation()
+
+    /**
+     * Counts the number of attestations released
+     * */
+    public abstract val index: Int
 }

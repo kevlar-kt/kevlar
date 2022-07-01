@@ -3,6 +3,9 @@ package com.kevlar.antipiracy.detection.vectors.alphabet.str
 import com.kevlar.antipiracy.detection.vectors.alphabet.ascii.AsciiVariations
 import com.kevlar.antipiracy.detection.vectors.alphabet.units.AlphabetUnit
 
+/**
+ * Horrible class doing the character matching. Optimization (at least lexical) strongly needed.
+ * */
 internal object CharMatcher {
     fun identify(char: Char): AlphabetUnit = when {
         AsciiVariations.a.contains(char) -> AlphabetUnit.A
