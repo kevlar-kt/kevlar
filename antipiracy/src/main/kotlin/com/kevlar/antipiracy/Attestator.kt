@@ -26,8 +26,6 @@ public object Attestator {
 
     /**
      * Method retrieving the installed package list.
-     * It is crucial tu receive all the installed applications,
-     * otherwise the piracy test would be useless.
      * */
     @SuppressLint("QueryPermissionsNeeded")
     private inline fun queryPackageList(context: Context) =

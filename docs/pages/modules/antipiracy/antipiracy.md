@@ -1,4 +1,7 @@
 # Antipiracy
+![Day Scheme](https://raw.githubusercontent.com/kevlar-kt/kevlar/master/docs/assets/images/kapd.jpeg#only-light)
+![Night Scheme](https://raw.githubusercontent.com/kevlar-kt/kevlar/master/docs/assets/images/kapn.jpeg#only-dark)
+
 The antipiracy module contains tools for the detection of different categories of pirate software which may be installed and running on target devices. 
 
 At its core, this package runs a battery of tests against the installed applications to check for potential active pirate software, 

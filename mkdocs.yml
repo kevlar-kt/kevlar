@@ -70,6 +70,7 @@ nav:
           - 'Overview' : pages/modules/antipiracy/antipiracy.md
           - 'Implementation' : pages/modules/antipiracy/implementation.md
           - 'Detection' : pages/modules/antipiracy/detection.md
+          - 'Tradeoffs' : pages/modules/antipiracy/tradeoffs.md
           - 'Database' : pages/modules/antipiracy/database.md
           - 'Privacy' : pages/modules/antipiracy/privacy.md
     - 'Integrity':

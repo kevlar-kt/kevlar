@@ -33,7 +33,6 @@ internal object HeuristicDataset {
             DatasetEntry.CREE_HACK,
             DetectionPolicy.packageNames(
                 "apps.zhasik007.hack",
-                "org.creeplays.hack"
             )
         ),
         MatchableHeuristicDatasetEntry(
@@ -76,7 +75,7 @@ internal object HeuristicDataset {
             )
         ),
         MatchableHeuristicDatasetEntry(
-            DatasetEntry.CONTENT_GUARD_DISABLER,
+            DatasetEntry.CGD,
             DetectionPolicy.packageNames(
                 "com.github.oneminusone.disablecontentguard",
                 "com.oneminusone.disablecontentguard",
@@ -110,13 +109,13 @@ internal object HeuristicDataset {
             DatasetEntry.HAPPYMOD,
             DetectionPolicy.packageNames(
                 "com.happymod.apk",
+                "happygames.io",
             )
         ),
 
         MatchableHeuristicDatasetEntry(
-            DatasetEntry.HAPPYMOD,
+            DatasetEntry.BLACK_MART,
             DetectionPolicy.packageNames(
-
                 "org.blackmart.market",
                 "com.blackmartalpha",
             )
@@ -155,13 +154,13 @@ internal object HeuristicDataset {
         MatchableHeuristicDatasetEntry(
             DatasetEntry.AC_MARKET,
             DetectionPolicy.packageNames(
-                "net.appcake",
                 "ac.market.store",
             )
         ),
         MatchableHeuristicDatasetEntry(
             DatasetEntry.APP_CAKE,
             DetectionPolicy.packageNames(
+                "net.appcake",
                 "com.appcake",
             )
         ),

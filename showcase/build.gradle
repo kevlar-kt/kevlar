@@ -15,6 +15,7 @@ android {
     defaultConfig {
         versionName "1.0.0-app-showcase"
         versionCode 3
+        multiDexEnabled true
     }
     
     buildTypes {
@@ -58,6 +59,8 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation "com.google.android.material:material:1.7.0-alpha02"
     
+    def multidex_version = "2.0.1"
+    implementation "androidx.multidex:multidex:$multidex_version"
     
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0"

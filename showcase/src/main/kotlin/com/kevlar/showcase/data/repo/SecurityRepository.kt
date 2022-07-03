@@ -13,7 +13,7 @@ class SecurityRepository @Inject constructor(
     @ApplicationContext val context: Context,
     @IoDispatcher val externalDispatcher: CoroutineDispatcher
 ) {
-    private val antipiracy by lazy {
+    private val antipiracy: KevlarAntipiracy by lazy {
         KevlarAntipiracy {
             scan {
                 pirate()

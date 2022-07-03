@@ -5,6 +5,9 @@ import com.kevlar.antipiracy.dsl.DslBuilder
 import com.kevlar.antipiracy.dsl.builders.ScanConfiguration
 import com.kevlar.antipiracy.dsl.builders.ScanConfigurationsBuilder
 
+/**
+ *
+ * */
 public data class AntipiracyArmament(
     val scanConfiguration: ScanConfiguration
 )

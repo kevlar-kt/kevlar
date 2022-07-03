@@ -7,7 +7,7 @@ It should be stated that all checks are ran against the local dataset (what kevl
 
 	Writing good self-obfuscated software is hard. 
 	There are a few ways, but essentially you need an installer package which carries the payload and an algorithm to insert the actual software in a randomized stub.
-	If you do it well, there is no way to characterize your package and it is therefore more difficult to detect automatically ([Magisk](https://github.com/topjohnwu/Magisk) does this exceptionally well, to the point that it is almost useless to try)
+	If you do it well, there is no way to characterize your package and it is therefore more difficult (if not borderline impossible) to detect automatically ([Magisk](https://github.com/topjohnwu/Magisk) does this exceptionally well, to the point that it is almost useless to try)
 	Doing slightly less than perfection will lead to detection.
 
 
@@ -49,12 +49,12 @@ For FSA people, this is like having multiple arcs from one state to the next, wi
 
 ## Collateral tools
 There are some techniques which may have non-zero false positive rates, and they are disabled by default. 
-It is a form of aggressive detection, and it should be used in scenarios where you are willing to accept some risk to get (very) slightly better detection
+It is a form of aggressive detection, and it should be used in scenarios where you are willing to accept some risk to get (very) slightly better detection for the price of non-zero false positives.
 
-It uses known pirate package name structures and matches for those.
+The detection works because we know how some specific software tries to obfuscate its stub, and does so using very precise methods. We can therefore match for the distribution of those values in all installed packages, and if one matches then it may be what we are looking for. 
 
-# Tradeoffs
-kevlar is not an antivirus. It is not designed to be on that end of the spectrum. It is an heuristic to *quickly* catch *most* of the junk installed on the device.
+!!! info "Collateral example in package name randomization"
 
-- If you want more precision, you need more time (There are advanced and stricter checks used in financial software: archive and directory scanning, extended signature checks, and everything done with professional security software, but doing that [defeats the purpose](../../overview/philosophy.md)).
-- If you want less running time, you have less precision.
+	The easiest example to illustrate this technique is with Lucky Patchers. Its installer generates a randomized stub, it inserts the payload (the actual pirate software), and installs it. While the stub's package name _has_ random bits, it is not completely random. It always starts with "ru.", followed by 8 random characters, followed by a ".", followed by another 9 random characters.
+
+	Using this technique will successfully detect lucky patcher's stub if installed, along with any other software whose package name happens to match the given spoecification
