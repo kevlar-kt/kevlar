@@ -9,10 +9,13 @@ which depending on your policies may be a security environment issue.
 It then compiles the results into an attestation (it can either be uninitialized, clear or failed)
 which is returned to your app, where you can check what has been found and act accordingly.
 
+To [implement](implementation.md) this, you initialize `KevlarAntipiracy` with your desired settings, and then you can submit attestation requests. 
+Each attestation request will cause Kevlar to grab the package list, perform the checks and return an attestation.
+
 ## Attestation process overview
 When you require an attestation [through `antipiracy.attestate(context)`], the antipiracy module executes the following operations:
 
-1. The installed package list is queried from the `PackageManager`;
+1. The installed package list is queried from the `PackageManager`. Make sure to [have the right permissions](privacy.md);
 2. The test battery is initialized (to match your scan parameters) and ran on all packages, against the precompiled dataset onboard the library;
 3. The results are collected, processed, filtered and returned.
 

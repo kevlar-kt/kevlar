@@ -27,9 +27,9 @@ costly server-side resources, financial transactions, and anything that has valu
 
 ## Security Environment
 The security environment is the status of the device. 
-This counts system-wide security (system modifications, rooting, custom binaries, custom roms, emulator, test-keys), 
+This counts system-wide security (system modifications, rooting, custom binaries, custom roms, emulator), 
 user-wide security (pirate stores and pirate apps),
-and app-wide security (tampering, recompiling, changing signature)
+and app-wide security (tampering, recompiling, changed signature & metadata)
 
 !!! info "Flexible Security Environment"
 	Kevlar does not automatically detect a "standard" unsafe environment and give a 0/1 answer.
@@ -37,7 +37,6 @@ and app-wide security (tampering, recompiling, changing signature)
 
 	You may be indifferent to some things (e.g. root detection) and very sensitive about others (e.g. app tampering & piracy).
 	You can customize the set of checks the library executes in each package.
-
 
 
 ## Additions & Alternatives
@@ -50,6 +49,6 @@ it is a level 0 protection which can be removed by manually reverse engineering 
 [philosophy]: pages/overview/philosophy.md
 
 This doesn't render it useless: it is very efficient at protecting against automated and unskilled attacks, 
-which usually are the majority.
+which usually are the vast majority of what your app will ever be put through.
 
 For stricter scenarios where a higher fidelity and accuracy is required, you should be using something more specific.
