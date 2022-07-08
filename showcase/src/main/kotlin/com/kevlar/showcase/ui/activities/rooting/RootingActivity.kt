@@ -1,4 +1,4 @@
-package com.kevlar.showcase.ui.activities.antipiracy
+package com.kevlar.showcase.ui.activities.rooting
 
 import android.os.Bundle
 import android.view.View
@@ -8,11 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.kevlar.antipiracy.dsl.attestation.AntipiracyAttestation
-import com.kevlar.antipiracy.dataset.DatasetEntry
+import com.kevlar.rooting.dataset.SystemModificationsTargetDataset
+import com.kevlar.rooting.dsl.attestation.RootingAttestation
 import com.kevlar.showcase.R
-import com.kevlar.showcase.databinding.AntipiracyActivityBinding
-import com.kevlar.showcase.ui.activities.rooting.RootingActivityViewModel
+import com.kevlar.showcase.databinding.RootingActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,34 +19,34 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AntipiracyActivity : AppCompatActivity() {
+class RootingActivity : AppCompatActivity() {
 
-    private val vm: APActivityViewModel by viewModels()
+    private val vm: RootingActivityViewModel by viewModels()
 
-    private lateinit var binding: AntipiracyActivityBinding
+    private lateinit var binding: RootingActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.antipiracy_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.rooting_activity)
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.attestation.collectLatest {
                     when (it) {
-                        is AntipiracyAttestation.Blank -> {
+                        is RootingAttestation.Blank -> {
                             binding.debugText.text = "Blank attestation"
                             binding.progressBar.visibility = View.VISIBLE
                         }
-                        is AntipiracyAttestation.Clear -> {
+                        is RootingAttestation.Clear -> {
                             binding.debugText.text = "Clear attestation"
                             binding.progressBar.visibility = View.GONE
                         }
-                        is AntipiracyAttestation.Failed -> {
+                        is RootingAttestation.Failed -> {
                             binding.debugText.text = buildString {
                                 appendLine("Failed attestation")
                                 appendLine()
 
-                                it.scanResult.detectedEntries.forEachIndexed { i, it: DatasetEntry ->
+                                it.scanResult.detectedEntries.forEachIndexed { i, it: SystemModificationsTargetDataset ->
                                     appendLine("[$i] $it")
                                 }
 

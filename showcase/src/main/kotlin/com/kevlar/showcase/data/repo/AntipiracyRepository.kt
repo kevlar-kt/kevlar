@@ -9,17 +9,18 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class SecurityRepository @Inject constructor(
+/**
+ * Repository class designed to hold [KevlarAntipiracy]
+ * */
+class AntipiracyRepository @Inject constructor(
     @ApplicationContext val context: Context,
     @IoDispatcher val externalDispatcher: CoroutineDispatcher
 ) {
-    private val antipiracy: KevlarAntipiracy by lazy {
-        KevlarAntipiracy {
-            scan {
-                pirate()
-                store()
-                collateral()
-            }
+    private val antipiracy = KevlarAntipiracy {
+        scan {
+            pirate()
+            store()
+            collateral()
         }
     }
 

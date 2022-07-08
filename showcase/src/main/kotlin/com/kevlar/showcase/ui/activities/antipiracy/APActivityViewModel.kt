@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kevlar.antipiracy.dsl.attestation.AntipiracyAttestation
 import com.kevlar.antipiracy.KevlarAntipiracy
-import com.kevlar.showcase.data.repo.SecurityRepository
+import com.kevlar.showcase.data.repo.AntipiracyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class APActivityViewModel @Inject constructor(
-    private val securityRepository: SecurityRepository
+    private val securityRepository: AntipiracyRepository
 ) : ViewModel() {
 
     private val _attestationState = MutableStateFlow(KevlarAntipiracy.blankAttestation())

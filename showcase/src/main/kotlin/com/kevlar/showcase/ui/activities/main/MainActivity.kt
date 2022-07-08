@@ -23,6 +23,7 @@ import androidx.databinding.DataBindingUtil
 import com.kevlar.showcase.R
 import com.kevlar.showcase.databinding.ActivityMainBinding
 import com.kevlar.showcase.ui.activities.antipiracy.AntipiracyActivity
+import com.kevlar.showcase.ui.activities.rooting.RootingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,10 +37,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.buttonAntipiracy.setOnClickListener {
-            startActivity(
-                Intent(this, AntipiracyActivity::class.java)
-            )
+        binding.run {
+            buttonAntipiracy.setOnClickListener {
+                startActivity(
+                    Intent(this@MainActivity, AntipiracyActivity::class.java)
+                )
+            }
+
+            buttonRooting.setOnClickListener {
+                startActivity(
+                    Intent(this@MainActivity, RootingActivity::class.java)
+                )
+            }
         }
     }
 }

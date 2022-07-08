@@ -28,5 +28,8 @@
         <activity
             android:name="com.kevlar.showcase.ui.activities.antipiracy.AntipiracyActivity"
             android:exported="true" />
+        <activity
+            android:name="com.kevlar.showcase.ui.activities.rooting.RootingActivity"
+            android:exported="true" />
     </application>
 </manifest>

@@ -17,7 +17,8 @@ public object Attestator {
         context: Context,
         index: Int
     ): RootingAttestation = withContext(Dispatchers.Default) {
-        TODO()
+
+        return@withContext RootingAttestation.Clear(index)
     }
 
     private const val TAG = "Attestator"
