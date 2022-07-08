@@ -1,6 +1,8 @@
 package com.kevlar.rooting
 
 import android.content.Context
+import com.kevlar.rooting.attestator.StatusAttestator
+import com.kevlar.rooting.attestator.TargetsAttestator
 import com.kevlar.rooting.dsl.attestation.status.StatusRootingAttestation
 import com.kevlar.rooting.dsl.attestation.target.TargetRootingAttestation
 import com.kevlar.rooting.dsl.settings.RootingSettings
@@ -19,9 +21,9 @@ public class KevlarRooting(
 
 
     /**
-     * Asynchronously produces a [TargetRootingAttestation]
+     * Asynchronously produces a [StatusRootingAttestation]
      * */
-    public suspend fun attestateSystemStatus(context: Context): StatusRootingAttestation = StatusAttestator.attestate(settings, context, statusIndex.getAndIncrement())
+    public suspend fun attestateSystemStatus(): StatusRootingAttestation = StatusAttestator.attestate(settings, statusIndex.getAndIncrement())
 
     public companion object {
         /**
@@ -30,6 +32,7 @@ public class KevlarRooting(
         private val targetIndex = AtomicInteger(0)
         private val statusIndex = AtomicInteger(0)
 
-        public fun blankAttestation(): TargetRootingAttestation = TargetRootingAttestation.Blank(0)
+        public fun blankTargetAttestation(): TargetRootingAttestation = TargetRootingAttestation.Blank(0)
+        public fun blankStatusAttestation(): StatusRootingAttestation = StatusRootingAttestation.Blank(0)
     }
 }

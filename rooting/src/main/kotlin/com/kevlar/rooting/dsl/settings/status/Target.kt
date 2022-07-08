@@ -74,7 +74,7 @@ public class SelinuxStatusBuilder() {
         enabled = false
     }
 
-    internal fun flagPermissive() {
+    public fun flagPermissive() {
         flagPermissive = true
     }
 

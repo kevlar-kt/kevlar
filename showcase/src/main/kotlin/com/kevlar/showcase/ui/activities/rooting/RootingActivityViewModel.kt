@@ -3,6 +3,7 @@ package com.kevlar.showcase.ui.activities.rooting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kevlar.rooting.KevlarRooting
+import com.kevlar.rooting.dsl.attestation.status.StatusRootingAttestation
 import com.kevlar.rooting.dsl.attestation.target.TargetRootingAttestation
 import com.kevlar.showcase.data.repo.RootingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,17 +16,33 @@ class RootingActivityViewModel @Inject constructor(
     private val rootingRepository: RootingRepository
 ) : ViewModel() {
 
-    private val _attestationState = MutableStateFlow(KevlarRooting.blankAttestation())
+    private val _rootAttestationState = MutableStateFlow(KevlarRooting.blankTargetAttestation())
 
-    val attestation: SharedFlow<TargetRootingAttestation> = _attestationState.stateIn(
+    val rootAttestation: SharedFlow<TargetRootingAttestation> = _rootAttestationState.stateIn(
         viewModelScope,
         SharingStarted.Eagerly,
-        initialValue = KevlarRooting.blankAttestation()
+        initialValue = KevlarRooting.blankTargetAttestation()
     )
 
-    fun requestAttestation() {
+    fun requestAttestationRoot() {
         viewModelScope.launch {
-            _attestationState.value = rootingRepository.attestate()
+            _rootAttestationState.value = rootingRepository.attestateRoot()
+        }
+    }
+
+
+
+    private val _statusAttestationState = MutableStateFlow(KevlarRooting.blankStatusAttestation())
+
+    val statusAttestation: SharedFlow<StatusRootingAttestation> = _statusAttestationState.stateIn(
+        viewModelScope,
+        SharingStarted.Eagerly,
+        initialValue = KevlarRooting.blankStatusAttestation()
+    )
+
+    fun requestAttestationStatus() {
+        viewModelScope.launch {
+            _statusAttestationState.value = rootingRepository.attestateStatus()
         }
     }
 }

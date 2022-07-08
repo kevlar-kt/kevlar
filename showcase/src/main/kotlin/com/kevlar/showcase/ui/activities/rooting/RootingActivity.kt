@@ -8,7 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.kevlar.rooting.dataset.DetectableSystemStatus
 import com.kevlar.rooting.dataset.DetectableSystemTarget
+import com.kevlar.rooting.dsl.attestation.status.StatusRootingAttestation
 import com.kevlar.rooting.dsl.attestation.target.TargetRootingAttestation
 import com.kevlar.showcase.R
 import com.kevlar.showcase.databinding.RootingActivityBinding
@@ -31,18 +33,18 @@ class RootingActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                vm.attestation.collectLatest {
+                vm.rootAttestation.collectLatest {
                     when (it) {
                         is TargetRootingAttestation.Blank -> {
-                            binding.debugText.text = "Blank attestation"
+                            binding.debugText1.text = "Blank attestation"
                             binding.progressBar.visibility = View.VISIBLE
                         }
                         is TargetRootingAttestation.Clear -> {
-                            binding.debugText.text = "Clear attestation"
+                            binding.debugText1.text = "Clear attestation"
                             binding.progressBar.visibility = View.GONE
                         }
                         is TargetRootingAttestation.Failed -> {
-                            binding.debugText.text = buildString {
+                            binding.debugText1.text = buildString {
                                 appendLine("Failed attestation")
                                 appendLine()
 
@@ -58,8 +60,40 @@ class RootingActivity : AppCompatActivity() {
             }
         }
 
+
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                vm.statusAttestation.collectLatest {
+                    when (it) {
+                        is StatusRootingAttestation.Blank -> {
+                            binding.debugText2.text = "Blank attestation"
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
+                        is StatusRootingAttestation.Clear -> {
+                            binding.debugText2.text = "Clear attestation"
+                            binding.progressBar.visibility = View.GONE
+                        }
+                        is StatusRootingAttestation.Failed -> {
+                            binding.debugText2.text = buildString {
+                                appendLine("Failed attestation")
+                                appendLine()
+
+                                it.status.detectedStatus.forEachIndexed { i, it: DetectableSystemStatus ->
+                                    appendLine("[$i] $it")
+                                }
+
+                                binding.progressBar.visibility = View.GONE
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         CoroutineScope(Dispatchers.Main).launch {
-            vm.requestAttestation()
+            vm.requestAttestationRoot()
+            vm.requestAttestationStatus()
         }
     }
 }

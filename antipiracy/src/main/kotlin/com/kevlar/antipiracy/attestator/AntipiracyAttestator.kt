@@ -1,11 +1,12 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package com.kevlar.antipiracy
+package com.kevlar.antipiracy.attestator
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import com.kevlar.antipiracy.AntipiracySettings
 import com.kevlar.antipiracy.dataset.DatasetEntry
 import com.kevlar.antipiracy.detection.vectors.InputVector
 import com.kevlar.antipiracy.detection.vectors.OutputVector
@@ -19,7 +20,7 @@ import kotlinx.coroutines.*
 /**
  * Package queries, scan initializer, vector specter manager & attestation producer
  * */
-internal object Attestator {
+internal object AntipiracyAttestator {
 
     /**
      * Method retrieving the installed package list.

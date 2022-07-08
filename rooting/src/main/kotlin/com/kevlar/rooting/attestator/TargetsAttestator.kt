@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package com.kevlar.rooting
+package com.kevlar.rooting.attestator
 
 import android.content.Context
 import com.kevlar.rooting.dataset.DetectableSystemTarget
@@ -161,5 +161,5 @@ internal object TargetsAttestator {
         }
     }
 
-    private const val TAG = "Attestator"
+    private const val TAG = "TargetsAttestator"
 }

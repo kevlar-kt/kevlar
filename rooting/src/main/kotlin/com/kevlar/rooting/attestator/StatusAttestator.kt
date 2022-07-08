@@ -1,8 +1,8 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package com.kevlar.rooting
+package com.kevlar.rooting.attestator
 
-import android.content.Context
+import android.util.Log
 import com.kevlar.rooting.dataset.DetectableSystemStatus
 import com.kevlar.rooting.detection.status.SelinuxGetenforceStatus
 import com.kevlar.rooting.detection.status.detectEmulator
@@ -35,7 +35,6 @@ internal object StatusAttestator {
 
     suspend fun attestate(
         settings: RootingSettings,
-        context: Context,
         index: Int
     ): StatusRootingAttestation = withContext(Dispatchers.Default) {
         val statusRepository = settings.systemStatus
@@ -46,19 +45,21 @@ internal object StatusAttestator {
         val testKeys = async {
             StatusOutputSpecter(
                 DetectableSystemStatus.TEST_KEYS,
-                statusRepository.testKeys.enabled && detectTestKeys()
+                detected = statusRepository.testKeys.enabled && detectTestKeys()
             )
         }
+
         val emulator = async {
             StatusOutputSpecter(
                 DetectableSystemStatus.EMULATOR,
-                statusRepository.emulator.enabled && detectEmulator()
+                detected = statusRepository.emulator.enabled && detectEmulator()
             )
         }
+
         val selinux = async {
             StatusOutputSpecter(
                 DetectableSystemStatus.SELINUX,
-                statusRepository.selinux.enabled && when (detectSelinux()) {
+                detected = statusRepository.selinux.enabled && when (detectSelinux()) {
                     SelinuxGetenforceStatus.DISABLED -> true
                     SelinuxGetenforceStatus.PERMISSIVE -> statusRepository.selinux.flagPermissive
                     SelinuxGetenforceStatus.ENFORCING -> false
@@ -97,5 +98,5 @@ internal object StatusAttestator {
         }
     }
 
-    private const val TAG = "Attestator"
+    private const val TAG = "StatusAttestator"
 }

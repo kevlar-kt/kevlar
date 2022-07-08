@@ -1,6 +1,7 @@
 package com.kevlar.antipiracy
 
 import android.content.Context
+import com.kevlar.antipiracy.attestator.AntipiracyAttestator
 import com.kevlar.antipiracy.dsl.attestation.AntipiracyAttestation
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -12,7 +13,7 @@ public class KevlarAntipiracy(
     /**
      * Asynchronously produces an [AntipiracyAttestation]
      * */
-    public suspend fun attestate(context: Context): AntipiracyAttestation = Attestator.attestate(armament, context, index.getAndIncrement())
+    public suspend fun attestate(context: Context): AntipiracyAttestation = AntipiracyAttestator.attestate(armament, context, index.getAndIncrement())
 
     public companion object {
         /**
