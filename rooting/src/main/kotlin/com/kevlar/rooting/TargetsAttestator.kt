@@ -3,17 +3,13 @@
 package com.kevlar.rooting
 
 import android.content.Context
-import com.kevlar.rooting.dataset.SystemTarget
-import com.kevlar.rooting.detection.*
-import com.kevlar.rooting.detection.BlankSpecter
-import com.kevlar.rooting.detection.DumpDetector
-import com.kevlar.rooting.detection.OutputSpecter
-import com.kevlar.rooting.detection.TargetCustomAnalysis
-import com.kevlar.rooting.detection.TargetOutputDump
-import com.kevlar.rooting.dsl.attestation.RootingAttestation
+import com.kevlar.rooting.dataset.DetectableSystemTarget
+import com.kevlar.rooting.detection.target.DumpDetector
+import com.kevlar.rooting.dsl.attestation.target.TargetRootingAttestation
 import com.kevlar.rooting.dsl.settings.RootingSettings
 import com.kevlar.rooting.dsl.settings.target.TargetResult
 import com.kevlar.rooting.shell.CombinedBinaryDump
+import com.kevlar.rooting.shell.dump.CombinedBinaryDump
 import com.kevlar.rooting.util.XposedUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -30,22 +26,47 @@ import kotlinx.coroutines.withContext
  * Generalizing into a proper OOP model and iterating does not scale well at all, given the
  * nuances and technical details that each different detection may require.
  * */
-internal object Attestator {
+internal object TargetsAttestator {
+
+    internal sealed class OutputSpecter
+
+    /**
+     * Automated binary's output dump and analysis
+     * */
+    internal data class TargetOutputDump(
+        val target: DetectableSystemTarget,
+        val associatedDumps: CombinedBinaryDump
+    ) : OutputSpecter()
+
+    /**
+     * Custom logic for specific targets
+     * */
+    internal data class TargetCustomAnalysis(
+        val target: DetectableSystemTarget,
+        val detection: Boolean
+    ) : OutputSpecter()
+
+    /**
+     * Conveys no information about the status of the associated binary.
+     * Usually because its detection has not been requested.
+     * */
+    internal object BlankSpecter : OutputSpecter()
+
 
     suspend fun attestate(
         settings: RootingSettings,
         context: Context,
         index: Int
-    ): RootingAttestation = withContext(Dispatchers.Default) {
+    ): TargetRootingAttestation = withContext(Dispatchers.Default) {
         val targets = settings.systemTargets
 
         // This will contain all the dump and custom analysis information
-        val dumpsSpecters: MutableSet<OutputSpecter> = mutableSetOf()
+        val dumpsSpecters: MutableList<OutputSpecter> = mutableListOf()
 
         // Root check
         val rootTest = async {
             if (targets.root.enabled) {
-                TargetOutputDump(SystemTarget.ROOT, CombinedBinaryDump("su", context.packageName))
+                TargetOutputDump(DetectableSystemTarget.ROOT, CombinedBinaryDump("su", context.packageName))
             } else {
                 BlankSpecter
             }
@@ -54,7 +75,7 @@ internal object Attestator {
         val magiskTest = async {
             if (targets.magisk.enabled) {
                 TargetOutputDump(
-                    SystemTarget.MAGISK,
+                    DetectableSystemTarget.MAGISK,
                     CombinedBinaryDump("magisk", context.packageName)
                 )
             } else {
@@ -65,7 +86,7 @@ internal object Attestator {
         val busyBoxTest = async {
             if (targets.busybox.enabled) {
                 TargetOutputDump(
-                    SystemTarget.BUSYBOX,
+                    DetectableSystemTarget.BUSYBOX,
                     CombinedBinaryDump("busybox", context.packageName)
                 )
             } else {
@@ -76,7 +97,7 @@ internal object Attestator {
         val toyboxTest = async {
             if (targets.toybox.enabled) {
                 TargetOutputDump(
-                    SystemTarget.TOYBOX,
+                    DetectableSystemTarget.TOYBOX,
                     CombinedBinaryDump("toybox", context.packageName)
                 )
             } else {
@@ -86,7 +107,7 @@ internal object Attestator {
 
         val xposedTest = async {
             if (targets.xposed.enabled) {
-                TargetCustomAnalysis(SystemTarget.XPOSED, detection = XposedUtil.isXposedActive)
+                TargetCustomAnalysis(DetectableSystemTarget.XPOSED, detection = XposedUtil.isXposedActive)
             } else {
                 BlankSpecter
             }
@@ -95,7 +116,7 @@ internal object Attestator {
         awaitAll(rootTest, magiskTest, busyBoxTest, toyboxTest, xposedTest)
 
         dumpsSpecters.addAll(
-            setOf(
+            listOf(
                 rootTest.await(),
                 magiskTest.await(),
                 busyBoxTest.await(),
@@ -107,36 +128,35 @@ internal object Attestator {
         return@withContext craftAttestation(dumpsSpecters, index)
     }
 
-    data class IntermediateDumpState(
-        val target: SystemTarget,
-        val detection: Boolean
-    )
-
     private fun craftAttestation(
-        outputDumps: Set<OutputSpecter>,
+        outputDumps: List<OutputSpecter>,
         index: Int
-    ): RootingAttestation {
+    ): TargetRootingAttestation {
+        data class IntermediateDumpState(
+            val target: DetectableSystemTarget,
+            val detection: Boolean
+        )
+
         val detectedDumps: Set<IntermediateDumpState> = outputDumps
             .map {
                 when (it) {
-                    is TargetCustomAnalysis -> IntermediateDumpState(it.target, it.detection)
                     is TargetOutputDump -> IntermediateDumpState(it.target, DumpDetector.detect(it.associatedDumps))
+                    is TargetCustomAnalysis -> IntermediateDumpState(it.target, it.detection)
                     else -> {
-                        IntermediateDumpState(SystemTarget.ROOT, false)
+                        IntermediateDumpState(DetectableSystemTarget.ROOT, false)
                     }
                 }
             }
             .filter { it.detection }
             .toSet()
 
-
         return when {
             detectedDumps.isEmpty() -> {
-                RootingAttestation.Clear(index)
+                TargetRootingAttestation.Clear(index)
             }
 
             else -> {
-                RootingAttestation.Failed(index, TargetResult(detectedDumps.map { it.target }))
+                TargetRootingAttestation.Failed(index, TargetResult(detectedDumps.map { it.target }))
             }
         }
     }

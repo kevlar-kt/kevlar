@@ -9,10 +9,18 @@ which depending on your policies may be a security environment issue.
 It then compiles the results into an attestation (it can either be uninitialized, clear or failed)
 which is returned to your app, where you can check what has been found and act accordingly.
 
+
+!!! question "Purpose of the `antipiracy` module"
+	You may want to use this package if you consider that executing your app alongside pirate software which may be interfering/bypassing your
+
+!!! warning "Tampering and System protection"
+	The `antipiracy` module by itself does not do any kind of signature/tampering check (for that, refer to [integrity](../integrity/integrity.md)) or system wide verification ([rooting](../rooting/rooting.md)).
+
+
 To [implement](implementation.md) this, you initialize `KevlarAntipiracy` with your desired settings, and then you can submit attestation requests.
 Each attestation request will cause Kevlar to grab the package list, perform the checks and return an attestation.
 
-The settings you can provide influence what will be included in the attetsation. 
+The settings you can provide influence what will be included in the attestation.
 
 ## Attestation process overview
 When you require an attestation [through `antipiracy.attestate(context)`], the antipiracy module executes the following operations:
@@ -32,3 +40,4 @@ The different scan options are taken into account intelligently in order to anal
 	
 	The full attestation process takes from start to finish ≈ 100-200ms. It is mainly influenced by the processing power of the device, the numer of apps installed, and your scan configuration.
 
+## 

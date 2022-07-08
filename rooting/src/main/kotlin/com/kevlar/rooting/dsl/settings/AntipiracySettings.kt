@@ -2,8 +2,10 @@ package com.kevlar.rooting.dsl.settings
 
 import com.kevlar.rooting.dsl.language.DslBuilder
 import com.kevlar.rooting.dsl.language.RootingDslMarker
-import com.kevlar.rooting.dsl.settings.target.SystemTargetsBuilder
+import com.kevlar.rooting.dsl.settings.status.SystemStatus
+import com.kevlar.rooting.dsl.settings.status.SystemStatusBuilder
 import com.kevlar.rooting.dsl.settings.target.SystemTargets
+import com.kevlar.rooting.dsl.settings.target.SystemTargetsBuilder
 
 /**
  * Holds settings for [KevlarRooting].
@@ -12,7 +14,8 @@ import com.kevlar.rooting.dsl.settings.target.SystemTargets
  * - System targets (allows to target the detection of specific system modifications)
  * */
 public data class RootingSettings(
-    val systemTargets: SystemTargets
+    val systemTargets: SystemTargets,
+    val systemStatus: SystemStatus,
 )
 
 /**
@@ -25,10 +28,15 @@ public data class RootingSettings(
 @RootingDslMarker
 public class RootingSettingsBuilder : DslBuilder<RootingSettings>() {
     private var systemTargets: SystemTargets = SystemTargets.default()
+    private var systemStatus: SystemStatus = SystemStatus.default()
 
     public fun targets(block: SystemTargetsBuilder.() -> Unit) {
         systemTargets = SystemTargetsBuilder().apply(block).build()
     }
 
-    override fun build(): RootingSettings = RootingSettings(systemTargets)
+    public fun status(block: SystemStatusBuilder.() -> Unit) {
+        systemStatus = SystemStatusBuilder().apply(block).build()
+    }
+
+    override fun build(): RootingSettings = RootingSettings(systemTargets, systemStatus)
 }

@@ -64,6 +64,7 @@ plugins:
 nav:
     - 'Index':
           - 'Overview': index.md
+          - 'Choosing Packages': pages/overview/choosing.md
           - 'Philosophy': pages/overview/philosophy.md
           - 'Dependencies & Integration': pages/overview/dependencies_integration.md
     - Antipiracy:
@@ -73,10 +74,10 @@ nav:
           - 'Tradeoffs' : pages/modules/antipiracy/tradeoffs.md
           - 'Database' : pages/modules/antipiracy/database.md
           - 'Privacy' : pages/modules/antipiracy/privacy.md
-    - 'Integrity':
-          - 'Overview': pages/modules/integrity/integrity.md
     - 'Rooting':
           - 'Overview' : pages/modules/rooting/rooting.md
+    - 'Integrity':
+          - 'Overview': pages/modules/integrity/integrity.md
 
 markdown_extensions:
     - tables

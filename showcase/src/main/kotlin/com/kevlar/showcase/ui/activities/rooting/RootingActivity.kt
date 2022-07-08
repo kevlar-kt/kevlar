@@ -8,8 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.kevlar.rooting.dataset.SystemTarget
-import com.kevlar.rooting.dsl.attestation.RootingAttestation
+import com.kevlar.rooting.dataset.DetectableSystemTarget
+import com.kevlar.rooting.dsl.attestation.target.TargetRootingAttestation
 import com.kevlar.showcase.R
 import com.kevlar.showcase.databinding.RootingActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,20 +33,20 @@ class RootingActivity : AppCompatActivity() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.attestation.collectLatest {
                     when (it) {
-                        is RootingAttestation.Blank -> {
+                        is TargetRootingAttestation.Blank -> {
                             binding.debugText.text = "Blank attestation"
                             binding.progressBar.visibility = View.VISIBLE
                         }
-                        is RootingAttestation.Clear -> {
+                        is TargetRootingAttestation.Clear -> {
                             binding.debugText.text = "Clear attestation"
                             binding.progressBar.visibility = View.GONE
                         }
-                        is RootingAttestation.Failed -> {
+                        is TargetRootingAttestation.Failed -> {
                             binding.debugText.text = buildString {
                                 appendLine("Failed attestation")
                                 appendLine()
 
-                                it.detectedTargets.detectedTargets.forEachIndexed { i, it: SystemTarget ->
+                                it.detectedTargets.detectedTargets.forEachIndexed { i, it: DetectableSystemTarget ->
                                     appendLine("[$i] $it")
                                 }
 

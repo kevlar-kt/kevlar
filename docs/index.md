@@ -2,11 +2,11 @@
 
 ## Abstract
 Kevlar is a security toolkit (library) for Android apps.
-It is divided in 3 packages ([antipiracy], [integrity] and [rooting]), each containing specific tooling and components.
+It is divided in 3 packages ([antipiracy], [rooting] and [integrity]), each containing specific tooling and components.
 
 [antipiracy]: pages/modules/antipiracy/antipiracy.md
-[integrity]: pages/modules/integrity/integrity.md
-[rooting]: pages/modules/rooting/rooting.md
+[rooting]:    pages/modules/rooting/rooting.md
+[integrity]:  pages/modules/integrity/integrity.md
 
 Its purpose is to be an auditing tool, used to inspect the security environment on Android devices.
 
@@ -14,29 +14,30 @@ A security environment is the security state of a device, which can be probed wi
 
 Each package focuses on a specific security environment area:
 
-- antipiracy detects the presence of pirate software installed on the device (user-wise security);
-- integrity detects certain types of tampering your app may have been targeted with (app-wise security);
-- rooting detects the presence of root access and custom binaries on the system (system-wise security).
+- `antipiracy` detects the presence of pirate software installed on the device (user-wise security);
+- `rooting` detects the presence of root access, custom binaries and abnormal system status on the OS (system-wise security).
+- `integrity` detects certain types of tampering techniques your app may have been targeted with (app-wise security);
 
 Kevlar is intended to be used any time it is deemed necessary to determine whether the device your app is running on can be regarded as secure, 
 according to your policies and security requirements.
 
 Common use cases for security environment checks are applications managing sensitive resources, such as in-app purchases and subscriptions, 
-costly server-side resources, financial transactions, and anything that has value.
+costly server-side resources, financial transactions, and anything that has value which gets managed through your app.
 
 
 ## Security Environment
 The security environment is the status of the device. 
-This counts system-wide security (system modifications, rooting, custom binaries, custom roms, emulator), 
-user-wide security (pirate stores and pirate apps),
-and app-wide security (tampering, recompiling, changed signature & metadata)
+This is subdivided in **system-wise** security (system modifications, rooting, custom binaries, custom roms, emulator, selinux), 
+**user-wise** security (pirate stores and pirate apps),
+and **app-wise** security (tampering, recompiling, changed signature & metadata)
 
-!!! info "Flexible Security Environment"
+!!! info "Flexibility"
 	Kevlar does not automatically detect a "standard" unsafe environment and give a 0/1 answer.
 	The kind of environment that is acceptable for your app to run in can be configured in each package.
 
 	You may be indifferent to some things (e.g. root detection) and very sensitive about others (e.g. app tampering & piracy).
 	You can customize the set of checks the library executes in each package.
+	Once you define your constraints, kevlar modules will act accordingly.
 
 
 ## Additions & Alternatives
@@ -52,3 +53,6 @@ This doesn't render it useless: it is very efficient at protecting against autom
 which usually are the vast majority of what your app will ever be put through.
 
 For stricter scenarios where a higher fidelity and accuracy is required, you should be using something more specific.
+
+## License
+This project is licensed under the Apache License, Version 2.0. Please refer to the `LICENSE.md` file inside the github repository for the full text.
