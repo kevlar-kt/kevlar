@@ -3,7 +3,6 @@ package com.kevlar.rooting.dsl.settings.target
 import com.kevlar.rooting.dsl.language.DslBuilder
 import com.kevlar.rooting.dsl.language.RootingDslMarker
 
-
 public class SystemTargets(
     public val root: RootTarget,
     public val busybox: BusyboxTarget,
@@ -11,7 +10,6 @@ public class SystemTargets(
     public val magisk: MagiskTarget,
     public val xposed: XposedTarget,
 ) {
-
     public companion object {
         public fun default(): SystemTargets = SystemTargets(
             RootTarget(enabled = false),
