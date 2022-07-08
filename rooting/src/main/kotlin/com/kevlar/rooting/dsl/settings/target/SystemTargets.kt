@@ -23,7 +23,7 @@ public class SystemTargets(
 
 
 @RootingDslMarker
-public class ScanConfigurationsBuilder : DslBuilder<SystemTargets>() {
+public class SystemTargetsBuilder : DslBuilder<SystemTargets>() {
     private var root: RootTarget = RootTarget(enabled = false)
     private var busybox: BusyboxTarget = BusyboxTarget(enabled = false)
     private var toybox: ToyboxTarget = ToyboxTarget(enabled = false)
@@ -64,7 +64,6 @@ public class ScanConfigurationsBuilder : DslBuilder<SystemTargets>() {
             enable()
         }.build()
     }
-
 
     /**
      * Builds the target configuration

@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.kevlar.rooting.dataset.SystemModificationsTargetDataset
+import com.kevlar.rooting.dataset.SystemTarget
 import com.kevlar.rooting.dsl.attestation.RootingAttestation
 import com.kevlar.showcase.R
 import com.kevlar.showcase.databinding.RootingActivityBinding
@@ -46,7 +46,7 @@ class RootingActivity : AppCompatActivity() {
                                 appendLine("Failed attestation")
                                 appendLine()
 
-                                it.scanResult.detectedEntries.forEachIndexed { i, it: SystemModificationsTargetDataset ->
+                                it.detectedTargets.detectedTargets.forEachIndexed { i, it: SystemTarget ->
                                     appendLine("[$i] $it")
                                 }
 

@@ -3,7 +3,7 @@ package com.kevlar.antipiracy
 import com.kevlar.antipiracy.dsl.language.AntipiracyDslMarker
 import com.kevlar.antipiracy.dsl.language.DslBuilder
 import com.kevlar.antipiracy.dsl.settings.scan.ScanConfiguration
-import com.kevlar.antipiracy.dsl.settings.scan.ScanConfigurationsBuilder
+import com.kevlar.antipiracy.dsl.settings.scan.ScanConfigurationBuilder
 
 /**
  * Holds settings for [KevlarAntipiracy].
@@ -26,8 +26,8 @@ public data class AntipiracySettings(
 public class AntipiracySettingsBuilder : DslBuilder<AntipiracySettings>() {
     private var scanConfiguration: ScanConfiguration = ScanConfiguration.default()
 
-    public fun scan(block: ScanConfigurationsBuilder.() -> Unit) {
-        scanConfiguration = ScanConfigurationsBuilder().apply(block).build()
+    public fun scan(block: ScanConfigurationBuilder.() -> Unit) {
+        scanConfiguration = ScanConfigurationBuilder().apply(block).build()
     }
 
     override fun build(): AntipiracySettings = AntipiracySettings(scanConfiguration)

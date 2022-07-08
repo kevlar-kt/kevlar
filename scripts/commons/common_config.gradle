@@ -4,7 +4,7 @@
 apply plugin: "kotlin-android"
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
     
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -16,8 +16,8 @@ android {
     }
     
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 31
+        minSdkVersion 19
+        targetSdkVersion 32
     }
     
     sourceSets {
@@ -32,7 +32,7 @@ android {
     }
     
     packagingOptions {
-        //exclude("DebugProbesKt.bin")
-        //exclude("LICENSE.txt")
+        // exclude("DebugProbesKt.bin")
+        // exclude("LICENSE.txt")
     }
 }

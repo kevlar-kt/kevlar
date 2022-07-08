@@ -27,7 +27,7 @@ public sealed class RootingAttestation {
      * */
     public data class Failed(
         override val index: Int,
-        public val scanResult: TargetResult
+        public val detectedTargets: TargetResult
     ) : RootingAttestation()
 
     public abstract val index: Int

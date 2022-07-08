@@ -55,7 +55,7 @@ project.ext.set("module_${ext.module_name}", new ModuleArtifactCoordinates(
 apply from: rootProject.file("scripts/commons/library_config.gradle")
 
 // MavenCentral publication script
-// TODO TURN BACK ON
+// TODO Turn on and run release script to publish library. Turn off afterward.
 // apply from: rootProject.file("scripts/publishing/publish_mavencentral.gradle")
 
 

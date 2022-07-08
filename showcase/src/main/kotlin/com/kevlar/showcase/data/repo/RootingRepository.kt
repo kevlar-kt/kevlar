@@ -21,7 +21,10 @@ class RootingRepository @Inject constructor(
     private val rooting = KevlarRooting {
         targets {
             root()
+            magisk()
             busybox()
+            toybox()
+            xposed()
         }
     }
 

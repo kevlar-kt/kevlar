@@ -3,13 +3,14 @@ apply plugin: 'io.codearte.nexus-staging'
 
 buildscript {
     ext {
-        kotlin_version = "1.7.0"
+        kotlin_version = "1.7.10"
     }
     
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url 'https://jitpack.io' }
     }
     
     dependencies {
@@ -26,6 +27,7 @@ allprojects {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url 'https://jitpack.io' }
     }
 }
 

@@ -19,7 +19,7 @@ import kotlinx.coroutines.*
 /**
  * Package queries, scan initializer, vector specter manager & attestation producer
  * */
-public object Attestator {
+internal object Attestator {
 
     /**
      * Method retrieving the installed package list.
@@ -31,14 +31,14 @@ public object Attestator {
     /**
      * Produces an [AntipiracyAttestation] for the given [AntipiracySettings]
      * */
-    public suspend fun attestate(
-        armament: AntipiracySettings,
+    suspend fun attestate(
+        settings: AntipiracySettings,
         context: Context,
         index: Int
     ): AntipiracyAttestation = withContext(Dispatchers.Default) {
         val installedApplicationList: List<ApplicationInfo> = queryPackageList(context)
 
-        val input = InputVector(scanConfiguration = armament.scanConfiguration)
+        val input = InputVector(scanConfiguration = settings.scanConfiguration)
         val vectors = VectorSpecter(input)
 
         val outputSpecters: List<OutputSpecter> = installedApplicationList.mapParallel { appInfo ->

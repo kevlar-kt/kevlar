@@ -25,7 +25,7 @@ public class ScanConfiguration(
 
 
 @AntipiracyDslMarker
-public class ScanConfigurationsBuilder : DslBuilder<ScanConfiguration>() {
+public class ScanConfigurationBuilder : DslBuilder<ScanConfiguration>() {
     private var pirate = PirateSoftwareScan(enabled = false)
     private var store = PirateStoreScan(enabled = false)
     private var collateral = CollateralScan(enabled = false)
