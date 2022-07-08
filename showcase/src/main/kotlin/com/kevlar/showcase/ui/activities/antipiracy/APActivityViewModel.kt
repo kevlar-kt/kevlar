@@ -2,7 +2,7 @@ package com.kevlar.showcase.ui.activities.antipiracy
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kevlar.antipiracy.AntipiracyAttestation
+import com.kevlar.antipiracy.dsl.attestation.AntipiracyAttestation
 import com.kevlar.antipiracy.KevlarAntipiracy
 import com.kevlar.showcase.data.repo.SecurityRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,7 +1,7 @@
-package com.kevlar.antipiracy.dsl.builders
+package com.kevlar.antipiracy.dsl.settings.scan
 
-import com.kevlar.antipiracy.dsl.AntipiracyDslMarker
-import com.kevlar.antipiracy.dsl.DslBuilder
+import com.kevlar.antipiracy.dsl.language.AntipiracyDslMarker
+import com.kevlar.antipiracy.dsl.language.DslBuilder
 
 /**
  * Contains global scan details

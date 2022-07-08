@@ -1,6 +1,6 @@
 package com.kevlar.antipiracy.detection.vectors
 
-import com.kevlar.antipiracy.dsl.builders.ScanConfiguration
+import com.kevlar.antipiracy.dsl.settings.scan.ScanConfiguration
 
 /**
  * Input abstraction for vector operations

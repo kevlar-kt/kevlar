@@ -1,4 +1,4 @@
-package com.kevlar.antipiracy.detection.dataset
+package com.kevlar.antipiracy.dataset
 
 internal abstract class MatchableDatasetEntry {
     abstract val datasetEntry: DatasetEntry

@@ -1,7 +1,7 @@
 package com.kevlar.showcase.data.repo
 
 import android.content.Context
-import com.kevlar.antipiracy.AntipiracyAttestation
+import com.kevlar.antipiracy.dsl.attestation.AntipiracyAttestation
 import com.kevlar.antipiracy.KevlarAntipiracy
 import com.kevlar.showcase.concurrency.IoDispatcher
 import dagger.hilt.android.qualifiers.ApplicationContext

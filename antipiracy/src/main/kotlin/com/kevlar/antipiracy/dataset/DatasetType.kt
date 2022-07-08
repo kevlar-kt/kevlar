@@ -1,4 +1,4 @@
-package com.kevlar.antipiracy.detection.dataset
+package com.kevlar.antipiracy.dataset
 
 /**
  * Differentiates functionalities between different data set targets.

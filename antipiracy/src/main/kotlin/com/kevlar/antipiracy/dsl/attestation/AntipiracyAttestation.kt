@@ -1,6 +1,6 @@
-package com.kevlar.antipiracy
+package com.kevlar.antipiracy.dsl.attestation
 
-import com.kevlar.antipiracy.dsl.builders.ScanResult
+import com.kevlar.antipiracy.dsl.settings.scan.ScanResult
 
 /**
  * Attestation released by [KevlarAntipiracy] to describe system's state at a given time

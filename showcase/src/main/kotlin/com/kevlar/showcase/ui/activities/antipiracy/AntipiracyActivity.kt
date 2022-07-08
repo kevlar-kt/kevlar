@@ -8,14 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.kevlar.antipiracy.AntipiracyAttestation
-import com.kevlar.antipiracy.detection.dataset.DatasetEntry
+import com.kevlar.antipiracy.dsl.attestation.AntipiracyAttestation
+import com.kevlar.antipiracy.dataset.DatasetEntry
 import com.kevlar.showcase.R
 import com.kevlar.showcase.databinding.AntipiracyActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

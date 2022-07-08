@@ -7,6 +7,8 @@ Once you have that, you just go ahead and call `antipiracy.attestate()` in a cor
 `AntipiracyAttestation` will be returned from the call (it's a sealed class), containing the found software list, if any.
 
 ## In-Place
+This is the most concise way to implement piracy checks.
+
 
 ```kotlin
 val antipiracy = KevlarAntipiracy {
@@ -18,9 +20,11 @@ val antipiracy = KevlarAntipiracy {
 }
 
 CoroutineScope(Dispatchers.Default).launch {
+	// Attestation request
     when (val attestation = antipiracy.attestate(context)) {
         is AntipiracyAttestation.Blank -> {
-            // Pending attestation, no information yet.
+            // Pending attestation, no information yet. 
+        	// Don't do anything.
         }
         is AntipiracyAttestation.Clear -> {
             // Good to go.
@@ -33,10 +37,9 @@ CoroutineScope(Dispatchers.Default).launch {
 ```
 
 
-## ViewModel + Repository + SharedFlow + DI with Dagger
+## ViewModel + Repository + SharedFlow + DI with Hilt
 
 #### Activity:
-
 ```kotlin
 @AndroidEntryPoint
 class AntipiracyActivity : AppCompatActivity() {
@@ -52,6 +55,7 @@ class AntipiracyActivity : AppCompatActivity() {
                     when (it) {
                         is AntipiracyAttestation.Blank -> {
                             // Pending attestation, no information yet.
+                            // Don't do anything.
                         }
                         is AntipiracyAttestation.Clear -> {
                             // Good to go.
@@ -71,7 +75,7 @@ class AntipiracyActivity : AppCompatActivity() {
 }
 ```
 
-#### View model code:
+#### View model:
 ```kotlin
 @HiltViewModel
 class ActivityViewModel @Inject constructor(
@@ -96,7 +100,6 @@ class ActivityViewModel @Inject constructor(
 ```
 
 #### Repository
-
 ```kotlin
 class SecurityRepository @Inject constructor(
     @ApplicationContext val context: Context,

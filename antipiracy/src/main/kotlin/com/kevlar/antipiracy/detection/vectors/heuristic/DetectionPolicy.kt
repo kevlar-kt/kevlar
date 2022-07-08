@@ -1,6 +1,6 @@
 package com.kevlar.antipiracy.detection.vectors.heuristic
 
-import com.kevlar.antipiracy.detection.dataset.DatasetEntry
+import com.kevlar.antipiracy.dataset.DatasetEntry
 
 /**
  * Technique used to detect a single [DatasetEntry].

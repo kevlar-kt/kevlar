@@ -1,7 +1,7 @@
 package com.kevlar.antipiracy.detection.vectors.heuristic
 
-import com.kevlar.antipiracy.detection.dataset.DatasetEntry
-import com.kevlar.antipiracy.detection.dataset.MatchableDatasetEntry
+import com.kevlar.antipiracy.dataset.DatasetEntry
+import com.kevlar.antipiracy.dataset.MatchableDatasetEntry
 
 /**
  * Associates a [DatasetEntry] with a list of [DetectionPolicy]

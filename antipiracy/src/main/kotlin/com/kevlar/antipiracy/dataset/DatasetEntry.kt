@@ -1,6 +1,6 @@
 @file:Suppress("SpellCheckingInspection")
 
-package com.kevlar.antipiracy.detection.dataset
+package com.kevlar.antipiracy.dataset
 
 /**
  * Synthetizes a target software, with its essential metadata.

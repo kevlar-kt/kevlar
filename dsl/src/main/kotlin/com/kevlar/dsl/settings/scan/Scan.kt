@@ -1,8 +1,8 @@
-package com.kevlar.antipiracy.dsl.builders
+package com.kevlar.dsl.settings.scan
 
 import com.kevlar.antipiracy.detection.dataset.DatasetEntry
 import com.kevlar.antipiracy.dsl.AntipiracyDslMarker
-import com.kevlar.antipiracy.dsl.DslBuilder
+import com.kevlar.dsl.language.DslBuilder
 
 /**
  * [Scan] structure
@@ -30,16 +30,6 @@ public data class CustomScan(
 
 
 
-
-public data class ScanResult(
-    val detectedEntries: Set<DatasetEntry>
-) {
-    public companion object {
-        public fun empty(): ScanResult = ScanResult(setOf())
-    }
-
-    public fun isClear(): Boolean = detectedEntries.isEmpty()
-}
 
 
 

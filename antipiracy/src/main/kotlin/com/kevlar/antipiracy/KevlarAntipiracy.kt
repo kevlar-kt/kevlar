@@ -1,12 +1,13 @@
 package com.kevlar.antipiracy
 
 import android.content.Context
+import com.kevlar.antipiracy.dsl.attestation.AntipiracyAttestation
 import java.util.concurrent.atomic.AtomicInteger
 
 public class KevlarAntipiracy(
-    block: AntipiracyArmamentBuilder.() -> Unit
+    block: AntipiracySettingsBuilder.() -> Unit
 ) {
-    private val armament: AntipiracyArmament = AntipiracyArmamentBuilder().apply(block).build()
+    private val armament: AntipiracySettings = AntipiracySettingsBuilder().apply(block).build()
 
     /**
      * Asynchronously produces an [AntipiracyAttestation]

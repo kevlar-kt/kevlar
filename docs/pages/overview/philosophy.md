@@ -1,8 +1,8 @@
 # Philosophy
 
 ## What does it do?
-Each kevlar package produces an attestation regarding [an aspect of] the security state of the Android device running your app.
-The idea behind it is being able to quickly capture every meaningful security information.
+Each kevlar package share a common structure: they all produce an attestation regarding [an aspect of] the security state of the Android device running your app.
+The idea behind it is being able to quickly capture every meaningful security information regarding a certain field, with a certain accuracy.
 
 These modules provide an array of detection methods which can be used to ensure the app is running in its proper intended environment
 
@@ -16,9 +16,20 @@ These modules provide an array of detection methods which can be used to ensure 
 No.
 It does most of the times, but there is no guarantee of a 100% success rate.
 
-And for the record, any software trying to claim that is factually wrong (there is a theorem in computability and decidability theory literally stating that you can not do that).
-
 What kevlar provides is an accurate heuristic, which is relatively cheap to run and provides a valuable assessment within an acceptable margin of error.
+
+If you require a higher success rate, you will need much more sophisticated and ad-hoc levels of protections. 
+Kevlar catches what can be caught in a reasonable amount of time, space and lines of code. 
+In a similar fashion as the [pareto distribution](https://en.wikipedia.org/wiki/Pareto_distribution), to slightly improve the detection rate you will need much more complicated software, much more time, or much more space.
+
+And for the record, any software trying to claim that it achieves 100% detection is factually wrong (there is a theorem in computability and decidability theory literally stating that you can not do that) [it's a generalization of the halting problem].
+
+
+## Accuracy and Precision
+It is fairly accurate (since there are just a few checks to run in order to check security status, we are fairly confident that most of the times we will get the information right),
+and has excellent precision (since checks are deterministic and predictable, given an initial condition, the result will always be the same, accurate or not)
+
+(See [accuracy vs precision](https://en.wikipedia.org/wiki/Accuracy_and_precision))
 
 
 
@@ -49,6 +60,15 @@ You can. It does not make sense.
 	
 	Given the success rate of this library against patches vs the success rate of kevlar vests against bullets, this could have easily been called full body armor, but that definitely didn't sound as cool.
 
+
+## Security Through Obscurity
+Kevlar does not rely on [security through obscurity](https://en.wikipedia.org/wiki/Security_through_obscurity). Its source code, logic and dataset is public. 
+
+Since the purpose of kevlar is being a generic barrier to defeat automated and unskilled attacks, 
+going to the extent of obfuscating code which, if ever reverse engineered, would just be stripped away, seemed a fruitless idea.
+
+It would be necessary to introduce such mechanisms only if hostile software would try to automatically target specific kevlar components. 
+While I doubt this would ever happen, introducing basic internal safety checks or compile-time internal randomized obfuscation would surely make detection unfeasible.
 
 ## History
 This project has actually been alive since 2017 (by the former name billing-protector) to counteract automatic attacks against android applications (AAAAA). 

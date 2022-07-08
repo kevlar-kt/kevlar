@@ -6,18 +6,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.util.Log
-import com.kevlar.antipiracy.detection.dataset.DatasetEntry
+import com.kevlar.antipiracy.dataset.DatasetEntry
 import com.kevlar.antipiracy.detection.vectors.InputVector
 import com.kevlar.antipiracy.detection.vectors.OutputVector
 import com.kevlar.antipiracy.detection.vectors.specter.OutputSpecter
 import com.kevlar.antipiracy.detection.vectors.specter.VectorSpecter
-import com.kevlar.antipiracy.dsl.builders.*
+import com.kevlar.antipiracy.dsl.attestation.AntipiracyAttestation
+import com.kevlar.antipiracy.dsl.settings.scan.*
 import com.kevlar.antipiracy.parallel.mapParallel
 import kotlinx.coroutines.*
-import kotlin.system.measureTimeMillis
-import kotlin.time.ExperimentalTime
-import kotlin.time.measureTime
 
 /**
  * Package queries, scan initializer, vector specter manager & attestation producer
@@ -32,10 +29,10 @@ public object Attestator {
         context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
 
     /**
-     * Produces an [AntipiracyAttestation] for the given [AntipiracyArmament]
+     * Produces an [AntipiracyAttestation] for the given [AntipiracySettings]
      * */
     public suspend fun attestate(
-        armament: AntipiracyArmament,
+        armament: AntipiracySettings,
         context: Context,
         index: Int
     ): AntipiracyAttestation = withContext(Dispatchers.Default) {

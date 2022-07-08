@@ -20,20 +20,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import com.kevlar.antipiracy.AntipiracyAttestation
-import com.kevlar.antipiracy.detection.dataset.DatasetEntry
 import com.kevlar.showcase.R
 import com.kevlar.showcase.databinding.ActivityMainBinding
 import com.kevlar.showcase.ui.activities.antipiracy.AntipiracyActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
