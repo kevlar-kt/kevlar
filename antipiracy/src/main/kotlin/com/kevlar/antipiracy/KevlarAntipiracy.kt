@@ -5,6 +5,9 @@ import com.kevlar.antipiracy.attestator.AntipiracyAttestator
 import com.kevlar.antipiracy.dsl.attestation.AntipiracyAttestation
 import java.util.concurrent.atomic.AtomicInteger
 
+/**
+ * Main class for `:antipiracy` package.
+ * */
 public class KevlarAntipiracy(
     block: AntipiracySettingsBuilder.() -> Unit
 ) {

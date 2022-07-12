@@ -9,6 +9,9 @@ import com.kevlar.rooting.dsl.settings.RootingSettings
 import com.kevlar.rooting.dsl.settings.RootingSettingsBuilder
 import java.util.concurrent.atomic.AtomicInteger
 
+/**
+ * Main class for `:rooting` package.
+ * */
 public class KevlarRooting(
     block: RootingSettingsBuilder.() -> Unit
 ) {

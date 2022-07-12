@@ -16,6 +16,9 @@ class RootingActivityViewModel @Inject constructor(
     private val rootingRepository: RootingRepository
 ) : ViewModel() {
 
+    /**
+     * System modification attestation
+     * */
     private val _rootAttestationState = MutableStateFlow(KevlarRooting.blankTargetAttestation())
 
     val rootAttestation: SharedFlow<TargetRootingAttestation> = _rootAttestationState.stateIn(
@@ -32,6 +35,9 @@ class RootingActivityViewModel @Inject constructor(
 
 
 
+    /**
+     * System status attestation
+     * */
     private val _statusAttestationState = MutableStateFlow(KevlarRooting.blankStatusAttestation())
 
     val statusAttestation: SharedFlow<StatusRootingAttestation> = _statusAttestationState.stateIn(
