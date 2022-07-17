@@ -1,8 +1,6 @@
 package com.kevlar.showcase.data.repo
 
 import android.content.Context
-import android.os.Build
-import android.util.Log
 import com.kevlar.rooting.KevlarRooting
 import com.kevlar.rooting.dsl.attestation.status.StatusRootingAttestation
 import com.kevlar.rooting.dsl.attestation.target.TargetRootingAttestation
@@ -35,14 +33,21 @@ class RootingRepository @Inject constructor(
                 flagPermissive()
             }
         }
+
+        disallowRootCheck()
     }
 
+    /**
+     * This uses the default settings, only targets/root and status/emulator
+     * */
+    private val defaultRooting = KevlarRooting()
+
     suspend fun attestateRoot(): TargetRootingAttestation = withContext(externalDispatcher) {
-        rooting.attestateSystemModifications(context)
+        rooting.attestateTargets(context)
     }
 
 
     suspend fun attestateStatus(): StatusRootingAttestation = withContext(externalDispatcher) {
-        rooting.attestateSystemStatus()
+        rooting.attestateStatus()
     }
 }

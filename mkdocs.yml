@@ -76,6 +76,8 @@ nav:
           - 'Privacy' : pages/modules/antipiracy/privacy.md
     - 'Rooting':
           - 'Overview' : pages/modules/rooting/rooting.md
+          - 'Implementation' : pages/modules/rooting/implementation.md
+          - 'Internals' : pages/modules/rooting/internals.md
     - 'Integrity':
           - 'Overview': pages/modules/integrity/integrity.md
 
@@ -87,7 +89,11 @@ markdown_extensions:
     - pymdownx.inlinehilite
     - pymdownx.snippets
     - pymdownx.details
-    - pymdownx.superfences
+    - pymdownx.superfences:
+          custom_fences:
+              - name: mermaid
+                class: mermaid
+                format: !!python/name:pymdownx.superfences.fence_code_format
     - abbr
     - admonition
     - pymdownx.emoji:

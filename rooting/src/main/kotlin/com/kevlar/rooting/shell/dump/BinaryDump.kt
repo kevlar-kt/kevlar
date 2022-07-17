@@ -15,29 +15,37 @@ internal data class BinaryDump(
     val binaryName: String,
     val executionLevel: ExecutionLevel,
 
-    val userResult: Shell.Result,
-    val invocationResult: Shell.Result,
-    val pathExtractionResult: Shell.Result
+    val userResult: Shell.Result?,
+    val invocationResult: Shell.Result?,
+    val pathExtractionResult: Shell.Result?
 ) {
 
     val exitCode: Int
-        get() = invocationResult.code
+        get() = invocationResult?.code ?: 0
 
     val user: String
-        get() = userResult.out.firstOrNull()?.trim() ?: when (executionLevel) {
+        get() = userResult?.out?.firstOrNull()?.trim() ?: when (executionLevel) {
             ExecutionLevel.APP -> "app"
             ExecutionLevel.SH -> "shell"
             ExecutionLevel.SU -> "pseudo-root"
         }
 
     val path: String
-        get() = pathExtractionResult.out.firstOrNull()?.trim() ?: ""
+        get() = pathExtractionResult?.out?.firstOrNull()?.trim() ?: ""
 
     val stdout: String
-        get() = invocationResult.out.joinToString()
+        get() = invocationResult?.out?.joinToString().toString()
 
     val stderr: String
-        get() = invocationResult.err.joinToString()
+        get() = invocationResult?.err?.joinToString().toString()
 
     fun exists() = exitCode != 127 && path.isNotEmpty()
+
+    companion object {
+        fun emptyBinaryDump(
+            binaryName: String,
+            executionLevel: ExecutionLevel,
+        ) = BinaryDump(binaryName, executionLevel, null, null, null)
+    }
 }
+

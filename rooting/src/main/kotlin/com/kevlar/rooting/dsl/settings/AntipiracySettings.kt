@@ -12,10 +12,13 @@ import com.kevlar.rooting.dsl.settings.target.SystemTargetsBuilder
  *
  * Current available settings include:
  * - System targets (allows to target the detection of specific system modifications)
+ * - System status (allows to detect system conditions)
+ * - Allow root check (whether kevlar will try to acquire root access to detect certain targets)
  * */
 public data class RootingSettings(
     val systemTargets: SystemTargets,
     val systemStatus: SystemStatus,
+    val allowRootCheck: Boolean
 )
 
 /**
@@ -29,6 +32,7 @@ public data class RootingSettings(
 public class RootingSettingsBuilder : DslBuilder<RootingSettings>() {
     private var systemTargets: SystemTargets = SystemTargets.default()
     private var systemStatus: SystemStatus = SystemStatus.default()
+    private var allowRootCheck: Boolean = true
 
     public fun targets(block: SystemTargetsBuilder.() -> Unit) {
         systemTargets = SystemTargetsBuilder().apply(block).build()
@@ -38,5 +42,9 @@ public class RootingSettingsBuilder : DslBuilder<RootingSettings>() {
         systemStatus = SystemStatusBuilder().apply(block).build()
     }
 
-    override fun build(): RootingSettings = RootingSettings(systemTargets, systemStatus)
+    public fun disallowRootCheck() {
+        allowRootCheck = false
+    }
+
+    override fun build(): RootingSettings = RootingSettings(systemTargets, systemStatus, allowRootCheck)
 }

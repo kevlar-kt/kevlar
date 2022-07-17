@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * Main class for `:antipiracy` package.
  * */
 public class KevlarAntipiracy(
-    block: AntipiracySettingsBuilder.() -> Unit
+    block: AntipiracySettingsBuilder.() -> Unit = DefaultAntipiracySettings
 ) {
     private val armament: AntipiracySettings = AntipiracySettingsBuilder().apply(block).build()
 
@@ -25,5 +25,13 @@ public class KevlarAntipiracy(
         private val index = AtomicInteger(0)
 
         public fun blankAttestation(): AntipiracyAttestation = AntipiracyAttestation.Blank(0)
+    }
+}
+
+public val DefaultAntipiracySettings: AntipiracySettingsBuilder.() -> Unit = {
+    this.run {
+        scan {
+            pirate()
+        }
     }
 }

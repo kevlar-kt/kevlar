@@ -66,7 +66,7 @@ internal object TargetsAttestator {
         // Root check
         val rootTest = async {
             if (targets.root.enabled) {
-                TargetOutputDump(DetectableSystemTarget.ROOT, CombinedBinaryDump("su", context.packageName))
+                TargetOutputDump(DetectableSystemTarget.ROOT, CombinedBinaryDump("su", context.packageName, settings.allowRootCheck))
             } else {
                 BlankSpecter
             }
@@ -76,7 +76,7 @@ internal object TargetsAttestator {
             if (targets.magisk.enabled) {
                 TargetOutputDump(
                     DetectableSystemTarget.MAGISK,
-                    CombinedBinaryDump("magisk", context.packageName)
+                    CombinedBinaryDump("magisk", context.packageName, settings.allowRootCheck)
                 )
             } else {
                 BlankSpecter
@@ -87,7 +87,7 @@ internal object TargetsAttestator {
             if (targets.busybox.enabled) {
                 TargetOutputDump(
                     DetectableSystemTarget.BUSYBOX,
-                    CombinedBinaryDump("busybox", context.packageName)
+                    CombinedBinaryDump("busybox", context.packageName, settings.allowRootCheck)
                 )
             } else {
                 BlankSpecter
@@ -98,7 +98,7 @@ internal object TargetsAttestator {
             if (targets.toybox.enabled) {
                 TargetOutputDump(
                     DetectableSystemTarget.TOYBOX,
-                    CombinedBinaryDump("toybox", context.packageName)
+                    CombinedBinaryDump("toybox", context.packageName, settings.allowRootCheck)
                 )
             } else {
                 BlankSpecter

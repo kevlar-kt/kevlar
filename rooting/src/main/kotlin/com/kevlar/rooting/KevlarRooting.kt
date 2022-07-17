@@ -10,23 +10,27 @@ import com.kevlar.rooting.dsl.settings.RootingSettingsBuilder
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
- * Main class for `:rooting` package.
+ * Entry class for `:rooting` package.
  * */
 public class KevlarRooting(
-    block: RootingSettingsBuilder.() -> Unit
+    block: RootingSettingsBuilder.() -> Unit = DefaultRootingSettings
 ) {
     private val settings: RootingSettings = RootingSettingsBuilder().apply(block).build()
 
     /**
-     * Asynchronously produces a [TargetRootingAttestation]
+     * Asynchronously produces a [TargetRootingAttestation].
+     *
+     * Checks for root access, busybox, toybox, magisk or xposed framework activity.
      * */
-    public suspend fun attestateSystemModifications(context: Context): TargetRootingAttestation = TargetsAttestator.attestate(settings, context, targetIndex.getAndIncrement())
+    public suspend fun attestateTargets(context: Context): TargetRootingAttestation = TargetsAttestator.attestate(settings, context, targetIndex.getAndIncrement())
 
 
     /**
-     * Asynchronously produces a [StatusRootingAttestation]
+     * Asynchronously produces a [StatusRootingAttestation].
+     *
+     * Checks for emulator execution, non-enforcing selinux status or text keys.
      * */
-    public suspend fun attestateSystemStatus(): StatusRootingAttestation = StatusAttestator.attestate(settings, statusIndex.getAndIncrement())
+    public suspend fun attestateStatus(): StatusRootingAttestation = StatusAttestator.attestate(settings, statusIndex.getAndIncrement())
 
     public companion object {
         /**
@@ -37,5 +41,21 @@ public class KevlarRooting(
 
         public fun blankTargetAttestation(): TargetRootingAttestation = TargetRootingAttestation.Blank(0)
         public fun blankStatusAttestation(): StatusRootingAttestation = StatusRootingAttestation.Blank(0)
+    }
+}
+
+
+/**
+ * Default settings for [KevlarRooting].
+ * */
+public val DefaultRootingSettings: RootingSettingsBuilder.() -> Unit = {
+    this.run {
+        targets {
+            root()
+        }
+
+        status {
+            emulator()
+        }
     }
 }

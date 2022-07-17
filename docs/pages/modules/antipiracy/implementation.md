@@ -6,6 +6,8 @@ Once you have that, you just go ahead and call `antipiracy.attestate()` in a cor
 
 `AntipiracyAttestation` will be returned from the call (it's a sealed class), containing the found software list, if any.
 
+Note that we will be initializing `KevlarAntipiracy` with custom scan settings, but you could leave it as default.
+
 ## In-Place
 This is the most concise way to implement piracy checks.
 
@@ -36,6 +38,7 @@ CoroutineScope(Dispatchers.Default).launch {
 }
 ```
 
+This packs everything in one file. It is not excellent when writing a modern applications but it does its job.
 
 ## ViewModel + Repository + SharedFlow + DI with Hilt
 

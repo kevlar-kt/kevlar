@@ -16,17 +16,18 @@ import kotlinx.coroutines.withContext
 internal suspend fun CombinedBinaryDump(
     binaryName: String,
     packageName: String,
+    allowRootCheck: Boolean
 ): CombinedBinaryDump = withContext(Dispatchers.IO) {
     val appDump = async {
-        BinaryDump(binaryName, packageName, ExecutionLevel.APP)
+        BinaryDump(binaryName, packageName, ExecutionLevel.APP, allowRootCheck)
     }
 
     val binDump = async {
-        BinaryDump(binaryName, packageName, ExecutionLevel.SH)
+        BinaryDump(binaryName, packageName, ExecutionLevel.SH, allowRootCheck)
     }
 
     val suDump = async {
-        BinaryDump(binaryName, packageName, ExecutionLevel.SU)
+        BinaryDump(binaryName, packageName, ExecutionLevel.SU, allowRootCheck)
     }
 
     //awaitAll(appDump, binDump, suDump)
@@ -37,7 +38,8 @@ internal suspend fun CombinedBinaryDump(
 internal suspend fun BinaryDump(
     binaryName: String,
     packageName: String,
-    level: ExecutionLevel
+    level: ExecutionLevel,
+    allowRootCheck: Boolean
 ): BinaryDump = withContext(Dispatchers.IO) {
     when (level) {
         // App-level check
@@ -96,30 +98,34 @@ internal suspend fun BinaryDump(
             )
         }
         ExecutionLevel.SU -> {
-            val shellId = async {
-                // We execute the `id` command as root
-                Shell.su("id").exec()
+            if (allowRootCheck) {
+                val shellId = async {
+                    // We execute the `id` command as root
+                    Shell.su("id").exec()
+                }
+
+                val binaryPathExtraction = async {
+                    // We execute the `which` command [it should give us the command path, if found]
+                    Shell.su("which $binaryName").exec()
+                }
+
+                val binaryTest = async {
+                    // At last, we execute the command itself
+                    Shell.su(binaryName).exec()
+                }
+
+                awaitAll(shellId, binaryPathExtraction, binaryTest)
+
+                BinaryDump(
+                    binaryName = binaryName,
+                    executionLevel = ExecutionLevel.SU,
+                    userResult = shellId.await(),
+                    invocationResult = binaryTest.await(),
+                    pathExtractionResult = binaryPathExtraction.await()
+                )
+            } else {
+                BinaryDump.emptyBinaryDump(binaryName, ExecutionLevel.SU)
             }
-
-            val binaryPathExtraction = async {
-                // We execute the `which` command [it should give us the command path, if found]
-                Shell.su("which $binaryName").exec()
-            }
-
-            val binaryTest = async {
-                // At last, we execute the command itself
-                Shell.su(binaryName).exec()
-            }
-
-            awaitAll(shellId, binaryPathExtraction, binaryTest)
-
-            BinaryDump(
-                binaryName = binaryName,
-                executionLevel = ExecutionLevel.SU,
-                userResult = shellId.await(),
-                invocationResult = binaryTest.await(),
-                pathExtractionResult = binaryPathExtraction.await()
-            )
         }
     }
 }
