@@ -66,6 +66,7 @@ nav:
           - 'Overview': index.md
           - 'Dependencies & Integration': pages/overview/dependencies_integration.md
           - 'Choosing Packages': pages/overview/choosing.md
+          - 'Anatomy of an Attack': pages/overview/anatomy_of_attacks.md
           - 'Philosophy': pages/overview/philosophy.md
           - 'Technical Material': pages/overview/material.md
     - Antipiracy:
@@ -81,6 +82,8 @@ nav:
           - 'Internals' : pages/modules/rooting/internals.md
     - 'Integrity':
           - 'Overview': pages/modules/integrity/integrity.md
+          - 'Implementation': pages/modules/integrity/implementation.md
+          - 'Hardcoding': pages/modules/integrity/hardcoding.md
 
 markdown_extensions:
     - tables

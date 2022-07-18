@@ -23,6 +23,7 @@ import androidx.databinding.DataBindingUtil
 import com.kevlar.showcase.R
 import com.kevlar.showcase.databinding.ActivityMainBinding
 import com.kevlar.showcase.ui.activities.antipiracy.AntipiracyActivity
+import com.kevlar.showcase.ui.activities.integrity.IntegrityActivity
 import com.kevlar.showcase.ui.activities.rooting.RootingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -47,6 +48,12 @@ class MainActivity : AppCompatActivity() {
             buttonRooting.setOnClickListener {
                 startActivity(
                     Intent(this@MainActivity, RootingActivity::class.java)
+                )
+            }
+
+            buttonIntegrity.setOnClickListener {
+                startActivity(
+                    Intent(this@MainActivity, IntegrityActivity::class.java)
                 )
             }
         }

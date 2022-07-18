@@ -3,7 +3,7 @@
 ``` mermaid
 graph LR
   I[Inizialization] -.Settings..-> K{KevlarIntegrity};
-  DB([Hardcoded Metadata]) === K
+  DB([Hardcoded & Obfuscated Metadata]) === K
   AR1[Attestation Requests] --> K
   K --> |Clear| P[Passed];
   K --> |Failed| NP[Not Passed];
@@ -13,27 +13,23 @@ graph LR
 
 The integrity module contains tools for the detection of tampering attempts against your app.
 
-It takes a little bit of time to set up, but the 
+It requires a bit of effort to implement (you need to find, code and obfuscate your app metadata, all the instruction are in [implementation](implementation.md)), but once you have it runs quickly and works extremely well.
 
-Once configured with settings, the package is able to quickly run different batteries of tests on the operative system (through shell commands) to check if the target modifications are present on the device.
+It is capable of detecting:
 
-It produces two different kinds of attestations: one searching for system modification and one for system conditions.
-
-It is capable of detecting the following system modifications (through the `targets` attestation)
-
-Depending on what you need to check, you may choose one or run both.
+- Signature mismatches (the running app's signature and the hardcoded signature are different)
+- Package name mismatches (the running app's package name and the hardcoded package name are different)
+- Debuggable flag (the running app is debuggable, which should never happen for production apps)
+- Disallowed Installers (the running app has been installed through a disallowed package installer)
 
 
 !!! question "Purpose of the `integrity` module"
-	You may want to use this package if you care about the system-wide security status, or if you consider that your application running on rooted/modified devices is a security risk.
+	You want to use this module if you need to give your app a layer of protection against tampering attacks (see [anatomy](../../overview/anatomy_of_attacks.md) for more details).
+	Enabling just a few checks and implementing basic obfuscation will make your app harder to crack.
 
-!!! summary "Notation"
 
-	In the rooting module, the words "target" and "status" are used loosely, but they actually have special meaning.
-
-	`Targets` means system modification. Something that may be installed (and detectable) over the operating system. It is a kind of add-on, a custom software component.
-
-	`Status` means a system condition. Something that is itself part of the operating system out of the box, and whose status we want to check.
+!!! warning Automatic vs Specific attack
+	This module is the best defence against automatic and/or unskilled attacks
 
 
 ## Attestation process overview

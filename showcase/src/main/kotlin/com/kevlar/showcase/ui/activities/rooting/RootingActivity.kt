@@ -14,7 +14,6 @@ import com.kevlar.rooting.dsl.attestation.status.StatusRootingAttestation
 import com.kevlar.rooting.dsl.attestation.target.TargetRootingAttestation
 import com.kevlar.showcase.R
 import com.kevlar.showcase.databinding.RootingActivityBinding
-import com.kevlar.showcase.ui.activities.integrity.IntegrityActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +23,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class RootingActivity : AppCompatActivity() {
 
-    private val vm: IntegrityActivityViewModel by viewModels()
+    private val vm: RootingActivityViewModel by viewModels()
 
     private lateinit var binding: RootingActivityBinding
 

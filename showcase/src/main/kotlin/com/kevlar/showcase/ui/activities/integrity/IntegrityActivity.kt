@@ -62,8 +62,6 @@ class IntegrityActivity : AppCompatActivity() {
             }
         }
 
-        Log.d("SIGNATURE", KevlarIntegrity.obtainCurrentAppSignatures(this).toString())
-
         CoroutineScope(Dispatchers.Main).launch {
             vm.requestAttestation()
         }

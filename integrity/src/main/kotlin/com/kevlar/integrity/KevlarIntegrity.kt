@@ -8,10 +8,11 @@ import com.kevlar.integrity.dsl.settings.IntegritySettings
 import com.kevlar.integrity.dsl.settings.IntegritySettingsBuilder
 import com.kevlar.integrity.model.HardcodedMetadata
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.math.sign
 
 public class KevlarIntegrity(
     private val hardcodedMetadata: HardcodedMetadata,
-    block: IntegritySettingsBuilder.() -> Unit
+    block: IntegritySettingsBuilder.() -> Unit = DefaultIntegritySettings
 ) {
     private val settings: IntegritySettings = IntegritySettingsBuilder().apply(block).build()
 
@@ -29,6 +30,17 @@ public class KevlarIntegrity(
 
         public fun blankAttestation(): IntegrityAttestation = IntegrityAttestation.Blank(0)
 
-        public fun obtainCurrentAppSignatures(context: Context): List<String> = obtainBase64EncodedSignatures(context)
+        public fun obtainCurrentAppSignature(context: Context): String = obtainBase64EncodedSignatures(context)[0].trim()
+    }
+}
+
+public val DefaultIntegritySettings: IntegritySettingsBuilder.() -> Unit = {
+    this.run {
+        checks {
+            signature()
+            packageName()
+            debug()
+            // installer()
+        }
     }
 }
