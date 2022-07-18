@@ -22,7 +22,7 @@ If you require a higher success rate, you will need much more sophisticated and 
 Kevlar catches what can be caught in a reasonable amount of time, space and lines of code. 
 In a similar fashion as the [pareto distribution](https://en.wikipedia.org/wiki/Pareto_distribution), to slightly improve the detection rate you will need much more complicated software, much more time, or much more space.
 
-And for the record, any software trying to claim that it achieves 100% detection is factually wrong (there is a theorem in computability and decidability theory literally stating that you can not do that) [it's a generalization of the halting problem].
+And for the record, any software trying to claim that it achieves 100% detection is factually wrong (there is a theorem in computability and decidability theory literally stating that you can not do that).
 
 
 ## Accuracy and Precision

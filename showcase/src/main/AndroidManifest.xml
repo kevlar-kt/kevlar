@@ -31,5 +31,8 @@
         <activity
             android:name="com.kevlar.showcase.ui.activities.rooting.RootingActivity"
             android:exported="true" />
+        <activity
+            android:name="com.kevlar.showcase.ui.activities.integrity.IntegrityActivity"
+            android:exported="true" />
     </application>
 </manifest>

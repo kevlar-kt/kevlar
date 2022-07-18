@@ -2,7 +2,7 @@
   <a href="https://github.com/kevlar-kt/kevlar" target="_blank"><img width="100" src="https://github.com/kevlar-kt/kevlar/raw/master/art/kevlar-kt/web/icon-512.png"></a>
 </p>
 
-<h1 align="center">Kevlar</h1>
+<h1 align="center"><a href="https://kevlar-kt.github.io/kevlar">Kevlar</a></h1>
 <p align="center">Android Security Framework.</p>
 
 <p align="center">

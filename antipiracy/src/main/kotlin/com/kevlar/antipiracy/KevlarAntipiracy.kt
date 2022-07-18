@@ -11,12 +11,12 @@ import java.util.concurrent.atomic.AtomicInteger
 public class KevlarAntipiracy(
     block: AntipiracySettingsBuilder.() -> Unit = DefaultAntipiracySettings
 ) {
-    private val armament: AntipiracySettings = AntipiracySettingsBuilder().apply(block).build()
+    private val settings: AntipiracySettings = AntipiracySettingsBuilder().apply(block).build()
 
     /**
      * Asynchronously produces an [AntipiracyAttestation]
      * */
-    public suspend fun attestate(context: Context): AntipiracyAttestation = AntipiracyAttestator.attestate(armament, context, index.getAndIncrement())
+    public suspend fun attestate(context: Context): AntipiracyAttestation = AntipiracyAttestator.attestate(settings, context, index.getAndIncrement())
 
     public companion object {
         /**

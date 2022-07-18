@@ -1,4 +1,4 @@
-package com.kevlar.dsl
+package com.kevlar
 
 import android.content.Context
 import com.kevlar.dsl.attestation.Attestation

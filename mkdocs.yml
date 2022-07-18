@@ -64,16 +64,17 @@ plugins:
 nav:
     - 'Index':
           - 'Overview': index.md
+          - 'Dependencies & Integration': pages/overview/dependencies_integration.md
           - 'Choosing Packages': pages/overview/choosing.md
           - 'Philosophy': pages/overview/philosophy.md
-          - 'Dependencies & Integration': pages/overview/dependencies_integration.md
+          - 'Technical Material': pages/overview/material.md
     - Antipiracy:
           - 'Overview' : pages/modules/antipiracy/antipiracy.md
           - 'Implementation' : pages/modules/antipiracy/implementation.md
           - 'Detection' : pages/modules/antipiracy/detection.md
-          - 'Tradeoffs' : pages/modules/antipiracy/tradeoffs.md
           - 'Database' : pages/modules/antipiracy/database.md
           - 'Privacy' : pages/modules/antipiracy/privacy.md
+          - 'Tradeoffs' : pages/modules/antipiracy/tradeoffs.md
     - 'Rooting':
           - 'Overview' : pages/modules/rooting/rooting.md
           - 'Implementation' : pages/modules/rooting/implementation.md

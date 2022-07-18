@@ -1,18 +1,18 @@
-package com.kevlar.antipiracy.dsl.attestation
+package com.kevlar.integrity.dsl.attestation
 
-import com.kevlar.antipiracy.dsl.settings.scan.ScanResult
+import com.kevlar.integrity.dsl.settings.scan.CheckResult
 
 /**
- * Attestation released by [KevlarAntipiracy] to describe the system's state at a given time
+ * Attestation released by [KevlarIntegrity]
  * */
-public sealed class AntipiracyAttestation {
+public sealed class IntegrityAttestation {
 
     /**
      * Attestation has *not* been verified yet
      * */
     public data class Blank(
         override val index: Int
-    ) : AntipiracyAttestation()
+    ) : IntegrityAttestation()
 
 
     /**
@@ -20,15 +20,15 @@ public sealed class AntipiracyAttestation {
      * */
     public data class Clear(
         override val index: Int
-    ) : AntipiracyAttestation()
+    ) : IntegrityAttestation()
 
     /**
-     * Attestation detected pirate software installed.
+     * Attestation detected integrity issues.
      * */
     public data class Failed(
         override val index: Int,
-        public val scanResult: ScanResult
-    ) : AntipiracyAttestation()
+        public val checkResult: CheckResult
+    ) : IntegrityAttestation()
 
     /**
      * Counts the number of attestations released

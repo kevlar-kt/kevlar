@@ -77,10 +77,13 @@ which will most certainly be the vast majority of what your app will ever be put
 
 
 ## Additions & Alternatives
+Kevlar resembles what may look like an in-house protection system. It is open source, 
+
 For stricter scenarios where a higher fidelity and accuracy is required, you should be using something more specific.
 
 - [SafetyNet](https://developer.android.com/training/safetynet) from Google
 - [AppCheck](https://firebase.google.com/products/app-check) from Firebase
+- [ProGuard](https://www.guardsquare.com/proguard) and [DexGuard](https://www.guardsquare.com/dexguard) from GuardSquare
 
 ## License
 This project is licensed under the Apache License, Version 2.0. Please refer to the `LICENSE.md` file inside the github repository for the full text.
