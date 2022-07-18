@@ -34,7 +34,7 @@ class RootingRepository @Inject constructor(
             }
         }
 
-        disallowRootCheck()
+        allowRootCheck()
     }
 
     /**

@@ -1,6 +1,39 @@
 # Implementation
+
 A working example for the antipiracy module can be found in the github repository under the `:showcase` module.
-You need to create a `KevlarAntipiracy` instance (which is the way you will be requesting scans), along with your desired parameters (either global, local or in your repository layer, if you are using MVVM/MVC).
+
+## Dependency
+
+???+ gradle "Gradle"
+
+	``` java
+	dependencies {
+    	implementation "com.github.kevlar-kt:rooting:1.0.0"
+	}
+	```
+
+??? gradle "Kotlin DSL"
+
+	``` kotlin
+	dependencies {
+	    implementation("com.github.kevlar-kt:rooting:1.0.0")
+	}
+	```
+
+??? gradle "Maven"
+
+	``` xml
+	<dependency>
+	    <groupId>com.github.kevlar-kt</groupId>
+	    <artifactId>rooting</artifactId>
+	    <version>1.0.0</version>
+	    <type>pom</type>
+	</dependency>
+	```
+
+## Initialization & Attestations
+
+You need to create a `KevlarAntipiracy` instance (which is the way you will be requesting attestations), along with your desired parameters (either global, local or in your repository layer, if you are using MVVM/MVC).
 
 Once you have that, you just go ahead and call `antipiracy.attestate()` in a coroutine and your system will be analyzed, according to the provided parameters.
 
@@ -8,11 +41,11 @@ Once you have that, you just go ahead and call `antipiracy.attestate()` in a cor
 
 Note that we will be initializing `KevlarAntipiracy` with custom scan settings, but you could leave it as default.
 
+
 ## In-Place
 This is the most concise way to implement piracy checks.
 
-
-```kotlin
+```kotlin title="InPlace.kt"
 val antipiracy = KevlarAntipiracy {
     scan {
         // your scan configuration
@@ -43,7 +76,7 @@ This packs everything in one file. It is not excellent when writing a modern app
 ## ViewModel + Repository + SharedFlow + DI with Hilt
 
 #### Activity:
-```kotlin
+```kotlin title="AntipiracyActivity.kt"
 @AndroidEntryPoint
 class AntipiracyActivity : AppCompatActivity() {
 
@@ -79,10 +112,10 @@ class AntipiracyActivity : AppCompatActivity() {
 ```
 
 #### View model:
-```kotlin
+```kotlin title="ActivityViewModel.kt"
 @HiltViewModel
 class ActivityViewModel @Inject constructor(
-    private val securityRepository: SecurityRepository
+    private val securityRepository: AntipiracyRepository
 ) : ViewModel() {
 
     private val _attestationState = MutableStateFlow(KevlarAntipiracy.blankAttestation())
@@ -103,8 +136,8 @@ class ActivityViewModel @Inject constructor(
 ```
 
 #### Repository
-```kotlin
-class SecurityRepository @Inject constructor(
+```kotlin title="AntipiracyRepository.kt"
+class AntipiracyRepository @Inject constructor(
     @ApplicationContext val context: Context,
     @IoDispatcher val externalDispatcher: CoroutineDispatcher
 ) {

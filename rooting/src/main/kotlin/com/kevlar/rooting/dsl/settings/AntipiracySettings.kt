@@ -8,7 +8,7 @@ import com.kevlar.rooting.dsl.settings.target.SystemTargets
 import com.kevlar.rooting.dsl.settings.target.SystemTargetsBuilder
 
 /**
- * Holds settings for [KevlarRooting].
+ * Holds settings for [com.kevlar.rooting.KevlarRooting].
  *
  * Current available settings include:
  * - System targets (allows to target the detection of specific system modifications)
@@ -32,7 +32,7 @@ public data class RootingSettings(
 public class RootingSettingsBuilder : DslBuilder<RootingSettings>() {
     private var systemTargets: SystemTargets = SystemTargets.default()
     private var systemStatus: SystemStatus = SystemStatus.default()
-    private var allowRootCheck: Boolean = true
+    private var allowRootCheck: Boolean = false
 
     public fun targets(block: SystemTargetsBuilder.() -> Unit) {
         systemTargets = SystemTargetsBuilder().apply(block).build()
@@ -42,8 +42,8 @@ public class RootingSettingsBuilder : DslBuilder<RootingSettings>() {
         systemStatus = SystemStatusBuilder().apply(block).build()
     }
 
-    public fun disallowRootCheck() {
-        allowRootCheck = false
+    public fun allowRootCheck() {
+        allowRootCheck = true
     }
 
     override fun build(): RootingSettings = RootingSettings(systemTargets, systemStatus, allowRootCheck)

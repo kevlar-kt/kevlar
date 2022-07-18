@@ -1,5 +1,37 @@
 # Implementation
+
 A working example for the rooting module can be found in the github repository under the `:showcase` module.
+
+## Dependency
+
+???+ gradle "Gradle"
+
+	``` java
+	dependencies {
+    	implementation "com.github.kevlar-kt:rooting:1.0.0"
+	}
+	```
+
+??? gradle "Kotlin DSL"
+
+	``` kotlin
+	dependencies {
+	    implementation("com.github.kevlar-kt:rooting:1.0.0")
+	}
+	```
+
+??? gradle "Maven"
+
+	``` xml
+	<dependency>
+	    <groupId>com.github.kevlar-kt</groupId>
+	    <artifactId>rooting</artifactId>
+	    <version>1.0.0</version>
+	    <type>pom</type>
+	</dependency>
+	```
+
+## Initialization & Attestations
 You need to create a `KevlarRooting` instance (which is the way you will be requesting attestations), along with your desired parameters (either global, local or in your repository layer, if you are using MVVM/MVC).
 
 The `rooting` package has 2 attestations: `TargetRootingAttestation` and `StatusRootingAttestation`.
@@ -14,7 +46,7 @@ We go ahead and create a working single-attestation example (for system modifica
 This is the most concise way to implement rooting.
 
 
-```kotlin
+```kotlin title="InPlace.kt"
 val rooting = KevlarRooting {
     targets {
         root()
@@ -44,7 +76,7 @@ CoroutineScope(Dispatchers.Default).launch {
 ## ViewModel + Repository + SharedFlow + DI with Hilt
 
 #### Activity:
-```kotlin
+```kotlin title="RootingActivity.kt"
 @AndroidEntryPoint
 class RootingActivity : AppCompatActivity() {
 
@@ -80,10 +112,10 @@ class RootingActivity : AppCompatActivity() {
 ```
 
 #### View model:
-```kotlin
+```kotlin title="ActivityViewModel.kt"
 @HiltViewModel
 class ActivityViewModel @Inject constructor(
-    private val securityRepository: SecurityRepository
+    private val securityRepository: RootingRepository
 ) : ViewModel() {
 	
     private val _targetAttestationState = MutableStateFlow(KevlarRooting.blankTargetAttestation())
@@ -104,8 +136,8 @@ class ActivityViewModel @Inject constructor(
 ```
 
 #### Repository
-```kotlin
-class SecurityRepository @Inject constructor(
+```kotlin title="RootingRepository.kt"
+class RootingRepository @Inject constructor(
     @ApplicationContext val context: Context,
     @IoDispatcher val externalDispatcher: CoroutineDispatcher
 ) {

@@ -5,6 +5,37 @@ Implementing `integrity` requires, on top of a `KevlarAntipiracy` and the attest
 This is necessary to provide kevlar a truth value to match the runtime values (which may have been tampered and altered) against.
 The obfuscation is necessary because we need to conceal the truth values, since they will be looked for by the attacker (software or human), and make it as hard as possible to automatically find and patch them.
 
+A working example for the integrity module can be found in the github repository under the `:showcase` module.
+
+## Dependency
+
+???+ gradle "Gradle"
+
+	``` java
+	dependencies {
+    	implementation "com.github.kevlar-kt:integrity:1.0.0"
+	}
+	```
+
+??? gradle "Kotlin DSL"
+
+	``` kotlin
+	dependencies {
+	    implementation("com.github.kevlar-kt:integrity:1.0.0")
+	}
+	```
+
+??? gradle "Maven"
+
+	``` xml
+	<dependency>
+	    <groupId>com.github.kevlar-kt</groupId>
+	    <artifactId>integrity</artifactId>
+	    <version>1.0.0</version>
+	    <type>pom</type>
+	</dependency>
+	```
+
 ## Hardcoded metadata
 The first step is getting the necessary metadata. You need the following:
 
@@ -43,7 +74,7 @@ Grab that string value and save it along with your package name.
 
 
 ### Obfuscating metadata
-The second (optional but recommended) step is obfuscating the metadata you just read, so that it is **saved** in an obfuscated form (in your bytecode, so that automatic tools can't find it), but passed to kevlar deobfuscated (so that we have the original truth values).
+The second step (optional but recommended) is obfuscating the metadata you just read, so that it is **saved** in an obfuscated form (in your bytecode, so that automatic tools can't find it), but passed to kevlar deobfuscated (so that we have the original truth values).
 
 There are a few ways to do it
 
@@ -96,6 +127,7 @@ You can look them up [online](https://www.base64encode.org), grab them from your
 	The flag field and charset don't necessarily need to be `Base64.DEFAULT` and `UTF_8`. Even though they are the most popular, you may choose something else if you prefer.
 
 ??? bug "Bytecode"
+	Here the metadata is hidden and not targetable with basic find-and-replace techniques
 
 	``` linenums="1" hl_lines="3 19"
 	L6
@@ -182,11 +214,12 @@ A better alternative is to encrypt the hardcoded metadata, store them in an encr
 ```kotlin title="encrypted_hardcoded_metadata.kt"
 private val key256 = """4t7w!z%C*F-JaNcRfUjXn2r5u8x/A?D"""
 
-private val packageName = """7KAa2CFkhPQOUouDu32KZJLqOzGFbTTnJA3rGxMlAg4="""
-private val signature = """+ylMx63kwFRmXKHQU0cbzyb8MJ1iiGW1g8+MjDRcS/o="""
+private val packageName = """s3wf/AOYtr9BEMVFrweeLnkmerryUykMA8O77S5tMlI=""".toByteArray(Charsets.UTF_8)
+private val signature = """tqMJquO3D+EKx1rx4R7/qzmsuEgpp1bKwxXe9AeB/WU=""".toByteArray(Charsets.UTF_8)
 
 private val encryptedHardcodedMetadata = HardcodedMetadata(
-	decrypt(packageName, key), decrypt(signature, key)
+	EncryptionUtil.decrypt(packageName, key256), 
+	EncryptionUtil.decrypt(signature, key256)
 )
 ```
 
@@ -198,9 +231,258 @@ AES128 or AES256 is recommended as the encryption algorithm (it's a little overk
 
 The ciphertext may also be stored as a byte array.
 
+??? tldr "Encryption utility"
+
+	This tiny class (from the [showcase](https://github.com/kevlar-kt/kevlar/blob/master/showcase/src/main/kotlin/com/kevlar/showcase/util/EncryptionUtil.kt) module in the repository) is a basic AES encryption/decryption util.
+
+	```kotlin title="EncryptionUtil.kt"
+	import android.util.Base64
+	import javax.crypto.Cipher
+	import javax.crypto.SecretKey
+	import javax.crypto.spec.SecretKeySpec
+	
+	object EncryptionUtil {
+	    private const val algorithm = "AES"
+	    private const val transformation = "AES/ECB/PKCS5Padding"
+	
+	    fun generateKey(key: String): SecretKey = SecretKeySpec(key.toByteArray(), algorithm)
+	
+	    fun encrypt(text: ByteArray, secret: SecretKey): String {
+	        val cipher: Cipher = Cipher.getInstance(transformation).apply {
+	            init(Cipher.ENCRYPT_MODE, secret)
+	        }
+	
+	        return Base64.encodeToString(cipher.doFinal(text), Base64.NO_WRAP) ?: ""
+	    }
+	
+	    fun decrypt(ciphertext: ByteArray, secret: SecretKey): String {
+	        val cipher: Cipher = Cipher.getInstance(transformation).apply {
+	            init(Cipher.DECRYPT_MODE, secret)
+	        }
+	
+	        return String(cipher.doFinal(Base64.decode(ciphertext, Base64.NO_WRAP)), Charsets.UTF_8)
+	    }
+	}
+	```
+
+??? bug "Bytecode"
+
+	Here detecting and reconstructing the original package name automatically is basically impossible
+
+	``` linenums="1" hl_lines="7 23"
+	L22
+	 ALOAD 0
+	 LDC "4t7w!z%C*F-JaNcRfUjXn2r5u8x/A?Ds"
+	 PUTFIELD com/kevlar/showcase/data/repo/IntegrityRepository.key256 : Ljava/lang/String;
+	L23
+	 ALOAD 0
+	 LDC "s3wf/AOYtr9BEMVFrweeLnkmerryUykMA8O77S5tMlI="
+	 ASTORE 3
+	 GETSTATIC kotlin/text/Charsets.UTF_8 : Ljava/nio/charset/Charset;
+	 ASTORE 4
+	L24
+	 ALOAD 3
+	L25
+	 ALOAD 4
+	 INVOKEVIRTUAL java/lang/String.getBytes (Ljava/nio/charset/Charset;)[B
+	 DUP
+	 LDC "(this as java.lang.String).getBytes(charset)"
+	 INVOKESTATIC kotlin/jvm/internal/Intrinsics.checkNotNullExpressionValue (Ljava/lang/Object;Ljava/lang/String;)V
+	L26
+	 PUTFIELD com/kevlar/showcase/data/repo/IntegrityRepository.encryptedPackageName : [B
+	L27
+	 ALOAD 0
+	 LDC "tqMJquO3D+EKx1rx4R7/qzmsuEgpp1bKwxXe9AeB/WU="
+	 ASTORE 3
+	 GETSTATIC kotlin/text/Charsets.UTF_8 : Ljava/nio/charset/Charset;
+	 ASTORE 4
+	L28
+	 ALOAD 3
+	L29
+	 ALOAD 4
+	 INVOKEVIRTUAL java/lang/String.getBytes (Ljava/nio/charset/Charset;)[B
+	 DUP
+	 LDC "(this as java.lang.String).getBytes(charset)"
+	 INVOKESTATIC kotlin/jvm/internal/Intrinsics.checkNotNullExpressionValue (Ljava/lang/Object;Ljava/lang/String;)V
+	L30
+	 PUTFIELD com/kevlar/showcase/data/repo/IntegrityRepository.encryptedSignature : [B
+	L31
+	 ALOAD 0
+	 NEW com/kevlar/integrity/model/HardcodedMetadata
+	 DUP
+	L32
+	 GETSTATIC com/kevlar/showcase/util/EncryptionUtil.INSTANCE : Lcom/kevlar/showcase/util/EncryptionUtil;
+	 ALOAD 0
+	 GETFIELD com/kevlar/showcase/data/repo/IntegrityRepository.encryptedPackageName : [B
+	 GETSTATIC com/kevlar/showcase/util/EncryptionUtil.INSTANCE : Lcom/kevlar/showcase/util/EncryptionUtil;
+	 ALOAD 0
+	 GETFIELD com/kevlar/showcase/data/repo/IntegrityRepository.key256 : Ljava/lang/String;
+	 INVOKEVIRTUAL com/kevlar/showcase/util/EncryptionUtil.generateKey (Ljava/lang/String;)Ljavax/crypto/SecretKey;
+	 INVOKEVIRTUAL com/kevlar/showcase/util/EncryptionUtil.decrypt ([BLjavax/crypto/SecretKey;)Ljava/lang/String;
+	L33
+	 GETSTATIC com/kevlar/showcase/util/EncryptionUtil.INSTANCE : Lcom/kevlar/showcase/util/EncryptionUtil;
+	 ALOAD 0
+	 GETFIELD com/kevlar/showcase/data/repo/IntegrityRepository.encryptedSignature : [B
+	 GETSTATIC com/kevlar/showcase/util/EncryptionUtil.INSTANCE : Lcom/kevlar/showcase/util/EncryptionUtil;
+	 ALOAD 0
+	 GETFIELD com/kevlar/showcase/data/repo/IntegrityRepository.key256 : Ljava/lang/String;
+	 INVOKEVIRTUAL com/kevlar/showcase/util/EncryptionUtil.generateKey (Ljava/lang/String;)Ljavax/crypto/SecretKey;
+	 INVOKEVIRTUAL com/kevlar/showcase/util/EncryptionUtil.decrypt ([BLjavax/crypto/SecretKey;)Ljava/lang/String;
+	L34
+     INVOKESPECIAL com/kevlar/integrity/model/HardcodedMetadata.<init> (Ljava/lang/String;Ljava/lang/String;)V
+     PUTFIELD com/kevlar/showcase/data/repo/IntegrityRepository.aes256EncryptedHardcodedMetadata : Lcom/kevlar/integrity/model/HardcodedMetadata;
+	```
+
 #### Hashing
 This hasn't been developed yet, but it may be possible to let kevlar know only the hash of your hardcoded data, and let it match directly on the runtime signatures and package names hashes. 
 This would require multiple options of composite hash functions to be secure enough. It is not implemented.
 
 ## Initialization & Attestations
 
+You need to create a `KevlarIntegrity` instance (which is the way you will be requesting attestations), along with your desired parameters (either global, local or in your repository layer, if you are using MVVM/MVC).
+
+Once you have that, you just go ahead and call `integrity.attestate()` in a coroutine and your application running metadata will be checked, according to the provided parameters.
+
+`IntegrityAttestation` will be returned from the call (it's a sealed class), containing the checks which failed, if any.
+
+Note that we will be initializing `KevlarIntegrity` with custom scan settings, but you could leave it as default.
+
+## In-Place
+This is the most concise (and complete) way to implement this package.
+
+```kotlin title="InPlace.kt"
+// com.kevlar.showcase
+val base64PackageName = """Y29tLmtldmxhci5zaG93Y2FzZQ==""".toByteArray(Charsets.UTF_8)
+
+// J+nqXLfuIO8B2AmhkMYHGE4jDyw=
+val base64Signature = """SitucVhMZnVJTzhCMkFtaGtNWUhHRTRqRHl3PQ==""".toByteArray(Charsets.UTF_8)	
+
+
+val base64ObfuscatedHardcodedMetadata = HardcodedMetadata(
+    Base64.decode(base64PackageName, Base64.DEFAULT).toString(Charsets.UTF_8),
+    Base64.decode(base64Signature, Base64.DEFAULT).toString(Charsets.UTF_8)
+)
+
+val integrity = KevlarIntegrity(base64ObfuscatedHardcodedMetadata) {
+    checks {
+        signature()
+        packageName()
+        installer()
+        debug()
+    }
+}
+
+CoroutineScope(Dispatchers.Default).launch {
+	// Attestation request
+    when (val attestation = integrity.attestate(context)) {
+        is IntegrityAttestation.Blank -> {
+            // Pending attestation, no information yet. 
+        	// Don't do anything.
+        }
+        is IntegrityAttestation.Clear -> {
+            // Good to go.
+        }
+        is IntegrityAttestation.Failed -> {
+            // One or more checks have failed.
+        }
+    }
+}
+```
+
+This packs everything in one file. It is not excellent when writing a modern applications but it does its job.
+
+## ViewModel + Repository + SharedFlow + DI with Hilt
+
+#### Activity:
+```kotlin title="IntegrityActivity.kt"
+@AndroidEntryPoint
+class IntegrityActivity : AppCompatActivity() {
+
+    private val vm: ActivityViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+	    
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                vm.attestation.collectLatest {
+                    when (it) {
+                        is IntegrityAttestation.Blank -> {
+                            // Pending attestation, no information yet.
+                            // Don't do anything.
+                        }
+                        is IntegrityAttestation.Clear -> {
+                            // Good to go.
+                        }
+                        is IntegrityAttestation.Failed -> {
+                            // Pirate software detected.
+                        }
+                    }
+                }
+            }
+        }
+
+        CoroutineScope(Dispatchers.Main).launch {
+            vm.requestAttestation()
+        }
+    }
+}
+```
+
+#### View model:
+```kotlin title="ActivityViewModel.kt"
+@HiltViewModel
+class ActivityViewModel @Inject constructor(
+    private val integrityRepository: IntegrityRepository
+) : ViewModel() {
+    private val _attestation = MutableStateFlow(KevlarIntegrity.blankAttestation())
+
+    internal val attestation: SharedFlow<IntegrityAttestation> = _attestation.stateIn(
+        viewModelScope,
+        SharingStarted.Eagerly,
+        initialValue = KevlarIntegrity.blankAttestation()
+    )
+
+    fun requestAttestation() {
+        viewModelScope.launch {
+            _attestation.value = integrityRepository.attestate()
+        }
+    }
+}
+
+```
+
+#### Repository
+```kotlin title="IntegrityRepository.kt"
+class IntegrityRepository @Inject constructor(
+    @ApplicationContext val context: Context,
+    @IoDispatcher val externalDispatcher: CoroutineDispatcher
+) {
+    /**
+     * Base64 obfuscated
+     * */
+    private val base64PackageName = """Y29tLmtldmxhci5zaG93Y2FzZQ==""".toByteArray(Charsets.UTF_8)
+    private val base64Signature = """SitucVhMZnVJTzhCMkFtaGtNWUhHRTRqRHl3PQ==""".toByteArray(Charsets.UTF_8)
+
+    private val base64ObfuscatedHardcodedMetadata = HardcodedMetadata(
+        Base64.decode(base64PackageName, Base64.DEFAULT).toString(Charsets.UTF_8),
+        Base64.decode(base64Signature, Base64.DEFAULT).toString(Charsets.UTF_8)
+    )
+
+    /**
+     * Integrity package
+     * */
+    private val integrity = KevlarIntegrity(plaintextHardcodedMetadata) {
+        checks {
+            signature()
+            packageName()
+            installer()
+            debug()
+        }
+    }
+
+    suspend fun attestate(): IntegrityAttestation = withContext(externalDispatcher) {
+        integrity.attestate(context)
+    }
+}
+```

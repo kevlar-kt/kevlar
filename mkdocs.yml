@@ -118,3 +118,4 @@ extra:
 
 extra_css:
     - 'assets/css/app.css'
+    - 'assets/css/extra.css'

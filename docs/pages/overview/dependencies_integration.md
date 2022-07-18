@@ -3,7 +3,7 @@
 All the dependencies are published on MavenCentral
 
 ### Antipiracy
-???+ info "Gradle"
+???+ gradle "Gradle"
 
 	``` java
 	dependencies {
@@ -11,7 +11,7 @@ All the dependencies are published on MavenCentral
 	}
 	```
 
-??? info "Kotlin DSL"
+??? gradle "Kotlin DSL"
 
 	``` kotlin
 	dependencies {
@@ -19,7 +19,7 @@ All the dependencies are published on MavenCentral
 	}
 	```
 
-??? info "Maven"
+??? gradle "Maven"
 
 	``` xml
 	<dependency>
@@ -30,9 +30,39 @@ All the dependencies are published on MavenCentral
 	</dependency>
 	```
 
+
+### Rooting
+???+ gradle "Gradle"
+
+	``` java
+	dependencies {
+    	implementation "com.github.kevlar-kt:rooting:1.0.0"
+	}
+	```
+
+??? gradle "Kotlin DSL"
+
+	``` kotlin
+	dependencies {
+	    implementation("com.github.kevlar-kt:rooting:1.0.0")
+	}
+	```
+
+??? gradle "Maven"
+
+	``` xml
+	<dependency>
+	    <groupId>com.github.kevlar-kt</groupId>
+	    <artifactId>rooting</artifactId>
+	    <version>1.0.0</version>
+	    <type>pom</type>
+	</dependency>
+	```
+
+
 ### Integrity
 
-???+ info "Gradle"
+???+ gradle "Gradle"
 
 	``` java
 	dependencies {
@@ -40,7 +70,7 @@ All the dependencies are published on MavenCentral
 	}
 	```
 
-??? info "Kotlin DSL"
+??? gradle "Kotlin DSL"
 
 	``` kotlin
 	dependencies {
@@ -48,7 +78,7 @@ All the dependencies are published on MavenCentral
 	}
 	```
 
-??? info "Maven"
+??? gradle "Maven"
 
 	``` xml
 	<dependency>
