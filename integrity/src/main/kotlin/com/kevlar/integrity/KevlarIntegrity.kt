@@ -30,7 +30,9 @@ public class KevlarIntegrity(
 
         public fun blankAttestation(): IntegrityAttestation = IntegrityAttestation.Blank(0)
 
-        public fun obtainCurrentAppSignature(context: Context): String = obtainBase64EncodedSignatures(context)[0].trim()
+        public fun obtainCurrentAppSignature(context: Context): String = obtainCurrentAppSignatures(context)[0]
+
+        public fun obtainCurrentAppSignatures(context: Context): List<String> = obtainBase64EncodedSignatures(context)
     }
 }
 

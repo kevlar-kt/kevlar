@@ -14,9 +14,22 @@ import kotlinx.coroutines.*
 
 internal object IntegrityAttestator {
 
+    /**
+     * Holds the pair check result and element
+     * */
     data class CheckOutputSpecter(
         val element: IntegrityElement,
-        val detected: Boolean
+
+        /**
+         * Whether the given element has passed the test (it checks out, everything is
+         * as normal) or not (and we have to report it.
+         * */
+        val hasPassedTest: Boolean,
+
+        /**
+         * Whether the check has been run or not.
+         * */
+        val isEnabled: Boolean,
     )
 
     suspend fun attestate(
@@ -26,42 +39,87 @@ internal object IntegrityAttestator {
         index: Int
     ): IntegrityAttestation = withContext(Dispatchers.Default) {
         val checkSettings = settings.checks
-
         val specters: MutableList<CheckOutputSpecter> = mutableListOf()
 
+        // Here we run all the checks and see which ones fail
         val signature: Deferred<CheckOutputSpecter> = async {
-            CheckOutputSpecter(
-                IntegrityElement.MATCH_HARDCODED_SIGNATURE,
-                matchesHardcodedSignature(hardcodedSignature = hardcodedMetadata.signature, context)
-            )
+            if (checkSettings.signature.enabled) {
+                CheckOutputSpecter(
+                    IntegrityElement.MATCH_HARDCODED_SIGNATURE,
+                    hasPassedTest = matchesHardcodedSignature(
+                        hardcodedSignature = hardcodedMetadata.signature,
+                        context
+                    ),
+                    isEnabled = true
+                )
+            } else {
+                CheckOutputSpecter(
+                    IntegrityElement.MATCH_HARDCODED_SIGNATURE,
+                    hasPassedTest = true,
+                    isEnabled = false
+                )
+            }
         }
 
 
         val packageName: Deferred<CheckOutputSpecter> = async {
-            CheckOutputSpecter(
-                IntegrityElement.MATCH_HARDCODED_PACKAGE_NAME,
-                matchesHardcodedPackageName(hardcodedPackageName = hardcodedMetadata.packageName, context)
-            )
+            if (checkSettings.packageName.enabled) {
+                CheckOutputSpecter(
+                    IntegrityElement.MATCH_HARDCODED_PACKAGE_NAME,
+                    hasPassedTest = matchesHardcodedPackageName(
+                        hardcodedPackageName = hardcodedMetadata.packageName,
+                        context
+                    ),
+                    isEnabled = true
+                )
+            } else {
+                CheckOutputSpecter(
+                    IntegrityElement.MATCH_HARDCODED_PACKAGE_NAME,
+                    hasPassedTest = true,
+                    isEnabled = false
+                )
+            }
         }
 
 
         val debug: Deferred<CheckOutputSpecter> = async {
-            CheckOutputSpecter(
-                IntegrityElement.DEBUG_BUILD,
-                isDebugBuild(context)
-            )
+            if (checkSettings.debug.enabled) {
+                CheckOutputSpecter(
+                    IntegrityElement.DEBUG_BUILD,
+                    // We do not want debug builds, so we negate it
+                    hasPassedTest = !isDebugBuild(context),
+                    isEnabled = true
+                )
+            } else {
+                CheckOutputSpecter(
+                    IntegrityElement.DEBUG_BUILD,
+                    hasPassedTest = true,
+                    isEnabled = false
+                )
+            }
         }
 
 
         val installer: Deferred<CheckOutputSpecter> = async {
-            CheckOutputSpecter(
-                IntegrityElement.UNAUTHORIZED_INSTALLER,
-                matchesAllowedInstallerPackageNames(checkSettings.installer.allowedInstallers, context)
-            )
+            if (checkSettings.installer.enabled) {
+                CheckOutputSpecter(
+                    IntegrityElement.UNAUTHORIZED_INSTALLER,
+                    hasPassedTest = matchesAllowedInstallerPackageNames(
+                        checkSettings.installer.allowedInstallers,
+                        context
+                    ),
+                    isEnabled = true
+                )
+            } else {
+                CheckOutputSpecter(
+                    IntegrityElement.UNAUTHORIZED_INSTALLER,
+                    hasPassedTest = true,
+                    isEnabled = false
+                )
+            }
         }
 
-
-        awaitAll(signature, packageName)
+        awaitAll(signature, packageName, debug, installer)
 
         specters.addAll(
             listOf(
@@ -77,7 +135,8 @@ internal object IntegrityAttestator {
         specters: List<CheckOutputSpecter>,
         index: Int
     ): IntegrityAttestation {
-        val detectedElements: Set<CheckOutputSpecter> = specters.filter { it.detected }.toSet()
+        val detectedElements: Set<CheckOutputSpecter> =
+            specters.filter { it.isEnabled && !it.hasPassedTest }.toSet()
 
         return when {
             detectedElements.isEmpty() -> {

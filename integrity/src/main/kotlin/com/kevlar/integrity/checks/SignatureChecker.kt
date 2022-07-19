@@ -17,15 +17,22 @@ internal fun matchesHardcodedSignature(
     context: Context
 ): Boolean {
     return try {
-        val packageInfo = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_SIGNATURES)
+        val packageInfo = context.packageManager.getPackageInfo(
+            context.packageName,
+            PackageManager.GET_SIGNATURES
+        )
 
+        /**
+         * We are guaranteed to have at least one signature, even if it is for debug
+         * */
         for (signature in packageInfo.signatures) {
-            val md: MessageDigest = MessageDigest.getInstance("SHA")
-            md.update(signature.toByteArray())
-            val currentSignature: String = Base64.encodeToString(md.digest(), Base64.DEFAULT)
-            // Log.d("REMOVE_ME", "Include this string as a value for SIGNATURE:$currentSignature")
+            val md = MessageDigest.getInstance("SHA").apply {
+                update(signature.toByteArray())
+            }
 
-            if (hardcodedSignature == currentSignature) {
+            val runtimeSignature = Base64.encodeToString(md.digest(), Base64.NO_WRAP)
+
+            if (runtimeSignature == hardcodedSignature) {
                 return true
             }
         }
@@ -37,16 +44,15 @@ internal fun matchesHardcodedSignature(
 }
 
 @SuppressLint("PackageManagerGetSignatures")
-internal fun obtainBase64EncodedSignatures(context: Context): List<String> = try {
-    context.packageManager.getPackageInfo(
-        context.packageName,
-        PackageManager.GET_SIGNATURES
-    ).signatures.map {
-        val md = MessageDigest.getInstance("SHA")
-        md.update(it.toByteArray())
+internal fun obtainBase64EncodedSignatures(
+    context: Context
+): List<String> = context.packageManager
+    .getPackageInfo(context.packageName, PackageManager.GET_SIGNATURES)
+    .signatures
+    .map {
+        val md = MessageDigest.getInstance("SHA").apply {
+            update(it.toByteArray())
+        }
 
-        Base64.encodeToString(md.digest(), Base64.DEFAULT)
+        Base64.encodeToString(md.digest(), Base64.NO_WRAP)
     }
-} catch (e: Exception) {
-    listOf()
-}

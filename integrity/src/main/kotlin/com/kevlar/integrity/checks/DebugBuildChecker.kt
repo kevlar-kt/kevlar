@@ -14,4 +14,4 @@ import java.security.MessageDigest
  * */
 internal fun isDebugBuild(
     context: Context
-): Boolean = (context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) == 1
+): Boolean = (context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0

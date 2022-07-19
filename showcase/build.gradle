@@ -20,14 +20,14 @@ android {
     
     buildTypes {
         debug {
-            applicationIdSuffix '.debug'
-            versionNameSuffix '-debug'
+            //applicationIdSuffix '.debug'
+            //versionNameSuffix '-debug'
             debuggable true
         }
         
         release {
-            applicationIdSuffix '.prod'
-            versionNameSuffix '-prod'
+            //applicationIdSuffix '.prod'
+            //versionNameSuffix '-prod'
             debuggable false
             minifyEnabled true
             shrinkResources true
