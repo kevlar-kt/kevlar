@@ -1,10 +1,3 @@
-package com.kevlar.rooting.util
-
-import dalvik.system.DexClassLoader
-import android.content.Context
-import java.io.File
-import java.lang.Exception
-
 /*
  * Copyright (C) 2016 Jared Rummler <jared.rummler@gmail.com>
  *
@@ -19,7 +12,16 @@ import java.lang.Exception
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * This has been converted to kotlin from java.
  */
+
+package com.kevlar.rooting.util
+
+import dalvik.system.DexClassLoader
+import android.content.Context
+import java.io.File
+import java.lang.Exception
 
 /**
  * Utility methods for checking if the Xposed framework is installed.

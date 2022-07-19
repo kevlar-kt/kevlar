@@ -40,7 +40,6 @@ You can read the details in [privacy](privacy.md), but essentially since android
 ```
 
 ## Initialization & Attestations
-
 You need to create a `KevlarAntipiracy` instance (which is the way you will be requesting attestations), along with your desired parameters (either global, local or in your repository layer, if you are using MVVM/MVC).
 
 Once you have that, you just go ahead and call `antipiracy.attestate()` in a coroutine and your system will be analyzed, according to the provided parameters.

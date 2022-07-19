@@ -15,8 +15,8 @@ A security environment is the security state of a device, which can be probed wi
 Each package focuses on a specific security environment area:
 
 - `antipiracy` detects the presence of pirate software installed on the device (user-wise security);
-- `rooting` detects the presence of root access, custom binaries and abnormal system status on the OS (system-wise security).
-- `integrity` detects certain types of tampering techniques your app may have been targeted with (app-wise security);
+- `rooting` detects the presence of root access, custom binaries and abnormal system status on the OS (system-wise security);
+- `integrity` detects certain types of tampering techniques your app may have been targeted with (app-wise security).
 
 Kevlar is intended to be used any time it is deemed necessary to determine whether the device your app is running on can be regarded as secure, according to your policies and security requirements.
 
@@ -78,13 +78,13 @@ which will most certainly be the vast majority of what your app will ever be put
 
 
 ## Additions & Alternatives
-Kevlar resembles what may look like an in-house protection system. It is open source, 
+Kevlar resembles what may look like a in-house protection system. It is open source, flexible and complete.
 
-For stricter scenarios where a higher fidelity and accuracy is required, you should be using something more specific.
+For stricter scenarios where a higher fidelity and accuracy is required, you should be using something more specific (and radically different).
 
-- [SafetyNet](https://developer.android.com/training/safetynet) from Google
-- [AppCheck](https://firebase.google.com/products/app-check) from Firebase
-- [ProGuard](https://www.guardsquare.com/proguard) and [DexGuard](https://www.guardsquare.com/dexguard) from GuardSquare
+- [SafetyNet](https://developer.android.com/training/safetynet) from Google;
+- [AppCheck](https://firebase.google.com/products/app-check) from Firebase;
+- [ProGuard](https://www.guardsquare.com/proguard) and [DexGuard](https://www.guardsquare.com/dexguard) from GuardSquare.
 
 ## License
 This project is licensed under the Apache License, Version 2.0. Please refer to the `LICENSE.md` file inside the github repository for the full text.

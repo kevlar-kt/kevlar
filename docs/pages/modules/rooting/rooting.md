@@ -2,7 +2,7 @@
 
 ``` mermaid
 graph LR
-  I[Inizialization] -.Settings..-> K{KevlarAntipiracy};
+  I[Inizialization] -.Settings..-> K{KevlarRooting};
   DB([Android OS]) === K
   AR1[Target Attestation Requests] --> K
   AR2[Status Attestation Requests] --> K
@@ -45,7 +45,6 @@ Depending on what you need to check, you may choose one or run both.
 	In the rooting package, the words "target" and "status" are used loosely, but they actually have special meaning.
 	`Targets` means system modification. Something that may be installed (and detectable) over the operating system. It is a kind of add-on, a custom software component.
 	`Status` means a system condition. Something that is itself part of the operating system out of the box, and whose status we want to check.
-
 
 To [implement](implementation.md) this, you initialize `KevlarRooting` and provide your desired settings (which influence what is to be checked and what not). Then you can submit attestation requests of whichever kind you prefer (which will be executed according to your settings).
 
@@ -103,9 +102,9 @@ When you require an attestation, kevlar performs the following operations:
 
 The attestation is returned either in `TargetRootingAttestation` or `StatusRootingAttestation` (both are sealed class), which depending on the detection status can be of three types (with different fields):
 
-- `Blank`: This is a non-processed status. It should not be interpreted, as it does not carry any meaning about the attestation result. It is not to be interpret `Clear`.
+- `Blank`: This is a non-processed status. It should not be interpreted, as it does not carry any meaning about the attestation result. It is not to be interpret `Clear`;
 - `Clear`: The attestation has passed. There is nothing to report. This means that no system modification/status has triggered the detection from the battery of tests which has been executed, in compliance with the given scan parameters;
-- `Failed`: The attestation has not passed. Pirate software has been detected. You can read which component has tripped the detection in the attestation result.
+- `Failed`: The attestation has not passed. A target/status hs been detected. You can read which one has tripped the detection in the attestation result.
 
 
 !!! warning

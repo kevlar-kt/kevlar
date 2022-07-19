@@ -1,8 +1,23 @@
+/*
+ * Designed and developed by Kevlar Contributors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 @file:Suppress("NOTHING_TO_INLINE")
 
 package com.kevlar.rooting.attestator
 
-import android.util.Log
 import com.kevlar.rooting.dataset.DetectableSystemStatus
 import com.kevlar.rooting.detection.status.SelinuxGetenforceStatus
 import com.kevlar.rooting.detection.status.detectEmulator
@@ -17,10 +32,8 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 
 /**
- * Package queries, scan initializer, vector specter manager & attestation producer
- *
  * This class may, at first look, seem like it has been written by a drunk developer
- * given how unconventionally some things have been written, but it all has been done
+ * given how unconventionally some things have been coded, but it all has been done
  * in the name of ease of integration and future developments.
  *
  * Generalizing into a proper OOP model and iterating does not scale well at all, given the

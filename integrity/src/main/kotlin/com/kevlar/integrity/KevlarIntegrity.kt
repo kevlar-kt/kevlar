@@ -1,3 +1,19 @@
+/*
+ * Designed and developed by Kevlar Contributors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.kevlar.integrity
 
 import android.content.Context
@@ -6,9 +22,8 @@ import com.kevlar.integrity.checks.obtainBase64EncodedSignatures
 import com.kevlar.integrity.dsl.attestation.IntegrityAttestation
 import com.kevlar.integrity.dsl.settings.IntegritySettings
 import com.kevlar.integrity.dsl.settings.IntegritySettingsBuilder
-import com.kevlar.integrity.model.HardcodedMetadata
+import com.kevlar.integrity.hardcoded.HardcodedMetadata
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.math.sign
 
 public class KevlarIntegrity(
     private val hardcodedMetadata: HardcodedMetadata,
@@ -28,10 +43,19 @@ public class KevlarIntegrity(
          * */
         private val index = AtomicInteger(0)
 
-        public fun blankAttestation(): IntegrityAttestation = IntegrityAttestation.Blank(0)
+        /**
+         * Produces a blank attestation.
+         * */
+        public fun blankAttestation(index: Int = 0): IntegrityAttestation = IntegrityAttestation.Blank(index)
 
+        /**
+         * Returns the current running application (oldest) signature.
+         * */
         public fun obtainCurrentAppSignature(context: Context): String = obtainCurrentAppSignatures(context)[0]
 
+        /**
+         * Returns the current running application signatures.
+         * */
         public fun obtainCurrentAppSignatures(context: Context): List<String> = obtainBase64EncodedSignatures(context)
     }
 }

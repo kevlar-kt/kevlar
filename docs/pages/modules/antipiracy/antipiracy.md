@@ -69,12 +69,12 @@ There is only one type of attestation that can be produced.
 
 The attestation is returned in `AntipiracyAttestation` (it is a sealed class), which depending on the detection status can be of three types:
 
-- `Blank`: This is a non-processed status. It should not be interpreted, as it does not carry any meaning about the attestation result. It is not to be interpreted as `Clear`.
+- `Blank`: This is a non-processed status. It should not be interpreted, as it does not carry any meaning about the attestation result. It is not to be interpreted as `Clear`;
 - `Clear`: The attestation has passed. There is nothing to report. This means that no installed software has triggered the detection from the battery of tests which has been executed, in compliance with the given scan parameters;
 - `Failed`: The attestation has not passed. Pirate software has been detected. You can read which software has tripped the detection in the attestation result. The action you were about to do may be compromised, and you should not proceed.
 
 !!! warning
-`Blank` is completely different from `Clear` (or `Failed`). It means that the software is initialized but that nothing has been done yet. Do not mix them up.
+	`Blank` is completely different from `Clear` (or `Failed`). It means that the software is initialized but that nothing has been done yet. Do not mix them up.
 
 ## Performance
 Package detection and testing makes use of coroutines to run scan operation in parallel for each package, in order to minimize the time taken to run through all packages.

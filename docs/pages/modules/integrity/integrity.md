@@ -33,29 +33,53 @@ It is capable of detecting:
 	If implemented well, it will kill off most of them
 
 
+To [implement](implementation.md) this, you initialize `KevlarIntegrity` and provide your desired settings (which influence what is to be checked and what not). Then you can submit attestation requests (which will be executed according to your settings).
+
+??? note "Empty & default settings"
+	The settings on `integrity` are additive. If you leave a blank DSL, nothing will be detected, because no checks will be run, because the settings are empty.
+
+	If you do not pass a DSL at all, the default settings will be used (they scan for signature, package name and debug).
+
+	```kotlin title="Custom"
+    private val integrity = KevlarIntegrity {
+        checks {
+            signature()
+            packageName()
+            debug()
+            installer()
+        }
+    }
+	```
+
+	```kotlin title="Empty"
+    private val integrity = KevlarIntegrity {
+        checks {
+
+		}
+    }
+	```
+
+	```kotlin title="Default"
+    private val integrity = KevlarIntegrity()
+	```
+
+
 ## Attestation process overview
-This package can produce two attestations: a `TargetAssestation` and a `StatusAttestation`.
+When you require an attestation (through `integrity.attestate(context)`), kevlar executes the following operations:
 
-When you require an attestation, kevlar performs the following operations:
+1. Depending on what integrity checks you selected, the appropriate battery of tests for those targets is initialized and ran;
+2. The results are collected, processed, filtered and returned.
 
-- for the targets attestation (through `rooting.attestateTargets(context)`):
+There is only one type of attestation that can be produced.
 
-	1. Depending on what system modification you selected, the appropriate battery of tests for that system modification is initialized and ran;
-	2. The results are collected, processed, filtered and returned.
+The attestation is returned in `IntegrityAttestation` (it is a sealed class), which depending on the detection status can be of three types:
 
-- for the status attestation (through `rooting.attestateStatus()`):
-
-	1.  Depending on what system condition you selected, the appropriate check for that system status flag is initialized and ran;
-	2. The results are collected, processed, filtered and returned.
-
-The attestation is returned either in `TargetRootingAttestation` or `StatusRootingAttestation` (both are sealed class), which depending on the detection status can be of three types (with different fields):
-
-- `Blank`: This is a non-processed status. It should not be interpreted, as it does not carry any meaning about the attestation result. It is not to be interpret `Clear`.
-- `Clear`: The attestation has passed. There is nothing to report. This means that no system modification/status has triggered the detection from the battery of tests which has been executed, in compliance with the given scan parameters;
-- `Failed`: The attestation has not passed. Pirate software has been detected. You can read which component has tripped the detection in the attestation result.
+- `Blank`: This is a non-processed status. It should not be interpreted, as it does not carry any meaning about the attestation result. It is not to be interpret `Clear`;
+- `Clear`: The attestation has passed. There is nothing to report. This means that no system modification/status has triggered the detection from the battery of tests which has been executed, in compliance with the given check parameters;
+- `Failed`: The attestation has not passed. Integrity or tampering issues have been detected. You can check which check has failed (which inconsistency has been found between the hardcoded and runtime values) in the attestation result.
 
 !!! warning
-`Blank` is completely different from `Clear` (or `Failed`). It means that the software is initialized but that nothing has been done yet. Do not mix them up.
+	`Blank` is completely different from `Clear` (or `Failed`). It means that the software is initialized but that nothing has been done yet. Do not mix them up.
 
 ## Use cases
-This is a pretty typical scenario for any banking application, or even for games.
+This is a pretty typical scenario for any application where it is critical to preserve self integrity and run unmodified code.

@@ -1,12 +1,25 @@
 # Dependencies and Integration
 
-All the dependencies are published on MavenCentral. Make sure to have it included in your `reporitories` block in the top level `build.gradle` file
+### Publishing
+
+All the dependencies are published on MavenCentral. Make sure to have it included in your `reporitories` block in the top level `build.gradle` file.
 
 ```groovy
 repositories {
     mavenCentral()
 }
 ```
+
+### Project Requirements
+
+- Java 8+ is required;
+	```groovy
+	compileOptions {
+	    sourceCompatibility JavaVersion.VERSION_1_8
+	    targetCompatibility JavaVersion.VERSION_1_8
+	}
+	```
+- `minSdk` 19+ is required.
 
 ## Antipiracy
 ???+ gradle "Gradle"
@@ -94,3 +107,4 @@ repositories {
 	    <type>pom</type>
 	</dependency>
 	```
+

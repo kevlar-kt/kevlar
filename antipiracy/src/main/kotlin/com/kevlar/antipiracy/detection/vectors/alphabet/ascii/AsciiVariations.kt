@@ -1,262 +1,276 @@
+/*
+ * Designed and developed by Kevlar Contributors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.kevlar.antipiracy.detection.vectors.alphabet.ascii
 
 @Suppress("SpellCheckingInspection")
-internal class AsciiVariations {
-    companion object {
-        val a = charArrayOf(
-            // Uppercase
-            'A',
-            'a',
+internal object AsciiVariations {
+    val a = charArrayOf(
+        // Uppercase
+        'A',
+        'a',
 
-            // Cyrillic
-            'А',
-            'а', 'ӑ', 'ӓ',
+        // Cyrillic
+        'А',
+        'а', 'ӑ', 'ӓ',
 
-            // Fullwidth
-            'ａ',
-        )
+        // Fullwidth
+        'ａ',
+    )
 
-        val b = charArrayOf(
-            // Basic Latin
-            'B', 'b',
-        )
+    val b = charArrayOf(
+        // Basic Latin
+        'B', 'b',
+    )
 
 
-        val c = charArrayOf(
-            // Basic Latin
-            'с', 'c',
+    val c = charArrayOf(
+        // Basic Latin
+        'с', 'c',
 
-            // Cyrillic C
-            'с',
+        // Cyrillic C
+        'с',
 
-            // Fullwidth
-            'ｃ',
+        // Fullwidth
+        'ｃ',
 
-            // Cedilla
-            'ç',
-        )
+        // Cedilla
+        'ç',
+    )
 
 
-        val d = charArrayOf(
-            // Basic Latin
-            'D', 'd',
-        )
+    val d = charArrayOf(
+        // Basic Latin
+        'D', 'd',
+    )
 
-        val e = charArrayOf(
-            // Basic latin
-            'e', 'е',
+    val e = charArrayOf(
+        // Basic latin
+        'e', 'е',
 
-            // Cyrillic
-            'є', 'ё', 'е', 'ҽ', 'з', 'э', 'ҿ',
+        // Cyrillic
+        'є', 'ё', 'е', 'ҽ', 'з', 'э', 'ҿ',
 
-            // Fullwidth
-            'ｅ',
+        // Fullwidth
+        'ｅ',
 
-            // Boh
-            'µ'
-        )
+        // Boh
+        'µ'
+    )
 
-        val f = charArrayOf(
-            // Basic Latin
-            'F', 'f',
-        )
+    val f = charArrayOf(
+        // Basic Latin
+        'F', 'f',
+    )
 
-        val g = charArrayOf(
-            // Basic Latin
-            'G', 'g',
-        )
+    val g = charArrayOf(
+        // Basic Latin
+        'G', 'g',
+    )
 
-        val h = charArrayOf(
-            // Basic Latin
-            'H', 'h',
+    val h = charArrayOf(
+        // Basic Latin
+        'H', 'h',
 
-            // Cyrillic
-            'н', 'һ', 'ӈ', 'Һ',
+        // Cyrillic
+        'н', 'һ', 'ӈ', 'Һ',
 
-            // Fullwidth
-            'ｈ',
+        // Fullwidth
+        'ｈ',
 
-            // Boh
-            'Ð',
-        )
+        // Boh
+        'Ð',
+    )
 
-        val i = charArrayOf(
-            // Basic Latin
-            'I', 'i',
+    val i = charArrayOf(
+        // Basic Latin
+        'I', 'i',
 
-            // Numbers
-            '1',
-        )
+        // Numbers
+        '1',
+    )
 
-        val j = charArrayOf(
-            // Basic Latin
-            'J', 'j',
-        )
+    val j = charArrayOf(
+        // Basic Latin
+        'J', 'j',
+    )
 
-        val k = charArrayOf(
-            // Basic Latin
-            'K', 'k',
+    val k = charArrayOf(
+        // Basic Latin
+        'K', 'k',
 
-            // Cyrillic
-            'к', 'ќ', 'ӄ',
+        // Cyrillic
+        'к', 'ќ', 'ӄ',
 
-            // Fullwidth
-            'ｋ',
-        )
+        // Fullwidth
+        'ｋ',
+    )
 
-        val l = charArrayOf(
-            // Basic Latin
-            'L', 'l',
+    val l = charArrayOf(
+        // Basic Latin
+        'L', 'l',
 
-            // Fullwidth
-            'Ｌ',
+        // Fullwidth
+        'Ｌ',
 
-            // Cyrillic El
-            'л', 'Л'
-        )
+        // Cyrillic El
+        'л', 'Л'
+    )
 
 
-        val m = charArrayOf(
-            // Basic Latin
-            'M', 'm',
-        )
+    val m = charArrayOf(
+        // Basic Latin
+        'M', 'm',
+    )
 
-        val n = charArrayOf(
-            // Basic Latin
-            'N', 'n',
-        )
+    val n = charArrayOf(
+        // Basic Latin
+        'N', 'n',
+    )
 
 
-        val o = charArrayOf(
-            // Basic Latin
-            'O', 'o',
+    val o = charArrayOf(
+        // Basic Latin
+        'O', 'o',
 
-            // Numbers
-            '0',
-        )
+        // Numbers
+        '0',
+    )
 
-        val p = charArrayOf(
-            // Basic Latin
-            'P', 'p',
+    val p = charArrayOf(
+        // Basic Latin
+        'P', 'p',
 
-            // Cyrillic Er
-            'Р', 'Ҏ', 'ҏ', 'р',
+        // Cyrillic Er
+        'Р', 'Ҏ', 'ҏ', 'р',
 
-            // Fullwidth
-            'Ｐ', 'ｐ'
-        )
+        // Fullwidth
+        'Ｐ', 'ｐ'
+    )
 
-        val q = charArrayOf(
-            // Basic Latin
-            'Q', 'q',
-        )
+    val q = charArrayOf(
+        // Basic Latin
+        'Q', 'q',
+    )
 
-        val r = charArrayOf(
-            // Basic Latin
-            'r', 'r',
+    val r = charArrayOf(
+        // Basic Latin
+        'r', 'r',
 
-            // Cyrillic
-            'я',
+        // Cyrillic
+        'я',
 
-            // Fullwidth
-            'ｒ',
+        // Fullwidth
+        'ｒ',
 
-            // Boh
-            'µ'
-        )
+        // Boh
+        'µ'
+    )
 
-        val s = charArrayOf(
-            // Basic Latin
-            'S', 's',
+    val s = charArrayOf(
+        // Basic Latin
+        'S', 's',
 
-            // Latin small
-            'ꜱ',
+        // Latin small
+        'ꜱ',
 
-            // Cyrillic
-            'ѕ',
-        )
+        // Cyrillic
+        'ѕ',
+    )
 
-        val t = charArrayOf(
-            // Basic Latin
-            'T', 't',
+    val t = charArrayOf(
+        // Basic Latin
+        'T', 't',
 
-            // Cyrillic
-            'т',
+        // Cyrillic
+        'т',
 
-            // Fullwidth
-            'ｔ',
-        )
+        // Fullwidth
+        'ｔ',
+    )
 
 
-        val u = charArrayOf(
-            // Basic Latin
-            'U', 'u',
+    val u = charArrayOf(
+        // Basic Latin
+        'U', 'u',
 
-            // Cyrillic
-            'ц', 'џ',
+        // Cyrillic
+        'ц', 'џ',
 
-            // Fullwidth
-            'ｕ',
-        )
+        // Fullwidth
+        'ｕ',
+    )
 
 
-        val v = charArrayOf(
-            // Basic Latin
-            'V', 'v',
-        )
+    val v = charArrayOf(
+        // Basic Latin
+        'V', 'v',
+    )
 
 
-        val w = charArrayOf(
-            // Basic Latin
-            'W', 'w',
-        )
+    val w = charArrayOf(
+        // Basic Latin
+        'W', 'w',
+    )
 
 
-        val x = charArrayOf(
-            // Basic Latin
-            'X', 'x',
-        )
+    val x = charArrayOf(
+        // Basic Latin
+        'X', 'x',
+    )
 
-        val y = charArrayOf(
-            // Basic Latin
-            'у', 'y',
+    val y = charArrayOf(
+        // Basic Latin
+        'у', 'y',
 
-            // Cyrillic
-            'у', 'ӳ', 'ӱ', 'Ӱ', 'ӯ', 'Ӯ', 'У', 'ў',
+        // Cyrillic
+        'у', 'ӳ', 'ӱ', 'Ӱ', 'ӯ', 'Ӯ', 'У', 'ў',
 
-            // Fullwidth
-            'ｙ',
-        )
+        // Fullwidth
+        'ｙ',
+    )
 
-        val z = charArrayOf(
-            // Basic Latin
-            'Z', 'z',
-        )
+    val z = charArrayOf(
+        // Basic Latin
+        'Z', 'z',
+    )
 
-        val sepatator = charArrayOf(
-            // Quotes
-            '"', '`', '´', '\'', '‘', '’', '“', '”',
+    val sepatator = charArrayOf(
+        // Quotes
+        '"', '`', '´', '\'', '‘', '’', '“', '”',
 
-            // Mashes
-            '+', '*', '~', '#', '@', '$', '!', '?',
+        // Mashes
+        '+', '*', '~', '#', '@', '$', '!', '?',
 
-            // Dashes
-            ' ', '_', '-', '–', '—', '─',
+        // Dashes
+        ' ', '_', '-', '–', '—', '─',
 
-            // Slashes
-            '/', '\\', '﹨', '＼', '／', '/',
+        // Slashes
+        '/', '\\', '﹨', '＼', '／', '/',
 
-            // Braces
-            '(', ')', '[', ']',
+        // Braces
+        '(', ')', '[', ']',
 
-            // Fking spaces
-            ' ', ' ', '　',
+        // Fking spaces
+        ' ', ' ', '　',
 
-            // Supplements
-            '¨',
+        // Supplements
+        '¨',
 
-            // Characters thst should by all means be against Geneva Conventions
-            ' ', ' ', ' ', '⁠', ' ', ' ',
-        )
-    }
+        // Characters thst should by all means be against Geneva Conventions
+        ' ', ' ', ' ', '⁠', ' ', ' ',
+    )
 }

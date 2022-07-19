@@ -65,6 +65,7 @@ going to the extent of obfuscating code which, if ever reverse engineered, would
 It would be necessary to introduce such mechanisms only if hostile software would try to automatically target specific kevlar components. 
 While I doubt this would ever happen, introducing basic internal safety checks or compile-time randomized obfuscation would surely make that kind of detection unfeasible.
 
+
 ## Accuracy and Precision
 It is fairly accurate (since there are just a few checks to run in order to check security status, we are fairly confident that most of the times we will get the information right),
 and has excellent precision (since checks are deterministic and predictable, given an initial condition, the result will always be the same, accurate or not)
