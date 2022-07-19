@@ -30,7 +30,7 @@ public data class CustomScan(
 
 
 @AntipiracyDslMarker
-public class PirateSoftwareScanBuilder() {
+public class PirateSoftwareScanBuilder {
     private var enabled: Boolean = false
 
     internal fun enable() {
@@ -46,7 +46,7 @@ public class PirateSoftwareScanBuilder() {
 
 
 @AntipiracyDslMarker
-public class PirateStoreScanBuilder() : DslBuilder<PirateStoreScan>() {
+public class PirateStoreScanBuilder : DslBuilder<PirateStoreScan>() {
     private var enabled: Boolean = false
 
     internal fun enable() {
@@ -62,7 +62,7 @@ public class PirateStoreScanBuilder() : DslBuilder<PirateStoreScan>() {
 
 
 @AntipiracyDslMarker
-public class CollateralScanBuilder() : DslBuilder<CollateralScan>() {
+public class CollateralScanBuilder : DslBuilder<CollateralScan>() {
     private var enabled: Boolean = false
 
     internal fun enable() {
@@ -78,7 +78,7 @@ public class CollateralScanBuilder() : DslBuilder<CollateralScan>() {
 
 
 @AntipiracyDslMarker
-public class CustomScanBuilder() : DslBuilder<CustomScan>() {
+public class CustomScanBuilder : DslBuilder<CustomScan>() {
     private var enabled: Boolean = false
 
     internal fun enable() {

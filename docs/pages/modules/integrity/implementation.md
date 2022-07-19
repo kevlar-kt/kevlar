@@ -70,13 +70,13 @@ Grab that string value and save it along with your package name.
 	)
 	```
 
-	Refrain from coding this monstruosity. The sole purpose of `HardcodedMetadata` is **[hardcoding](https://en.wikipedia.org/wiki/Hard_coding)** truth values inside your app. This little code single handedly kills the whole library (because obviously the runtime package name will match the runtime package name) and is like shooting yourself in the foot with a cannon. Don't. 
+	Refrain from coding this monstruosity. The sole purpose of `HardcodedMetadata` is **[hardcoding](https://en.wikipedia.org/wiki/Hard_coding)** truth values inside your app. This little snippet single handedly kills the whole library (because obviously the runtime package name will match the runtime package name) and is like shooting yourself in the foot with a cannon. Don't. 
 
 
 ### Obfuscating metadata
 The second step (optional but recommended) is obfuscating the metadata you just read, so that it is **saved** in an obfuscated form (in your bytecode, so that automatic tools can't find it), but passed to kevlar deobfuscated (so that we have the original truth values).
 
-There are a few ways to do it
+There are a few ways to do it:
 
 #### No obfuscation (not recommended)
 You just save the values as they are and pass them in HardcodedMetadata
@@ -124,7 +124,7 @@ Where `Y29tLmtldmxhci5zaG93Y2FzZQ==` is the base64 encoding of `com.kevlar.showc
 You can look them up [online](https://www.base64encode.org), grab them from your app or use `openssl base64` in the terminal.
 
 !!! info "Base64 flags & charset"
-	The flag field and charset don't necessarily need to be `Base64.DEFAULT` and `UTF_8`. Even though they are the most popular, you may choose something else if you prefer.
+	The flag field and charset don't necessarily need to be `Base64.DEFAULT` and `UTF_8`. Even though they are the most popular, you may choose something else if you prefer, as long as you preserve consistency.
 
 ??? bug "Bytecode"
 	Here the metadata is hidden and not targetable with basic find-and-replace techniques
@@ -233,7 +233,7 @@ The ciphertext may also be stored as a byte array.
 
 ??? tldr "Encryption utility"
 
-	This tiny class (from the [showcase](https://github.com/kevlar-kt/kevlar/blob/master/showcase/src/main/kotlin/com/kevlar/showcase/util/EncryptionUtil.kt) module in the repository) is a basic AES encryption/decryption util.
+	[This](https://github.com/kevlar-kt/kevlar/blob/master/showcase/src/main/kotlin/com/kevlar/showcase/util/EncryptionUtil.kt) tiny class (from the showcase module in the repository) is a basic AES encryption/decryption utility.
 
 	```kotlin title="EncryptionUtil.kt"
 	import android.util.Base64

@@ -1,4 +1,4 @@
-package com.kevlar.antipiracy
+package com.kevlar.antipiracy.dsl.settings
 
 import com.kevlar.antipiracy.dsl.language.AntipiracyDslMarker
 import com.kevlar.antipiracy.dsl.language.DslBuilder
@@ -6,7 +6,7 @@ import com.kevlar.antipiracy.dsl.settings.scan.ScanConfiguration
 import com.kevlar.antipiracy.dsl.settings.scan.ScanConfigurationBuilder
 
 /**
- * Holds settings for [KevlarAntipiracy].
+ * Holds settings for [com.kevlar.antipiracy.KevlarAntipiracy].
  *
  * Current available settings include:
  * - Scan parameters (allows to target the detection of specific pirate software)

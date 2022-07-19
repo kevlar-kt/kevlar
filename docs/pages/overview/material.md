@@ -1,7 +1,6 @@
 # Technical Material
 
-## Prevention material & tamper detection
-
+## Prevention material, checking & tamper detection
 - [https://www.airpair.com/android/posts/adding-tampering-detection-to-your-android-app](https://www.airpair.com/android/posts/adding-tampering-detection-to-your-android-app)
 - [https://en.wikipedia.org/wiki/Security_through_obscurity](https://en.wikipedia.org/wiki/Security_through_obscurity)
 - [https://darvincitech.wordpress.com/2020/03/01/yet-another-tamper-detection-in-android/](https://darvincitech.wordpress.com/2020/03/01/yet-another-tamper-detection-in-android/)
@@ -9,11 +8,12 @@
 - [https://medium.com/@mplacona/tampering-detection-in-android-d213998ecc4f](https://medium.com/@mplacona/tampering-detection-in-android-d213998ecc4f)
 - [https://developer.android.com/training/safetynet/index.html](https://developer.android.com/training/safetynet/index.html)
 - [https://www.indusface.com/learning/how-to-implement-root-detection-in-android-applications/](https://www.indusface.com/learning/how-to-implement-root-detection-in-android-applications/)
+- [https://stackoverflow.com/questions/33850864/how-to-verify-purchase-for-android-app-in-server-side-google-play-in-app-billin](https://stackoverflow.com/questions/33850864/how-to-verify-purchase-for-android-app-in-server-side-google-play-in-app-billin)
 
 ## Server-Side checks
 
-- [https://medium.com/@lahirumaramba/protecting-your-own-backend-services-with-firebase-app-check-1daaef229f32](https://medium.com/@lahirumaramba/protecting-your-own-backend-services-with-firebase-app-check-1daaef229f32)
 - [https://developer.android.com/training/safetynet](https://developer.android.com/training/safetynet)
+- [https://medium.com/@lahirumaramba/protecting-your-own-backend-services-with-firebase-app-check-1daaef229f32](https://medium.com/@lahirumaramba/protecting-your-own-backend-services-with-firebase-app-check-1daaef229f32)
 
 ## Attack vectors
 

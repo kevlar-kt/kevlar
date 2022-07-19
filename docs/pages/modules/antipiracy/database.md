@@ -1,14 +1,13 @@
 # Database
-Kevlar comes pre-packaged with definitions for the most common pirate software. 
-A simplified summary is reported in the following table:
+Kevlar comes pre-packaged with definitions for the most common pirate software.
 
+A simplified summary is reported in the following table:
 
 - `Software` is the common name of the given pirate software;
 - `Internal Code` is what kevlar uses to reference and report a specific software;
 - `Type` defines whether the given software is a pirate store or pirate app;
 - `Most Common Package` gives a probable package name for out in the wild pirate software. Usually pirate software have multiple (often numerous) package names, which are not reported in the table (but are obviously implemented in the library);
 - `Range` defines which battery of tests is available against a given package. `H` is heuristic detection (package metadata string matching), `A` is alphabetical analysis and `C` are collateral tests.
-
 
 | Software                	| Internal Code            	| Type    	| Most Common Package                 	| Range        	|
 |-------------------------	|-------------------------	|---------	|-------------------------------------	|--------------	|

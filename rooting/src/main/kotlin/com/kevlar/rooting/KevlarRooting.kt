@@ -56,6 +56,7 @@ public val DefaultRootingSettings: RootingSettingsBuilder.() -> Unit = {
 
         status {
             emulator()
+            selinux()
         }
     }
 }

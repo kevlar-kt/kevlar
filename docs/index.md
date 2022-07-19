@@ -18,7 +18,7 @@ Each package focuses on a specific security environment area:
 - `rooting` detects the presence of root access, custom binaries and abnormal system status on the OS (system-wise security).
 - `integrity` detects certain types of tampering techniques your app may have been targeted with (app-wise security);
 
-Kevlar is intended to be used any time it's deemed necessary to determine whether the device your app is running on can be regarded as secure, according to your policies and security requirements.
+Kevlar is intended to be used any time it is deemed necessary to determine whether the device your app is running on can be regarded as secure, according to your policies and security requirements.
 
 
 ## Security Environment
@@ -30,11 +30,12 @@ and **app-wise** security (tampering, recompiling, changed signature & metadata)
 
 ## Flexibility
 Kevlar does not automatically detect a "standard" unsafe environment and give a 0/1 answer.
-The kind of environment that is acceptable for your app to run in can be configured in each package.
+The kind of environment that is acceptable for your app to run in can be configured in each package individually.
 
 You may be indifferent to some things (e.g. root detection) and very sensitive about others (e.g. app tampering & piracy).
 You can customize the set of checks the library executes in each package.
 Once you define your constraints, kevlar modules will act accordingly.
+
 
 ## Design
 Each kevlar package contains custom implementations for what it has to look for, but they all share the same overall structure to make it easy to work with.

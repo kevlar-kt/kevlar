@@ -32,7 +32,7 @@ public data class SelinuxStatus(
 
 
 @RootingDslMarker
-public class TestKeysStatusBuilder() {
+public class TestKeysStatusBuilder {
     private var enabled: Boolean = false
 
     internal fun enable() {
@@ -47,7 +47,7 @@ public class TestKeysStatusBuilder() {
 }
 
 @RootingDslMarker
-public class EmulatorStatusBuilder() {
+public class EmulatorStatusBuilder {
     private var enabled: Boolean = false
 
     internal fun enable() {
@@ -62,7 +62,7 @@ public class EmulatorStatusBuilder() {
 }
 
 @RootingDslMarker
-public class SelinuxStatusBuilder() {
+public class SelinuxStatusBuilder {
     private var enabled: Boolean = false
     private var flagPermissive: Boolean = false
 

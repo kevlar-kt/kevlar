@@ -1,8 +1,5 @@
 package com.kevlar.antipiracy.detection.vectors.alphabet.ascii
 
-/**
- * Contains
- * */
 @Suppress("SpellCheckingInspection")
 internal class AsciiVariations {
     companion object {

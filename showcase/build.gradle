@@ -49,15 +49,25 @@ android {
     }
 }
 
+def local = true
+
 dependencies {
-    implementation project(':antipiracy')
-    implementation project(':integrity')
-    implementation project(':rooting')
+    if (local) {
+        implementation project(':antipiracy')
+        implementation project(':rooting')
+        implementation project(':integrity')
+    } else {
+        def kevlar_version = "1.0.0"
+        
+        implementation "com.github.kevlar-kt:antipiracy:$kevlar_version"
+        implementation "com.github.kevlar-kt:rooting:$kevlar_version"
+        implementation "com.github.kevlar-kt:integrity:$kevlar_version"
+    }
     
     implementation "androidx.core:core-ktx:1.8.0"
     implementation "androidx.appcompat:appcompat:1.4.2"
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
-    implementation "com.google.android.material:material:1.7.0-alpha02"
+    implementation "com.google.android.material:material:1.7.0-alpha03"
     
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"

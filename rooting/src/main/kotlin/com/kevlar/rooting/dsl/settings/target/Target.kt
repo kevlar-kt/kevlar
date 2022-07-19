@@ -35,7 +35,7 @@ public data class XposedTarget(
 
 
 @RootingDslMarker
-public class RootTargetBuilder() {
+public class RootTargetBuilder {
     private var enabled: Boolean = false
 
     internal fun enable() {
@@ -50,7 +50,7 @@ public class RootTargetBuilder() {
 }
 
 @RootingDslMarker
-public class BusyboxTargetBuilder() {
+public class BusyboxTargetBuilder {
     private var enabled: Boolean = false
 
     internal fun enable() {
@@ -65,7 +65,7 @@ public class BusyboxTargetBuilder() {
 }
 
 @RootingDslMarker
-public class ToyboxTargetBuilder() {
+public class ToyboxTargetBuilder {
     private var enabled: Boolean = false
 
     internal fun enable() {
@@ -82,7 +82,7 @@ public class ToyboxTargetBuilder() {
 
 
 @RootingDslMarker
-public class MagiskTargetBuilder() {
+public class MagiskTargetBuilder {
     private var enabled: Boolean = false
 
     internal fun enable() {
@@ -98,7 +98,7 @@ public class MagiskTargetBuilder() {
 
 
 @RootingDslMarker
-public class XposedTargetBuilder() {
+public class XposedTargetBuilder {
     private var enabled: Boolean = false
 
     internal fun enable() {

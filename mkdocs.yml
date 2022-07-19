@@ -65,7 +65,7 @@ nav:
     - 'Index':
           - 'Overview': index.md
           - 'Dependencies & Integration': pages/overview/dependencies_integration.md
-          - 'Choosing Packages': pages/overview/choosing.md
+          # - 'Choosing Packages': pages/overview/choosing.md
           - 'Anatomy of an Attack': pages/overview/anatomy_of_attacks.md
           - 'Philosophy': pages/overview/philosophy.md
           - 'Technical Material': pages/overview/material.md
@@ -74,7 +74,7 @@ nav:
           - 'Implementation' : pages/modules/antipiracy/implementation.md
           - 'Detection' : pages/modules/antipiracy/detection.md
           - 'Database' : pages/modules/antipiracy/database.md
-          - 'Privacy' : pages/modules/antipiracy/privacy.md
+          - 'Privacy & Permissions' : pages/modules/antipiracy/privacy.md
           - 'Tradeoffs' : pages/modules/antipiracy/tradeoffs.md
     - 'Rooting':
           - 'Overview' : pages/modules/rooting/rooting.md

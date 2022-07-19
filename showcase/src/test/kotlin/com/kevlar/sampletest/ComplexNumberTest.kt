@@ -16,6 +16,4 @@
 package com.kevlar.sampletest
 
 
-class ComplexNumberTest {
-
-}
+class ComplexNumberTest

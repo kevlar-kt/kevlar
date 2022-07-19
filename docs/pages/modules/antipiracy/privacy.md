@@ -1,6 +1,6 @@
 # Privacy & Package Queries
 The antipiracy module is designed to check user-wide security. As such, it is the layer which is
-closest to the user data and thus needs to take extra care to enforce user privacy requirements and
+closest to the user data and thus needs to take extra care to enforce user privacy requirements.
 
 ## Package Queries
 A crucial element in this process is retrieving the application list, which all the checks 
@@ -21,14 +21,15 @@ pirate apps detection.
     tools:ignore="QueryAllPackagesPermission" />
 ```
 
-## User Privacy & Communication
+## User Privacy & Attitude
 Another delicate aspect with querying installed packages is the way you communicate to the user that
-you just scanned all the packages and found a pirate software, and therefore will not let them proceed to the purchase they were about to bypass.
+you just scanned all the packages and found a pirate software, and therefore will not let them proceed to the purchase they were about to happily crack.
 
-While obviously you should not by any means be afraid to deny the purchase/transaction/service to a malevolent user, 
-there are varying degrees of directness with with you can communicate your decision to the end user.
+While obviously you should not by any means be afraid to deny the purchase/transaction/service to a malevolent user, there are varying degrees of directness with with you can communicate your decision to the end user.
 
 Usually they are not best pleased with the discovery, so a little bit of touch is advised.
+
+Some implementations go the other way and just do not work/act as broken, while in reality they did a much deeper check, found that the environment is unsafe, assumed that the current running software is pirated and refuse to proceed. Usually this works because the user knows it is doing something wrong and it expects that something may break or that some self-checking is in place.
 
 !!! warning "Protection & Reviews"
 
@@ -38,6 +39,6 @@ Usually they are not best pleased with the discovery, so a little bit of touch i
 
 	Let's just say it usually goes down like this:
 
-	1. User tries to crack your software with pirate software;
-	2. Your software picks up the pirate software, and refuses to start the in-app transaction because the environment is unsecure;
-	3. Said user goes on the store and angrily reviews your app as garbage/spyware/malware/crapware/trojan/...
+	1. User tries to crack your app with pirate software;
+	2. Your app picks up the pirate software, and refuses to start the in-app transaction because the environment is unsecure;
+	3. Said user suddently becomes a mobile security expert and goes on the store to angrily review your app as garbage/spyware/malware/trojan/...

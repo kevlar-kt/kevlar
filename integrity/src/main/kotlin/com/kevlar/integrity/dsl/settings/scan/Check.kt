@@ -34,7 +34,7 @@ public data class DebuggableCheck(
 
 
 @IntegrityDslMarker
-public class SignatureCheckBuilder() {
+public class SignatureCheckBuilder {
     private var enabled: Boolean = false
 
     internal fun enable() {
@@ -50,7 +50,7 @@ public class SignatureCheckBuilder() {
 
 
 @IntegrityDslMarker
-public class PackageNameCheckBuilder() {
+public class PackageNameCheckBuilder {
     private var enabled: Boolean = false
 
     internal fun enable() {
@@ -66,7 +66,7 @@ public class PackageNameCheckBuilder() {
 
 
 @IntegrityDslMarker
-public class InstallerCheckBuilder() {
+public class InstallerCheckBuilder {
     private var enabled: Boolean = false
     private val allowedInstallers: MutableList<String> = mutableListOf(IntegrityConstants.PSPN)
 
@@ -95,7 +95,7 @@ public class InstallerCheckBuilder() {
 
 
 @IntegrityDslMarker
-public class DebuggableCheckBuilder() {
+public class DebuggableCheckBuilder {
     private var enabled: Boolean = false
 
     internal fun enable() {

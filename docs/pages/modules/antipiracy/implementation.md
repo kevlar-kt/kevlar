@@ -8,7 +8,7 @@ A working example for the antipiracy module can be found in the github repositor
 
 	``` java
 	dependencies {
-    	implementation "com.github.kevlar-kt:rooting:1.0.0"
+    	implementation "com.github.kevlar-kt:antipiracy:1.0.0"
 	}
 	```
 
@@ -16,7 +16,7 @@ A working example for the antipiracy module can be found in the github repositor
 
 	``` kotlin
 	dependencies {
-	    implementation("com.github.kevlar-kt:rooting:1.0.0")
+	    implementation("com.github.kevlar-kt:antipiracy:1.0.0")
 	}
 	```
 
@@ -25,11 +25,19 @@ A working example for the antipiracy module can be found in the github repositor
 	``` xml
 	<dependency>
 	    <groupId>com.github.kevlar-kt</groupId>
-	    <artifactId>rooting</artifactId>
+	    <artifactId>antipiracy</artifactId>
 	    <version>1.0.0</version>
 	    <type>pom</type>
 	</dependency>
 	```
+
+## Permissions
+You can read the details in [privacy](privacy.md), but essentially since android R (API 30) it is necessary to include the following permission in your app's `AndroidManifest.xml` in order to successfully query the package list.
+
+```xml
+<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+    tools:ignore="QueryAllPackagesPermission" />
+```
 
 ## Initialization & Attestations
 
@@ -141,13 +149,11 @@ class AntipiracyRepository @Inject constructor(
     @ApplicationContext val context: Context,
     @IoDispatcher val externalDispatcher: CoroutineDispatcher
 ) {
-    private val antipiracy by lazy {
-        KevlarAntipiracy {
-            scan {
-	            // your scan configuration
-                pirate()
-                store()
-            }
+    private val antipiracy = KevlarAntipiracy {
+        scan {
+            // your scan configuration DSL here
+            pirate()
+            store()
         }
     }
 	

@@ -3,6 +3,8 @@ package com.kevlar.antipiracy
 import android.content.Context
 import com.kevlar.antipiracy.attestator.AntipiracyAttestator
 import com.kevlar.antipiracy.dsl.attestation.AntipiracyAttestation
+import com.kevlar.antipiracy.dsl.settings.AntipiracySettings
+import com.kevlar.antipiracy.dsl.settings.AntipiracySettingsBuilder
 import java.util.concurrent.atomic.AtomicInteger
 
 /**

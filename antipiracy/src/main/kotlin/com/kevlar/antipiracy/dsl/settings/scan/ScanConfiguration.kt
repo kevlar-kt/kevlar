@@ -52,7 +52,8 @@ public class ScanConfigurationBuilder : DslBuilder<ScanConfiguration>() {
         }.build()
     }
 
-    public fun custom(block: CustomScanBuilder.() -> Unit) {
+    // not implemented yet
+    private fun custom(block: CustomScanBuilder.() -> Unit) {
         custom = CustomScanBuilder().apply {
             block()
             enable()

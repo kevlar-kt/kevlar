@@ -3,7 +3,7 @@ package com.kevlar.antipiracy.detection.vectors.alphabet.units
 /**
  * Models an abstract alphabet letter
  * */
-internal enum class AlphabetUnit(public val asciiLower: Char, public val asciiUpper: Char) {
+internal enum class AlphabetUnit(val asciiLower: Char, val asciiUpper: Char) {
     A('a', 'A'),
     B('b', 'B'),
     C('c', 'C'),

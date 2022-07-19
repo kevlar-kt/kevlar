@@ -6,7 +6,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import com.kevlar.antipiracy.AntipiracySettings
+import com.kevlar.antipiracy.dsl.settings.AntipiracySettings
 import com.kevlar.antipiracy.dataset.DatasetEntry
 import com.kevlar.antipiracy.detection.vectors.InputVector
 import com.kevlar.antipiracy.detection.vectors.OutputVector

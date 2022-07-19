@@ -1,8 +1,14 @@
 # Dependencies and Integration
 
-All the dependencies are published on MavenCentral
+All the dependencies are published on MavenCentral. Make sure to have it included in your `reporitories` block in the top level `build.gradle` file
 
-### Antipiracy
+```groovy
+repositories {
+    mavenCentral()
+}
+```
+
+## Antipiracy
 ???+ gradle "Gradle"
 
 	``` java
@@ -31,7 +37,7 @@ All the dependencies are published on MavenCentral
 	```
 
 
-### Rooting
+## Rooting
 ???+ gradle "Gradle"
 
 	``` java
@@ -60,7 +66,7 @@ All the dependencies are published on MavenCentral
 	```
 
 
-### Integrity
+## Integrity
 
 ???+ gradle "Gradle"
 
