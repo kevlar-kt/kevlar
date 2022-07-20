@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-## Frature description
+## Feature description
 <!-- A description of the feature -->
 
 ### Use cases
