@@ -15,7 +15,7 @@ A security environment is the security state of a device, which can be probed wi
 Each package focuses on a specific security environment area:
 
 - `antipiracy` detects the presence of pirate software installed on the device (user-wise security);
-- `rooting` detects the presence of root access, custom binaries and abnormal system status on the OS (system-wise security);
+- `rooting` detects the presence of root access, custom binaries, and abnormal system status on the OS (system-wise security);
 - `integrity` detects certain types of tampering techniques your app may have been targeted with (app-wise security).
 
 Kevlar is intended to be used any time it is deemed necessary to determine whether the device your app is running on can be regarded as secure, according to your policies and security requirements.
@@ -23,13 +23,13 @@ Kevlar is intended to be used any time it is deemed necessary to determine wheth
 
 ## Security Environment
 The security environment is the status of the device.
-This is subdivided in **system-wise** security (system modifications, rooting, custom binaries, custom roms, emulator, selinux),
+This is subdivided into **system-wise** security (system modifications, rooting, custom binaries, custom ROMs, emulator, SELinux),
 **user-wise** security (pirate stores and pirate apps),
 and **app-wise** security (tampering, recompiling, changed signature & metadata)
 
 
 ## Flexibility
-Kevlar does not automatically detect a "standard" unsafe environment and give a 0/1 answer.
+Kevlar does not automatically detect a "standard" unsafe environment and gives a 0/1 answer.
 The kind of environment that is acceptable for your app to run in can be configured in each package individually.
 
 You may be indifferent to some things (e.g. root detection) and very sensitive about others (e.g. app tampering & piracy).
@@ -50,26 +50,26 @@ graph LR
   NP --> ARES
 ```
 
-The idea is of a flow of attestations. You initialize the package through its entry class, passing to it your settings (what you cant to check for), and then you can go ahead and start requesting attestations. An attestation can either be Clear (passed) or Failed (non passed), according to your detection settings.
+The idea is of a flow of attestations. You initialize the package through its entry class, passing to it your settings (what you cant to check for), and then you can go ahead and start requesting attestations. An attestation can either be Clear (passed) or Failed (non-passed), according to your detection settings.
 
-There may be one or more types of attestation you can request, and you can choose what you want to to give granular control and run efficiently.
+There may be one or more types of attestation you can request, and you can choose what you want to give granular control and run efficiently.
 
 Under the hood, each package will call its implementations and run those checks against the operative system/current app, but you'll eventually get an `Attestation` back, so you only have to check whether it is clear or not.
 
 ## Use Cases
-Common use cases for security environment checks are applications managing sensitive resources, such as in-app purchases and subscriptions, costly server-side resources or APIs, financial transactions, and anything that has value which gets managed through your app/client.
+Common use cases for security environment checks are applications managing sensitive resources, such as in-app purchases and subscriptions, costly server-side resources or APIs, financial transactions, and anything that has a value that gets managed through your app/client.
 
-Ideally you should request an attestation whenever your client wants to verify the status of the security environment before proceeding to the action that has value.
+Ideally, you should request an attestation whenever your client wants to verify the status of the security environment before proceeding with the action that has value.
 
 Kevlar is a sort of guard statement for those actions.
 
 
 ## Accuracy
 This tool is meant to be an approximate form of environment analysis and estimation.
-It covers a large amount of attack vectors and does a good job at it.
+It covers a large number of attack vectors and does a good job at it.
 
 This does not mean that it is unbreakable. You can find more details in [philosophy], but essentially
-it is a level 0 protection which can be removed by manually reverse engineering your app.
+it is a level 0 protection that can be removed by manually reverse engineering your app.
 
 [philosophy]: pages/overview/philosophy.md
 
@@ -78,13 +78,13 @@ which will most certainly be the vast majority of what your app will ever be put
 
 
 ## Additions & Alternatives
-Kevlar resembles what may look like a in-house protection system. It is open source, flexible and complete.
+Kevlar resembles what may look like an in-house protection system. It is open source, flexible and complete.
 
-For stricter scenarios where a higher fidelity and accuracy is required, you should be using something more specific (and radically different).
+For stricter scenarios where higher fidelity and accuracy are required, you should be using something more specific (and radically different).
 
 - [SafetyNet](https://developer.android.com/training/safetynet) from Google;
 - [AppCheck](https://firebase.google.com/products/app-check) from Firebase;
 - [ProGuard](https://www.guardsquare.com/proguard) and [DexGuard](https://www.guardsquare.com/dexguard) from GuardSquare.
 
 ## License
-This project is licensed under the Apache License, Version 2.0. Please refer to the `LICENSE.md` file inside the github repository for the full text.
+This project is licensed under the Apache License, Version 2.0. Please refer to the `LICENSE.md` file inside the Github repository for the full text.

@@ -1,20 +1,20 @@
 # Detection Techniques
 This page details the detection techniques (aka tricks) employed in Kevlar Antipiracy.
 
-It should be stated that all checks are ran against the local dataset (what kevlar thinks are pirate apps & stores, a summary of that is in [database](database.md)), which is hardcoded in the library and therefore in your shipped software.
+It should be stated that all checks are run against the local dataset (what kevlar thinks are pirate apps & stores, a summary of that is in [database](database.md)), which is hardcoded in the library and therefore in your shipped software.
 
 !!! question "Obfuscation complexity"
 
 	Writing good self-obfuscating software is hard. 
-	There are a few ways, but essentially you need an installer package which carries the payload and an algorithm to insert the actual software in a randomized stub.
-	If you do it well, there is no way to characterize your package and it is therefore more difficult (if not borderline impossible) to detect automatically ([Magisk](https://github.com/topjohnwu/Magisk) does this exceptionally well, to the point that it is almost useless to try to achieve aggressive detection)
+	There are a few ways, but essentially you need an installer package that carries the payload and an algorithm to insert the actual software in a randomized stub.
+	If you do it well, there is no way to characterize your package and it is, therefore, more difficult (if not borderline impossible) to detect automatically ([Magisk](https://github.com/topjohnwu/Magisk) does this exceptionally well, to the point that it is almost useless to try to achieve aggressive detection)
 	Doing slightly less than perfection will lead to detection.
 
 
 ## String matching
 This is the most basic yet efficient scanning tool. 
 Running a basic string match against some package parameters does miracles for detection,
-since most non-super-sneaky pirate software has a fixed package name, or a fixed app label, or a fixed class name, or all three.
+since most non-super-sneaky pirate software has a fixed package name, a fixed app label, a fixed class name, or all three.
 
 If kevlar catches even one of those, then the software is detected and will be reported in the attestation.
 
@@ -34,7 +34,7 @@ so that they break classic string matching and make regex a hell to work with (t
 And since this process is usually randomized, you can not know in advance which of the characters will be swapped and which will be real, so you have to take that into account.
 
 The solution is fast abstract matching, where we describe on a high level which string (word) we are looking for, 
-and then kevlar will automatically run the check on every package translating the high level description to known sneaky characters (1 abstract character maps to many sneaky characters).
+and then kevlar will automatically run the check on every package translating the high-level description to known sneaky characters (1 abstract character maps to many sneaky characters).
 
 This can be checked strictly (full match), partially (contains), or probabilistically (given a minimum percentage of matches)
 
@@ -42,12 +42,12 @@ For FSA people, this is like having multiple arcs from one state to the next, wi
 
 !!! info "Sneaky characters"
 
-	The usual roll includes characters from latin fullwidth, cyrillic, greek, a lot of weird uncategorized characters and like 20 variations of the symbols /, _ and -.
+	The usual roll includes characters from Latin fullwidth, Cyrillic, greek, a lot of weird uncategorized characters, and like 20 variations of the symbols /, _ and -.
 	You can go check out the full list at [`AsciiVariations.kt`](https://github.com/kevlar-kt/kevlar/blob/master/antipiracy/src/main/kotlin/com/kevlar/antipiracy/detection/vectors/alphabet/ascii/AsciiVariations.kt). I'd advise doing so on an empty stomach.
 
 
 ## Collateral tools
-There are some techniques which may have non-zero false positive rates, and they are disabled by default. Kevlar's objective is achieving accurate detection, with a non-zero false-negative rate, but a zero false-positive rate.
+Some techniques may have non-zero false positive rates, and they are disabled by default. Kevlar's objective is to achieve accurate detection, with a non-zero false-negative rate, but a zero false-positive rate.
 
 Enabling collateral tools is a form of aggressive detection, and it should be used in scenarios where you are willing to accept some risk to get (very) slightly better detection for the price of non-zero false positives.
 
@@ -56,8 +56,8 @@ We can therefore match for the distribution of those values in all installed pac
 
 !!! info "Collateral example in package name randomization"
 
-	The easiest example to illustrate this technique with is [Lucky Patcher](database.md). 
-	Its installer generates a randomized stub, it inserts the payload (the actual pirate software), and installs it. 
+	The easiest example to illustrate this technique is with [Lucky Patcher](database.md). 
+	Its installer generates a randomized stub, inserts the payload (the actual pirate software), and installs it. 
 
 	While the stub's package name _has_ random bits, it is not completely random. It always starts with "ru.", followed by 8 random characters, followed by a ".", followed by another 9 random characters.
 
