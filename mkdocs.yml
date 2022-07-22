@@ -68,6 +68,7 @@ nav:
           # - 'Choosing Packages': pages/overview/choosing.md
           - 'Anatomy of an Attack': pages/overview/anatomy_of_attacks.md
           - 'Philosophy': pages/overview/philosophy.md
+          - 'Attitude': pages/overview/attitude.md
           - 'Technical Material': pages/overview/material.md
     - Antipiracy:
           - 'Overview' : pages/modules/antipiracy/antipiracy.md

@@ -7,7 +7,7 @@ It should be stated that all checks are run against the local dataset (what kevl
 
 	Writing good self-obfuscating software is hard. 
 	There are a few ways, but essentially you need an installer package that carries the payload and an algorithm to insert the actual software in a randomized stub.
-	If you do it well, there is no way to characterize your package and it is, therefore, more difficult (if not borderline impossible) to detect automatically ([Magisk](https://github.com/topjohnwu/Magisk) does this exceptionally well, to the point that it is almost useless to try to achieve aggressive detection)
+	If you do it well, there is no way to characterize your package and it is, therefore, more difficult (if not borderline impossible) to detect automatically ([MagiskHide](https://github.com/topjohnwu/Magisk) did this exceptionally well, to the point that it is almost useless to try to achieve without switching to aggressive detection which kinda defeats the purpose)
 	Doing slightly less than perfection will lead to detection.
 
 

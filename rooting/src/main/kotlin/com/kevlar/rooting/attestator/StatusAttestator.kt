@@ -41,9 +41,17 @@ import kotlinx.coroutines.withContext
  * */
 internal object StatusAttestator {
 
+    /**
+     * Holds the pair check result and [DetectableSystemStatus]
+     * */
     data class StatusOutputSpecter(
         val status: DetectableSystemStatus,
-        val detected: Boolean
+        val detected: Boolean,
+
+        /**
+         * Whether the check has been run or not.
+         * */
+        val isEnabled: Boolean
     )
 
     suspend fun attestate(
@@ -58,14 +66,16 @@ internal object StatusAttestator {
         val testKeys = async {
             StatusOutputSpecter(
                 DetectableSystemStatus.TEST_KEYS,
-                detected = statusRepository.testKeys.enabled && detectTestKeys()
+                detected = statusRepository.testKeys.enabled && detectTestKeys(),
+                isEnabled = statusRepository.testKeys.enabled
             )
         }
 
         val emulator = async {
             StatusOutputSpecter(
                 DetectableSystemStatus.EMULATOR,
-                detected = statusRepository.emulator.enabled && detectEmulator()
+                detected = statusRepository.emulator.enabled && detectEmulator(),
+                isEnabled = statusRepository.emulator.enabled
             )
         }
 
@@ -76,7 +86,8 @@ internal object StatusAttestator {
                     SelinuxGetenforceStatus.DISABLED -> true
                     SelinuxGetenforceStatus.PERMISSIVE -> statusRepository.selinux.flagPermissive
                     SelinuxGetenforceStatus.ENFORCING -> false
-                }
+                },
+                isEnabled = statusRepository.selinux.enabled
             )
         }
 
@@ -95,7 +106,7 @@ internal object StatusAttestator {
         outputDumps: List<StatusOutputSpecter>,
         index: Int
     ): StatusRootingAttestation {
-        val detectedStatuses: Set<StatusOutputSpecter> = outputDumps.filter { it.detected }.toSet()
+        val detectedStatuses: Set<StatusOutputSpecter> = outputDumps.filter { it.detected && it.isEnabled }.toSet()
 
         return when {
             detectedStatuses.isEmpty() -> {

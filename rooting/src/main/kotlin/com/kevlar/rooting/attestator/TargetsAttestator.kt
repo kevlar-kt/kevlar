@@ -42,29 +42,36 @@ import kotlinx.coroutines.withContext
  * */
 internal object TargetsAttestator {
 
-    internal sealed class OutputSpecter
+    internal sealed class OutputSpecter(
+        /**
+         * Whether the check has been run or not.
+         * */
+        val isEnabled: Boolean
+    )
 
     /**
      * Automated binary's output dump and analysis
      * */
     internal data class TargetOutputDump(
         val target: DetectableSystemTarget,
-        val associatedDumps: CombinedBinaryDump
-    ) : OutputSpecter()
+        val associatedDumps: CombinedBinaryDump,
+        val isDumpEnabled: Boolean
+    ) : OutputSpecter(isDumpEnabled)
 
     /**
      * Custom logic for specific targets
      * */
     internal data class TargetCustomAnalysis(
         val target: DetectableSystemTarget,
-        val detection: Boolean
-    ) : OutputSpecter()
+        val detection: Boolean,
+        val isCustomEnabled: Boolean
+    ) : OutputSpecter(isCustomEnabled)
 
     /**
      * Conveys no information about the status of the associated binary.
      * Usually because its detection has not been requested.
      * */
-    internal object BlankSpecter : OutputSpecter()
+    internal object BlankSpecter : OutputSpecter(isEnabled = false)
 
 
     suspend fun attestate(
@@ -80,7 +87,11 @@ internal object TargetsAttestator {
         // Root check
         val rootTest = async {
             if (targets.root.enabled) {
-                TargetOutputDump(DetectableSystemTarget.ROOT, CombinedBinaryDump("su", context.packageName, settings.allowRootCheck))
+                TargetOutputDump(
+                    DetectableSystemTarget.ROOT,
+                    CombinedBinaryDump("su", context.packageName, settings.allowRootCheck),
+                    isDumpEnabled = true
+                )
             } else {
                 BlankSpecter
             }
@@ -90,7 +101,8 @@ internal object TargetsAttestator {
             if (targets.magisk.enabled) {
                 TargetOutputDump(
                     DetectableSystemTarget.MAGISK,
-                    CombinedBinaryDump("magisk", context.packageName, settings.allowRootCheck)
+                    CombinedBinaryDump("magisk", context.packageName, settings.allowRootCheck),
+                    isDumpEnabled = true
                 )
             } else {
                 BlankSpecter
@@ -101,7 +113,8 @@ internal object TargetsAttestator {
             if (targets.busybox.enabled) {
                 TargetOutputDump(
                     DetectableSystemTarget.BUSYBOX,
-                    CombinedBinaryDump("busybox", context.packageName, settings.allowRootCheck)
+                    CombinedBinaryDump("busybox", context.packageName, settings.allowRootCheck),
+                    isDumpEnabled = true
                 )
             } else {
                 BlankSpecter
@@ -112,7 +125,8 @@ internal object TargetsAttestator {
             if (targets.toybox.enabled) {
                 TargetOutputDump(
                     DetectableSystemTarget.TOYBOX,
-                    CombinedBinaryDump("toybox", context.packageName, settings.allowRootCheck)
+                    CombinedBinaryDump("toybox", context.packageName, settings.allowRootCheck),
+                    isDumpEnabled = true
                 )
             } else {
                 BlankSpecter
@@ -121,7 +135,7 @@ internal object TargetsAttestator {
 
         val xposedTest = async {
             if (targets.xposed.enabled) {
-                TargetCustomAnalysis(DetectableSystemTarget.XPOSED, detection = XposedUtil.isXposedActive)
+                TargetCustomAnalysis(DetectableSystemTarget.XPOSED, detection = XposedUtil.isXposedActive, isCustomEnabled = true)
             } else {
                 BlankSpecter
             }
@@ -146,12 +160,16 @@ internal object TargetsAttestator {
         outputDumps: List<OutputSpecter>,
         index: Int
     ): TargetRootingAttestation {
+        /**
+         * Used to group and process targets
+         * */
         data class IntermediateDumpState(
             val target: DetectableSystemTarget,
             val detection: Boolean
         )
 
         val detectedDumps: Set<IntermediateDumpState> = outputDumps
+            .filter { it.isEnabled }
             .map {
                 when (it) {
                     is TargetOutputDump -> IntermediateDumpState(it.target, DumpDetector.detect(it.associatedDumps))
