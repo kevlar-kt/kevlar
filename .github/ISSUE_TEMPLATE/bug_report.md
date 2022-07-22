@@ -1,8 +1,8 @@
 ---
 name: Bug report
 about: Report a bug/crash/unexpected behaviour with any of the modules in the library
-title: "[BR]"
-labels: ''
+title: "[BUG]"
+labels: 'Type: Bug'
 assignees: ''
 
 ---
