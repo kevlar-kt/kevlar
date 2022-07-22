@@ -1,0 +1,84 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+def currentDeployModule = project.ext.get("module_rooting")
+
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    if (project.plugins.findPlugin("com.android.library")) {
+        // For Android libraries
+        from android.sourceSets.main.java.srcDirs
+        from android.sourceSets.main.kotlin.srcDirs
+    } else {
+        // For pure Kotlin libraries, in case you have them
+        from sourceSets.main.java.srcDirs
+        from sourceSets.main.kotlin.srcDirs
+    }
+}
+
+artifacts {
+    archives androidSourcesJar
+}
+
+group = currentDeployModule.PUBLISH_GROUP_ID
+version = currentDeployModule.PUBLISH_VERSION
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                // The coordinates of the library, being set from variables that
+                // we'll set up later
+                groupId currentDeployModule.PUBLISH_GROUP_ID
+                artifactId currentDeployModule.PUBLISH_ARTIFACT_ID
+                version currentDeployModule.PUBLISH_VERSION
+    
+                if (project.plugins.findPlugin("com.android.library")) {
+                    artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
+                } else {
+                    artifact("$buildDir/libs/${project.getName()}-${version}.jar")
+                }
+                
+                artifact androidSourcesJar
+                
+                pom {
+                    name = currentDeployModule.PUBLISH_ARTIFACT_ID
+                    description = currentDeployModule.PUBLISH_ARTIFACT_DESC
+                    url = currentDeployModule.PUBLISH_ARTIFACT_WEBSITE
+                    
+                    licenses {
+                        license {
+                            name = 'APACHE LICENSE'
+                            url = 'https://github.com/kevlar-kt/kevlar/blob/master/LICENSE.md'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'cioccarellia'
+                            name = 'Andrea Cioccarelli'
+                            email = 'andrea.cioccarelli01@gmail.com'
+                        }
+                        // Add all other devs here...
+                    }
+                    
+                    // Version control info - if you're using GitHub, follow the
+                    // format as seen here
+                    scm {
+                        connection = 'scm:git:github.com/kevlar-kt/kevlar.git'
+                        developerConnection = 'scm:git:ssh://github.com/kevlar-kt/kevlar.git'
+                        url = 'https://github.com/kevlar-kt/kevlar/tree/main'
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    useInMemoryPgpKeys(
+            rootProject.ext["signing.keyId"],
+            rootProject.ext["signing.key"],
+            rootProject.ext["signing.password"],
+    )
+    sign publishing.publications
+}

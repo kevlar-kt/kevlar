@@ -8,7 +8,7 @@ A working example for the antipiracy module can be found in the github repositor
 
 	``` java
 	dependencies {
-    	implementation "com.github.kevlar-kt:antipiracy:1.0.0"
+    	implementation "io.github.kevlar-kt:antipiracy:1.0.0"
 	}
 	```
 
@@ -16,7 +16,7 @@ A working example for the antipiracy module can be found in the github repositor
 
 	``` kotlin
 	dependencies {
-	    implementation("com.github.kevlar-kt:antipiracy:1.0.0")
+	    implementation("io.github.kevlar-kt:antipiracy:1.0.0")
 	}
 	```
 
@@ -24,7 +24,7 @@ A working example for the antipiracy module can be found in the github repositor
 
 	``` xml
 	<dependency>
-	    <groupId>com.github.kevlar-kt</groupId>
+	    <groupId>io.github.kevlar-kt</groupId>
 	    <artifactId>antipiracy</artifactId>
 	    <version>1.0.0</version>
 	    <type>pom</type>

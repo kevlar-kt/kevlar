@@ -14,20 +14,20 @@ apply from: rootProject.file("scripts/commons/app_config.gradle")
 android {
     defaultConfig {
         versionName "1.0.0-app-showcase"
-        versionCode 3
+        versionCode 1
         multiDexEnabled true
     }
     
     buildTypes {
         debug {
-            //applicationIdSuffix '.debug'
-            //versionNameSuffix '-debug'
+            // applicationIdSuffix '.debug'
+            // versionNameSuffix '-debug'
             debuggable true
         }
         
         release {
-            //applicationIdSuffix '.prod'
-            //versionNameSuffix '-prod'
+            // applicationIdSuffix '.prod'
+            // versionNameSuffix '-prod'
             debuggable false
             minifyEnabled true
             shrinkResources true
@@ -52,6 +52,10 @@ android {
 def local = true
 
 dependencies {
+    /**
+     * This is used by kevlar developers to check changes between the
+     * remote versions and the local ones.
+     * */
     if (local) {
         implementation project(':antipiracy')
         implementation project(':rooting')
@@ -59,9 +63,9 @@ dependencies {
     } else {
         def kevlar_version = "1.0.0"
         
-        implementation "com.github.kevlar-kt:antipiracy:$kevlar_version"
-        implementation "com.github.kevlar-kt:rooting:$kevlar_version"
-        implementation "com.github.kevlar-kt:integrity:$kevlar_version"
+        implementation "io.github.kevlar-kt:antipiracy:$kevlar_version"
+        implementation "io.github.kevlar-kt:rooting:$kevlar_version"
+        implementation "io.github.kevlar-kt:integrity:$kevlar_version"
     }
     
     implementation "androidx.core:core-ktx:1.8.0"

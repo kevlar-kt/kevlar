@@ -36,7 +36,7 @@ ext.module_name = "integrity"
 
 project.ext.set("module_${ext.module_name}", new ModuleArtifactCoordinates(
         // PUBLISH_GROUP_ID
-        "com.kevlar",
+        "io.github.kevlar-kt",
         
         // PUBLISH_ARTIFACT_ID
         "integrity",
@@ -45,7 +45,7 @@ project.ext.set("module_${ext.module_name}", new ModuleArtifactCoordinates(
         "1.0.0",
         
         // PUBLISH_ARTIFACT_DESC
-        "Integrity",
+        "Kevlar Integrity",
         
         // PUBLISH_ARTIFACT_WEBSITE
         "https://github.com/kevlar-kt/kevlar"
@@ -53,10 +53,6 @@ project.ext.set("module_${ext.module_name}", new ModuleArtifactCoordinates(
 
 // Android library script
 apply from: rootProject.file("scripts/commons/library_config.gradle")
-
-// MavenCentral publication script
-// TODO Turn on and run release script to publish library. Turn off afterward.
-// apply from: rootProject.file("scripts/publishing/publish_mavencentral.gradle")
 
 
 /**
@@ -94,6 +90,11 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         freeCompilerArgs += [
                 //'-progressive',
                 '-Xexplicit-api=strict',
+                //'-opt-in=kotlin.RequiresOptIn',
         ]
     }
 }
+
+
+// Publishing file
+apply from: "${rootDir}/scripts/publishing/publish-module-integrity.gradle"

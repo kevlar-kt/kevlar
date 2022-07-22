@@ -36,7 +36,7 @@ ext.module_name = "antipiracy"
 
 project.ext.set("module_${ext.module_name}", new ModuleArtifactCoordinates(
         // PUBLISH_GROUP_ID
-        "com.kevlar",
+        "io.github.kevlar-kt",
         
         // PUBLISH_ARTIFACT_ID
         "antipiracy",
@@ -45,7 +45,7 @@ project.ext.set("module_${ext.module_name}", new ModuleArtifactCoordinates(
         "1.0.0",
         
         // PUBLISH_ARTIFACT_DESC
-        "Antipiracy",
+        "Kevlar Antipiracy",
         
         // PUBLISH_ARTIFACT_WEBSITE
         "https://github.com/kevlar-kt/kevlar"
@@ -53,9 +53,6 @@ project.ext.set("module_${ext.module_name}", new ModuleArtifactCoordinates(
 
 // Android library script
 apply from: rootProject.file("scripts/commons/library_config.gradle")
-
-// TODO Turn on and run release script to publish library. Turn off afterward.
-// apply from: rootProject.file("scripts/publishing/publish_mavencentral.gradle")
 
 
 /**
@@ -97,3 +94,6 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         ]
     }
 }
+
+// Publishing file
+apply from: "${rootDir}/scripts/publishing/publish-module-antipiracy.gradle"
