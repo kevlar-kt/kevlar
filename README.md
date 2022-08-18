@@ -5,7 +5,12 @@
 <h1 align="center">Kevlar</h1>
 <p align="center">Android Security Framework.</p>
 
+
 See the [project's website](https://kevlar-kt.github.io/kevlar) for docs and reference.
+
+See the [showcase module](https://github.com/kevlar-kt/kevlar/tree/master/showcase/src/main/kotlin/com/kevlar/showcase) for code samples and library usage.
+
+See the [Integration](https://kevlar-kt.github.io/kevlar/pages/overview/dependencies_integration/) page for the dependencies, see a package's implementation page for a comprehensive guide.
 
 License
 -------
