@@ -83,7 +83,7 @@ dependencies {
     testImplementation "org.robolectric:robolectric:4.8.1"
     
     // libsu
-    implementation("com.github.topjohnwu.libsu:core:5.0.2") {
+    implementation("com.github.topjohnwu.libsu:core:5.0.3") {
         exclude group: 'androidx.annotation', module: 'annotation'
     }
     implementation "androidx.annotation:annotation:1.4.0"
