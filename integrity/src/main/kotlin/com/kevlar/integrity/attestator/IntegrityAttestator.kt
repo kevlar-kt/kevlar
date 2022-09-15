@@ -17,15 +17,11 @@
 package com.kevlar.integrity.attestator
 
 import android.content.Context
-import com.kevlar.integrity.checks.isDebugBuild
-import com.kevlar.integrity.checks.matchesAllowedInstallerPackageNames
-import com.kevlar.integrity.checks.matchesHardcodedPackageName
-import com.kevlar.integrity.checks.matchesHardcodedSignature
+import com.kevlar.integrity.checks.*
 import com.kevlar.integrity.dataset.IntegrityElement
 import com.kevlar.integrity.dsl.attestation.IntegrityAttestation
 import com.kevlar.integrity.dsl.settings.IntegritySettings
 import com.kevlar.integrity.dsl.settings.scan.CheckResult
-import com.kevlar.integrity.hardcoded.HardcodedMetadata
 import kotlinx.coroutines.*
 
 internal object IntegrityAttestator {
@@ -49,7 +45,6 @@ internal object IntegrityAttestator {
     )
 
     suspend fun attestate(
-        hardcodedMetadata: HardcodedMetadata,
         settings: IntegritySettings,
         context: Context,
         index: Int
@@ -60,12 +55,30 @@ internal object IntegrityAttestator {
         // Here we run all the checks and see which ones fail
         val signature: Deferred<CheckOutputSpecter> = async {
             if (checkSettings.signature.enabled) {
+                val hardcodedSignature = checkSettings.signature.hardcodedBase64EncodedSignatures
+                val hardcodedFingerprint = checkSettings.signature.hardcodedBase64EncodedFingerprints
+
+                val matchesSignature = if (hardcodedSignature.valid) {
+                    matchesHardcodedSignature(
+                        hardcodedSignatures = hardcodedSignature.base64EncodedSignatures,
+                        context
+                    )
+                } else {
+                    true // Tests have not been requested
+                }
+
+                val matchesFingerprint = if (hardcodedSignature.valid) {
+                    matchesHardcodedFingerprint(
+                        hardcodedFingerprints = hardcodedFingerprint.base64EncodedFingerprints,
+                        context
+                    )
+                } else {
+                    true // Tests have not been requested
+                }
+
                 CheckOutputSpecter(
                     IntegrityElement.MATCH_HARDCODED_SIGNATURE,
-                    hasPassedTest = matchesHardcodedSignature(
-                        hardcodedSignature = hardcodedMetadata.signature,
-                        context
-                    ),
+                    hasPassedTest = matchesSignature && matchesFingerprint,
                     isEnabled = true
                 )
             } else {
@@ -80,10 +93,12 @@ internal object IntegrityAttestator {
 
         val packageName: Deferred<CheckOutputSpecter> = async {
             if (checkSettings.packageName.enabled) {
+                val hardcodedPackageName = checkSettings.packageName.hardcodedPackageName
+
                 CheckOutputSpecter(
                     IntegrityElement.MATCH_HARDCODED_PACKAGE_NAME,
                     hasPassedTest = matchesHardcodedPackageName(
-                        hardcodedPackageName = hardcodedMetadata.packageName,
+                        hardcodedPackageName = hardcodedPackageName.packageName,
                         context
                     ),
                     isEnabled = true

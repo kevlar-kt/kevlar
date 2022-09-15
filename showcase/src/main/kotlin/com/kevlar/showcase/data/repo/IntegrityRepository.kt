@@ -21,7 +21,8 @@ import android.util.Base64
 import com.kevlar.antipiracy.KevlarAntipiracy
 import com.kevlar.integrity.KevlarIntegrity
 import com.kevlar.integrity.dsl.attestation.IntegrityAttestation
-import com.kevlar.integrity.hardcoded.HardcodedMetadata
+import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedSignatures
+import com.kevlar.integrity.hardcoded.HardcodedPackageName
 import com.kevlar.showcase.concurrency.IoDispatcher
 import com.kevlar.showcase.util.EncryptionUtil
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -39,10 +40,15 @@ class IntegrityRepository @Inject constructor(
     /**
      * Plaintext
      * */
-    private val plaintextHardcodedMetadata = HardcodedMetadata(
-        packageName = "com.kevlar.showcase",
-        signature = "J+nqXLfuIO8B2AmhkMYHGE4jDyw="
+    private val plaintextHardcodedPackageName = HardcodedPackageName(
+        packageName = "com.kevlar.showcase"
     )
+
+    private val plaintextHardcodedSignatures = HardcodedBase64EncodedSignatures(
+        base64EncodedSignatures = listOf("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
+    )
+
+
 
     /**
      * Base64 obfuscated
@@ -50,10 +56,17 @@ class IntegrityRepository @Inject constructor(
     private val base64PackageName = """Y29tLmtldmxhci5zaG93Y2FzZQ==""".toByteArray(Charsets.UTF_8)
     private val base64Signature = """SitucVhMZnVJTzhCMkFtaGtNWUhHRTRqRHl3PQ==""".toByteArray(Charsets.UTF_8)
 
-    private val base64ObfuscatedHardcodedMetadata = HardcodedMetadata(
-        Base64.decode(base64PackageName, Base64.DEFAULT).toString(Charsets.UTF_8),
-        Base64.decode(base64Signature, Base64.DEFAULT).toString(Charsets.UTF_8)
+
+    private val base64ObfuscatedHardcodedPackageName = HardcodedPackageName(
+        packageName = Base64.decode(base64PackageName, Base64.DEFAULT).toString(Charsets.UTF_8)
     )
+
+    private val base64ObfuscatedHardcodedSignatures = HardcodedBase64EncodedSignatures(
+        base64EncodedSignatures = listOf(
+            Base64.decode(base64Signature, Base64.DEFAULT).toString(Charsets.UTF_8)
+        )
+    )
+
 
     /**
      * AES+Base64 encrypted
@@ -63,15 +76,21 @@ class IntegrityRepository @Inject constructor(
     private val encryptedPackageName = """s3wf/AOYtr9BEMVFrweeLnkmerryUykMA8O77S5tMlI=""".toByteArray(Charsets.UTF_8)
     private val encryptedSignature = """tqMJquO3D+EKx1rx4R7/qzmsuEgpp1bKwxXe9AeB/WU=""".toByteArray(Charsets.UTF_8)
 
-    private val aes256EncryptedHardcodedMetadata = HardcodedMetadata(
-        EncryptionUtil.decrypt(encryptedPackageName, EncryptionUtil.generateKey(key256)),
-        EncryptionUtil.decrypt(encryptedSignature, EncryptionUtil.generateKey(key256))
+    private val aes256EncryptedHardcodedPackageName = HardcodedPackageName(
+        packageName = EncryptionUtil.decrypt(encryptedPackageName, EncryptionUtil.generateKey(key256))
     )
+
+    private val aes256EncryptedHardcodedSignatures = HardcodedBase64EncodedSignatures(
+        base64EncodedSignatures = listOf(
+            EncryptionUtil.decrypt(encryptedSignature, EncryptionUtil.generateKey(key256))
+        )
+    )
+
 
     /**
      * Integrity package
      * */
-    private val integrity = KevlarIntegrity(plaintextHardcodedMetadata) {
+    private val integrity = KevlarIntegrity {
         checks {
             signature()
             packageName()

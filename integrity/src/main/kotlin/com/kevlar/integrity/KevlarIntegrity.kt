@@ -22,11 +22,9 @@ import com.kevlar.integrity.checks.obtainBase64EncodedSignatures
 import com.kevlar.integrity.dsl.attestation.IntegrityAttestation
 import com.kevlar.integrity.dsl.settings.IntegritySettings
 import com.kevlar.integrity.dsl.settings.IntegritySettingsBuilder
-import com.kevlar.integrity.hardcoded.HardcodedMetadata
 import java.util.concurrent.atomic.AtomicInteger
 
 public class KevlarIntegrity(
-    private val hardcodedMetadata: HardcodedMetadata,
     block: IntegritySettingsBuilder.() -> Unit = DefaultIntegritySettings
 ) {
     private val settings: IntegritySettings = IntegritySettingsBuilder().apply(block).build()
@@ -35,7 +33,7 @@ public class KevlarIntegrity(
      * Asynchronously produces an attestation
      * */
     public suspend fun attestate(context: Context): IntegrityAttestation =
-        IntegrityAttestator.attestate(hardcodedMetadata, settings, context, index.getAndIncrement())
+        IntegrityAttestator.attestate(settings, context, index.getAndIncrement())
 
     public companion object {
         /**

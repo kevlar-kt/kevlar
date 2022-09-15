@@ -29,7 +29,7 @@ import java.security.MessageDigest
  * */
 @SuppressLint("PackageManagerGetSignatures")
 internal fun matchesHardcodedSignature(
-    hardcodedSignature: String,
+    hardcodedSignatures: List<String>,
     context: Context
 ): Boolean {
     return try {
@@ -48,7 +48,8 @@ internal fun matchesHardcodedSignature(
 
             val runtimeSignature = Base64.encodeToString(md.digest(), Base64.NO_WRAP)
 
-            if (runtimeSignature == hardcodedSignature) {
+            // If any of the given valid signatures matches the current one
+            if (hardcodedSignatures.contains(runtimeSignature)) {
                 return true
             }
         }

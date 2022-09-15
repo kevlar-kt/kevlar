@@ -62,25 +62,26 @@ dependencies {
         implementation project(':integrity')
     } else {
         def kevlar_version = "1.0.0"
-        
+    
         implementation "io.github.kevlar-kt:antipiracy:$kevlar_version"
         implementation "io.github.kevlar-kt:rooting:$kevlar_version"
         implementation "io.github.kevlar-kt:integrity:$kevlar_version"
     }
     
-    implementation "androidx.core:core-ktx:1.8.0"
-    implementation "androidx.appcompat:appcompat:1.4.2"
+    
+    implementation "androidx.core:core-ktx:1.9.0"
+    implementation "androidx.appcompat:appcompat:1.5.1"
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
-    implementation "com.google.android.material:material:1.7.0-alpha03"
+    implementation "com.google.android.material:material:1.8.0-alpha01"
     
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
     
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0"
-    implementation "androidx.navigation:navigation-fragment-ktx:2.5.0"
-    implementation "androidx.navigation:navigation-ui-ktx:2.5.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.2"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.2"
     
     implementation "com.jakewharton.timber:timber:5.0.1"
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'

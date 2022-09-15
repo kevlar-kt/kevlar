@@ -18,6 +18,9 @@ package com.kevlar.integrity.dsl.settings.scan
 
 import com.kevlar.integrity.dsl.language.DslBuilder
 import com.kevlar.integrity.dsl.language.IntegrityDslMarker
+import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedFingerprint
+import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedSignatures
+import com.kevlar.integrity.hardcoded.HardcodedPackageName
 
 public class CheckConfiguration(
     public val signature: SignatureCheck,
@@ -28,10 +31,10 @@ public class CheckConfiguration(
 
     public companion object {
         public fun default(): CheckConfiguration = CheckConfiguration(
-            signature = SignatureCheck(enabled = false),
-            packageName = PackageNameCheck(enabled = false),
-            debug = DebuggableCheck(enabled = false),
-            installer = InstallerCheck(enabled = false),
+            signature = SignatureCheck.default(),
+            packageName = PackageNameCheck.default(),
+            debug = DebuggableCheck.default(),
+            installer = InstallerCheck.default(),
         )
     }
 }
@@ -39,10 +42,10 @@ public class CheckConfiguration(
 
 @IntegrityDslMarker
 public class CheckConfigurationBuilder : DslBuilder<CheckConfiguration>() {
-    private var signature = SignatureCheck(enabled = false)
-    private var packageName = PackageNameCheck(enabled = false)
-    private var debug = DebuggableCheck(enabled = false)
-    private var installer = InstallerCheck(enabled = false)
+    private var signature = SignatureCheck.default()
+    private var packageName = PackageNameCheck.default()
+    private var debug = DebuggableCheck.default()
+    private var installer = InstallerCheck.default()
 
     public fun signature(block: SignatureCheckBuilder.() -> Unit = {}) {
         signature = SignatureCheckBuilder().apply {
@@ -75,5 +78,6 @@ public class CheckConfigurationBuilder : DslBuilder<CheckConfiguration>() {
     /**
      * Builds the check configuration
      * */
-    override fun build(): CheckConfiguration = CheckConfiguration(signature, packageName, debug, installer)
+    override fun build(): CheckConfiguration =
+        CheckConfiguration(signature, packageName, debug, installer)
 }

@@ -21,9 +21,49 @@ package com.kevlar.integrity.hardcoded
  *
  * Keep in mind that data should come in a intelligible form inside this
  * class, as they will be used to match against the running application
- * ones. You should obfuscate their bytecode serialization.
+ * ones. You should obfuscate their bytecode serialization, not the data itself.
  * */
-public data class HardcodedMetadata(
-    val packageName: String,
-    val signature: String
-)
+
+/**
+ * The theoretically correct package name for the current app.
+ * */
+public data class HardcodedPackageName(
+    val packageName: String
+) {
+    internal val valid: Boolean
+        get() = packageName.isNotBlank()
+
+    internal companion object {
+        fun defaultInvalid() = HardcodedPackageName("")
+    }
+}
+
+
+/**
+ * List of trusted package signatures (usually it's only one)
+ * */
+public data class HardcodedBase64EncodedSignatures(
+    val base64EncodedSignatures: List<String>
+) {
+    internal val valid: Boolean
+        get() = base64EncodedSignatures.isNotEmpty()
+
+    internal companion object {
+        fun getDefaultInvalid() = HardcodedBase64EncodedSignatures(listOf())
+    }
+}
+
+
+/**
+ * List of trusted signing certificate fingerprints (usually it's only one)
+ * */
+public data class HardcodedBase64EncodedFingerprint(
+    val base64EncodedFingerprints: List<String>
+) {
+    internal val valid: Boolean
+        get() = base64EncodedFingerprints.isNotEmpty()
+
+    internal companion object {
+        fun getDefaultInvalid() = HardcodedBase64EncodedFingerprint(listOf())
+    }
+}
