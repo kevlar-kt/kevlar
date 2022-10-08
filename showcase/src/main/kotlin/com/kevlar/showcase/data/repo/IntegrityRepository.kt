@@ -21,6 +21,7 @@ import android.util.Base64
 import com.kevlar.antipiracy.KevlarAntipiracy
 import com.kevlar.integrity.KevlarIntegrity
 import com.kevlar.integrity.dsl.attestation.IntegrityAttestation
+import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedFingerprint
 import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedSignatures
 import com.kevlar.integrity.hardcoded.HardcodedPackageName
 import com.kevlar.showcase.concurrency.IoDispatcher
@@ -47,7 +48,6 @@ class IntegrityRepository @Inject constructor(
     private val plaintextHardcodedSignatures = HardcodedBase64EncodedSignatures(
         base64EncodedSignatures = listOf("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
     )
-
 
 
     /**
@@ -87,13 +87,25 @@ class IntegrityRepository @Inject constructor(
     )
 
 
+    private val g = HardcodedBase64EncodedFingerprint(
+        listOf(
+            ""
+        )
+    )
+
+
     /**
      * Integrity package
      * */
     private val integrity = KevlarIntegrity {
         checks {
-            signature()
-            packageName()
+            signature {
+                hardcodedSignatures(aes256EncryptedHardcodedSignatures)
+                hardcodedFingerprints(g)
+            }
+            packageName{
+                hardcodedPackageName(aes256EncryptedHardcodedPackageName)
+            }
             installer()
             debug()
         }

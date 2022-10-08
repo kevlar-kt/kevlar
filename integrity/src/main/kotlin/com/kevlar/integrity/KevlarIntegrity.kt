@@ -55,6 +55,12 @@ public class KevlarIntegrity(
          * Returns the current running application signatures.
          * */
         public fun obtainCurrentAppSignatures(context: Context): List<String> = obtainBase64EncodedSignatures(context)
+
+
+        /**
+         * Returns the current running application fingerprint.
+         * */
+        public fun obtainCurrentAppFingerprint(context: Context): String = obtainCurrentAppFingerprint(context)
     }
 }
 

@@ -20,6 +20,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Base64
+import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedSignatures
 import java.security.MessageDigest
 
 /**
@@ -29,9 +30,11 @@ import java.security.MessageDigest
  * */
 @SuppressLint("PackageManagerGetSignatures")
 internal fun matchesHardcodedSignature(
-    hardcodedSignatures: List<String>,
+    hardcodedBase64EncodedSignatures: HardcodedBase64EncodedSignatures,
     context: Context
 ): Boolean {
+    val allowedSignatures = hardcodedBase64EncodedSignatures.base64EncodedSignatures
+
     return try {
         val packageInfo = context.packageManager.getPackageInfo(
             context.packageName,
@@ -49,7 +52,7 @@ internal fun matchesHardcodedSignature(
             val runtimeSignature = Base64.encodeToString(md.digest(), Base64.NO_WRAP)
 
             // If any of the given valid signatures matches the current one
-            if (hardcodedSignatures.contains(runtimeSignature)) {
+            if (allowedSignatures.contains(runtimeSignature)) {
                 return true
             }
         }

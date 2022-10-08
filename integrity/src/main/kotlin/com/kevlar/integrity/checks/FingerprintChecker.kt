@@ -18,21 +18,29 @@ package com.kevlar.integrity.checks
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
-import android.util.Base64
-import java.security.MessageDigest
+import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedFingerprint
 
 /**
  * Checks the application signature(s) and matches them against the hardcoded one.
+ *
+ * @param hardcodedBase64EncodedFingerprints        the class holding the list (usually only one)
+ *                                                  of the allowed (and base64-encoded) fingerprints
  *
  * @return whether the hardcoded signature matches the running application's one(s).
  * */
 @SuppressLint("PackageManagerGetSignatures")
 internal fun matchesHardcodedFingerprint(
-    hardcodedFingerprints: List<String>,
+    hardcodedBase64EncodedFingerprints: HardcodedBase64EncodedFingerprint,
     context: Context
-): Boolean = TODO()
+): Boolean {
+    val allowedFingerprints = hardcodedBase64EncodedFingerprints.base64EncodedFingerprints
 
+    return TODO()
+}
+
+/**
+ * Returns the running application base64-encoded fingerprint (for debug purposes)
+ * */
 @SuppressLint("PackageManagerGetSignatures")
 internal fun obtainBase64EncodedFingerprints(
     context: Context

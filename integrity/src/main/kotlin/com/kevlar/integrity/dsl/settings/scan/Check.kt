@@ -104,12 +104,11 @@ public class SignatureCheckBuilder {
         this.hardcodedBase64EncodedFingerprints = hardcodedBase64EncodedFingerprints
     }
 
-    public fun build(): SignatureCheck =
-        SignatureCheck(
-            enabled,
-            hardcodedBase64EncodedSignatures,
-            hardcodedBase64EncodedFingerprints
-        )
+    public fun build(): SignatureCheck = SignatureCheck(
+        enabled,
+        hardcodedBase64EncodedSignatures,
+        hardcodedBase64EncodedFingerprints
+    )
 }
 
 

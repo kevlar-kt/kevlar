@@ -55,40 +55,51 @@ internal object IntegrityAttestator {
         // Here we run all the checks and see which ones fail
         val signature: Deferred<CheckOutputSpecter> = async {
             if (checkSettings.signature.enabled) {
+                // If enabled is true, we can assume that at least one check has been requested
+
                 val hardcodedSignature = checkSettings.signature.hardcodedBase64EncodedSignatures
                 val hardcodedFingerprint = checkSettings.signature.hardcodedBase64EncodedFingerprints
 
                 val matchesSignature = if (hardcodedSignature.valid) {
                     matchesHardcodedSignature(
-                        hardcodedSignatures = hardcodedSignature.base64EncodedSignatures,
+                        hardcodedBase64EncodedSignatures = hardcodedSignature,
                         context
                     )
                 } else {
-                    true // Tests have not been requested
+                    true // Signature test has not been requested
                 }
 
                 val matchesFingerprint = if (hardcodedSignature.valid) {
                     matchesHardcodedFingerprint(
-                        hardcodedFingerprints = hardcodedFingerprint.base64EncodedFingerprints,
+                        hardcodedBase64EncodedFingerprints = hardcodedFingerprint,
                         context
                     )
                 } else {
-                    true // Tests have not been requested
+                    true // Fingerprint test has not been requested
                 }
 
+
+                /*
+                * One check is enabled, so we return isEnabled to true,
+                * If one test has not been requested, its result is true
+                * which when and-ed with the other(s) has no effect.
+                * If one test has been requested, and fails, then we
+                * are able to detect that.
+                * */
                 CheckOutputSpecter(
-                    IntegrityElement.MATCH_HARDCODED_SIGNATURE,
+                    IntegrityElement.MATCH_HARDCODED_SIGNATURE_OR_FINGERPRINT,
                     hasPassedTest = matchesSignature && matchesFingerprint,
                     isEnabled = true
                 )
             } else {
                 CheckOutputSpecter(
-                    IntegrityElement.MATCH_HARDCODED_SIGNATURE,
+                    IntegrityElement.MATCH_HARDCODED_SIGNATURE_OR_FINGERPRINT,
                     hasPassedTest = true,
                     isEnabled = false
                 )
             }
         }
+
 
 
         val packageName: Deferred<CheckOutputSpecter> = async {
