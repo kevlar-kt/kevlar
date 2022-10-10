@@ -33,10 +33,12 @@ public enum class DatasetEntry(
     CREEPLAYS_PATCHER(DatasetType.PIRATE_APP, "Creeplays Patcher"),
     CREE_HACK(DatasetType.PIRATE_APP, "Cree Hack"),
     FREEDOM(DatasetType.PIRATE_APP, "Freedom"),
+    HIDE_ROOT(DatasetType.PIRATE_APP, "Hide Root"),
     GAME_HACKER(DatasetType.PIRATE_APP, "Game Hacker"),
     GAME_KILLER(DatasetType.PIRATE_APP, "Game Killer Cheats"),
     LEO_PLAYCARDS(DatasetType.PIRATE_APP, "Leo Playcards"),
     LUCKY_PATCHER(DatasetType.PIRATE_APP, "Lucky Patcher"),
+    ROOT_CLOAK(DatasetType.PIRATE_APP, "Root Cloak"),
     URET_PATCHER(DatasetType.PIRATE_APP, "Uret Patcher"),
     XMG(DatasetType.PIRATE_APP, "XModGames"),
 

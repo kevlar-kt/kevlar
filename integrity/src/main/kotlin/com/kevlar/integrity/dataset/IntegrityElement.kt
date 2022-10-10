@@ -18,13 +18,14 @@ package com.kevlar.integrity.dataset
 
 /**
  * A single check which can be run from kevlar.
+ * Only requested tests are ran.
  * */
 public enum class IntegrityElement {
     /**
-     * At least one between the signature or the fingerprint test
-     * have not passed. Only requested tests are ran.
+     * At least one between the signature or the fingerprint test.
      * */
     MATCH_HARDCODED_SIGNATURE_OR_FINGERPRINT,
+
     MATCH_HARDCODED_PACKAGE_NAME,
     DEBUG_BUILD,
     UNAUTHORIZED_INSTALLER;

@@ -107,6 +107,23 @@ internal object HeuristicDataset {
                 "cc.cz.madkite.freedom",
             )
         ),
+        MatchableHeuristicDatasetEntry(
+            DatasetEntry.ROOT_CLOAK,
+            DetectionPolicy.packageNames(
+                "com.devadvance.rootcloak",
+                "com.devadvance.rootcloakplus"
+            )
+        ),
+        MatchableHeuristicDatasetEntry(
+            DatasetEntry.HIDE_ROOT,
+            DetectionPolicy.packageNames(
+                "com.formyhm.hideroot",
+                "com.formyhm.hiderootpremium",
+                "com.amphoras.hidemyroot",
+                "com.amphoras.hidemyrootadfree",
+                "com.zachspong.temprootremovejb",
+            )
+        ),
     )
 
 

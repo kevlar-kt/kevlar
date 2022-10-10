@@ -1,8 +1,8 @@
 # Implementation
 
-Implementing `integrity` requires, on top of a `KevlarAntipiracy` and the attestation infrastructure, a tiny bit of information about your application's metadata, which will be hardcoded inside it.
+Implementing `integrity` requires, on top of a `KevlarAntipiracy` and the attestation infrastructure, a bit of information about your application's metadata, which will be hardcoded inside it.
 
-This is necessary to provide kevlar a truth value to match the runtime values (which may have been tampered and altered) against.
+This is necessary to provide kevlar a (hardcoded) truth value to match the runtime values (which may have been tampered or altered by an attacker) against.
 The obfuscation is necessary because we need to conceal the truth values, since they will be looked for by the attacker (software or human), and make it as hard as possible to automatically find and patch them.
 
 A working example for the integrity module can be found in the github repository under the `:showcase` module.
@@ -37,7 +37,7 @@ A working example for the integrity module can be found in the github repository
 	```
 
 ## Hardcoded metadata
-The first step is getting the necessary metadata. You need the following:
+The first step is choosing which 
 
 - Your application **package name**;
 - Your application **signature**.

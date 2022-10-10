@@ -53,12 +53,16 @@ internal object IntegrityAttestator {
         val specters: MutableList<CheckOutputSpecter> = mutableListOf()
 
         // Here we run all the checks and see which ones fail
-        val signature: Deferred<CheckOutputSpecter> = async {
+        val signatureAndFingerprint: Deferred<CheckOutputSpecter> = async {
             if (checkSettings.signature.enabled) {
                 // If enabled is true, we can assume that at least one check has been requested
 
                 val hardcodedSignature = checkSettings.signature.hardcodedBase64EncodedSignatures
                 val hardcodedFingerprint = checkSettings.signature.hardcodedBase64EncodedFingerprints
+
+                assert(hardcodedSignature.valid || hardcodedFingerprint.valid) {
+                    "Invalid configuration detected: both hardcoded signature and fingerprint data are invalid."
+                }
 
                 val matchesSignature = if (hardcodedSignature.valid) {
                     matchesHardcodedSignature(
@@ -69,7 +73,7 @@ internal object IntegrityAttestator {
                     true // Signature test has not been requested
                 }
 
-                val matchesFingerprint = if (hardcodedSignature.valid) {
+                val matchesFingerprint = if (hardcodedFingerprint.valid) {
                     matchesHardcodedFingerprint(
                         hardcodedBase64EncodedFingerprints = hardcodedFingerprint,
                         context
@@ -105,6 +109,10 @@ internal object IntegrityAttestator {
         val packageName: Deferred<CheckOutputSpecter> = async {
             if (checkSettings.packageName.enabled) {
                 val hardcodedPackageName = checkSettings.packageName.hardcodedPackageName
+
+                assert(hardcodedPackageName.valid) {
+                    "Invalid packageName provided: got hardcoded [${checkSettings.packageName.hardcodedPackageName}], current [${context.packageName}]"
+                }
 
                 CheckOutputSpecter(
                     IntegrityElement.MATCH_HARDCODED_PACKAGE_NAME,
@@ -161,11 +169,11 @@ internal object IntegrityAttestator {
             }
         }
 
-        awaitAll(signature, packageName, debug, installer)
+        awaitAll(signatureAndFingerprint, packageName, debug, installer)
 
         specters.addAll(
             listOf(
-                signature.await(), packageName.await(), debug.await(), installer.await()
+                signatureAndFingerprint.await(), packageName.await(), debug.await(), installer.await()
             )
         )
 

@@ -6,6 +6,7 @@
 - [https://darvincitech.wordpress.com/2020/03/01/yet-another-tamper-detection-in-android/](https://darvincitech.wordpress.com/2020/03/01/yet-another-tamper-detection-in-android/);
 - [https://medium.com/avi-parshan-studios/protecting-your-android-app-against-reverse-engineering-and-tampering-a727768b2e9e](https://medium.com/avi-parshan-studios/protecting-your-android-app-against-reverse-engineering-and-tampering-a727768b2e9e);
 - [https://medium.com/@mplacona/tampering-detection-in-android-d213998ecc4f](https://medium.com/@mplacona/tampering-detection-in-android-d213998ecc4f)
+- [https://developer.android.com/google/play/integrity](https://developer.android.com/google/play/integrity)
 - [https://developer.android.com/training/safetynet/index.html](https://developer.android.com/training/safetynet/index.html);
 - [https://www.indusface.com/learning/how-to-implement-root-detection-in-android-applications/](https://www.indusface.com/learning/how-to-implement-root-detection-in-android-applications/);
 - [https://stackoverflow.com/questions/33850864/how-to-verify-purchase-for-android-app-in-server-side-google-play-in-app-billin](https://stackoverflow.com/questions/33850864/how-to-verify-purchase-for-android-app-in-server-side-google-play-in-app-billin).

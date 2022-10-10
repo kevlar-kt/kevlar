@@ -30,6 +30,9 @@ package com.kevlar.integrity.hardcoded
 public data class HardcodedPackageName(
     val packageName: String
 ) {
+    /**
+     * Whether the current hardcoded data holder contains valid data, and thus needs to be processed
+     * */
     internal val valid: Boolean
         get() = packageName.isNotBlank()
 
@@ -40,11 +43,16 @@ public data class HardcodedPackageName(
 
 
 /**
- * List of trusted package signatures (usually it's only one)
+ * List of **trusted** package signatures for the current application (usually it's only one)
+ *
+ * @param base64EncodedSignatures The list of trusted signatures, encoded as base-64 strings
  * */
 public data class HardcodedBase64EncodedSignatures(
     val base64EncodedSignatures: List<String>
 ) {
+    /**
+     * Whether the current hardcoded data holder contains valid data, and thus needs to be processed
+     * */
     internal val valid: Boolean
         get() = base64EncodedSignatures.isNotEmpty()
 
@@ -55,11 +63,16 @@ public data class HardcodedBase64EncodedSignatures(
 
 
 /**
- * List of trusted signing certificate fingerprints (usually it's only one)
+ * List of ++trusted++ signing certificate fingerprints for the current application (usually it's only one)
+ *
+ * @param base64EncodedFingerprints The list of trusted fingerprints, encoded as base-64 strings
  * */
 public data class HardcodedBase64EncodedFingerprint(
     val base64EncodedFingerprints: List<String>
 ) {
+    /**
+     * Whether the current hardcoded data holder contains valid data, and thus needs to be processed
+     * */
     internal val valid: Boolean
         get() = base64EncodedFingerprints.isNotEmpty()
 
