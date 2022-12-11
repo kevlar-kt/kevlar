@@ -18,13 +18,11 @@ package com.kevlar.integrity.checks
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.Signature
-import android.os.Message
 import com.kevlar.integrity.hardcoded.FingerprintHashType
 import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedFingerprint
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import java.util.Objects.hash
+import java.util.Locale
 
 /**
  * Checks the application signature(s) and matches them against the hardcoded one.
@@ -55,19 +53,19 @@ internal fun obtainBase64EncodedFingerprints(
 ): List<String> = context
     .getPackageSignatures()
     .asSequence()
-    .map { requireNotNull(it.hash(hashType)) { "Hash type not supported" } }
-    .map { it.toByteArray().encodeAsBase64() }
+    .map { requireNotNull(it.toByteArray().hash(hashType)) { "Hash type not supported" } }
+    .map { it.toHex(":").toByteArray().encodeAsBase64() }
     .toList()
 
 
-internal fun Signature.hash(type: FingerprintHashType): String? = try {
+internal fun ByteArray.hash(type: FingerprintHashType): ByteArray? = try {
     MessageDigest.getInstance(type.name).run {
-        update(this@hash.toByteArray())
-        digest().toHex()
+        update(this@hash)
+        digest()
     }
 } catch (expected: NoSuchAlgorithmException) {
     null
 }
 
-internal fun ByteArray.toHex(): String =
-    joinToString(separator = "") { eachByte -> "%02x".format(eachByte) }
+internal fun ByteArray.toHex(separator: String = ""): String =
+    joinToString(separator) { eachByte -> "%02x".format(eachByte) }.uppercase(Locale.ROOT)
