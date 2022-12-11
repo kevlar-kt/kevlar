@@ -18,6 +18,7 @@ package com.kevlar.integrity.dsl.settings.scan
 
 import com.kevlar.integrity.constants.IntegrityConstants
 import com.kevlar.integrity.dsl.language.IntegrityDslMarker
+import com.kevlar.integrity.hardcoded.FingerprintHashType
 import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedFingerprint
 import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedSignatures
 import com.kevlar.integrity.hardcoded.HardcodedPackageName
@@ -86,7 +87,7 @@ public class SignatureCheckBuilder {
         HardcodedBase64EncodedSignatures(listOf())
 
     private var hardcodedBase64EncodedFingerprints: HardcodedBase64EncodedFingerprint =
-        HardcodedBase64EncodedFingerprint(listOf())
+        HardcodedBase64EncodedFingerprint(listOf(), FingerprintHashType.MD5)
 
     internal fun enable() {
         enabled = true

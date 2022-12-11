@@ -19,6 +19,8 @@ package com.kevlar.integrity.checks
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.pm.Signature
+import android.os.Build
 import android.util.Base64
 import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedSignatures
 import java.security.MessageDigest
@@ -36,20 +38,13 @@ internal fun matchesHardcodedSignature(
     val allowedSignatures = hardcodedBase64EncodedSignatures.base64EncodedSignatures
 
     return try {
-        val packageInfo = context.packageManager.getPackageInfo(
-            context.packageName,
-            PackageManager.GET_SIGNATURES
-        )
+        val signatures = context.getPackageSignatures()
 
         /**
          * We are guaranteed to have at least one signature, even if it is for debug
          * */
-        for (signature in packageInfo.signatures) {
-            val md = MessageDigest.getInstance("SHA").apply {
-                update(signature.toByteArray())
-            }
-
-            val runtimeSignature = Base64.encodeToString(md.digest(), Base64.NO_WRAP)
+        signatures.forEach { signature ->
+            val runtimeSignature = signature.toByteArray().encodeAsBase64()
 
             // If any of the given valid signatures matches the current one
             if (allowedSignatures.contains(runtimeSignature)) {
@@ -58,21 +53,46 @@ internal fun matchesHardcodedSignature(
         }
 
         false
-    } catch (e: Exception) {
+    } catch (expected: Exception) {
         false
     }
 }
 
-@SuppressLint("PackageManagerGetSignatures")
 internal fun obtainBase64EncodedSignatures(
     context: Context
-): List<String> = context.packageManager
-    .getPackageInfo(context.packageName, PackageManager.GET_SIGNATURES)
-    .signatures
-    .map {
-        val md = MessageDigest.getInstance("SHA").apply {
-            update(it.toByteArray())
+): List<String> = context.getPackageSignatures().map { it.toByteArray().encodeAsBase64() }
+
+internal fun ByteArray.encodeAsBase64(): String {
+    val md = MessageDigest.getInstance("SHA").apply {
+        update(this@encodeAsBase64)
+    }
+
+    return Base64.encodeToString(md.digest(), Base64.NO_WRAP)
+}
+
+@Suppress("DEPRECATION", "PackageManagerGetSignatures")
+internal fun Context.getPackageSignatures(): List<Signature> {
+    return when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> {
+            packageManager.getPackageInfo(
+                packageName,
+                PackageManager.PackageInfoFlags.of(PackageManager.GET_SIGNING_CERTIFICATES.toLong()),
+            ).signingInfo.signingCertificateHistory
         }
 
-        Base64.encodeToString(md.digest(), Base64.NO_WRAP)
-    }
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.P -> {
+            @Suppress("DEPRECATION")
+            packageManager.getPackageInfo(
+                packageName,
+                PackageManager.GET_SIGNING_CERTIFICATES
+            ).signingInfo.signingCertificateHistory
+        }
+
+        else -> {
+            packageManager.getPackageInfo(
+                packageName,
+                PackageManager.GET_SIGNATURES
+            ).signatures
+        }
+    }.filterNotNull()
+}

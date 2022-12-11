@@ -18,7 +18,13 @@ package com.kevlar.integrity.checks
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.Signature
+import android.os.Message
+import com.kevlar.integrity.hardcoded.FingerprintHashType
 import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedFingerprint
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import java.util.Objects.hash
 
 /**
  * Checks the application signature(s) and matches them against the hardcoded one.
@@ -33,9 +39,10 @@ internal fun matchesHardcodedFingerprint(
     hardcodedBase64EncodedFingerprints: HardcodedBase64EncodedFingerprint,
     context: Context
 ): Boolean {
-    val allowedFingerprints = hardcodedBase64EncodedFingerprints.base64EncodedFingerprints
+    val (allowedFingerprints, hashType) = hardcodedBase64EncodedFingerprints
+    val base64FingerprintHashes = obtainBase64EncodedFingerprints(context, hashType)
 
-    return TODO()
+    return base64FingerprintHashes.any { it in allowedFingerprints }
 }
 
 /**
@@ -43,5 +50,24 @@ internal fun matchesHardcodedFingerprint(
  * */
 @SuppressLint("PackageManagerGetSignatures")
 internal fun obtainBase64EncodedFingerprints(
-    context: Context
-): List<String> = TODO()
+    context: Context,
+    hashType: FingerprintHashType
+): List<String> = context
+    .getPackageSignatures()
+    .asSequence()
+    .map { requireNotNull(it.hash(hashType)) { "Hash type not supported" } }
+    .map { it.toByteArray().encodeAsBase64() }
+    .toList()
+
+
+internal fun Signature.hash(type: FingerprintHashType): String? = try {
+    MessageDigest.getInstance(type.name).run {
+        update(this@hash.toByteArray())
+        digest().toHex()
+    }
+} catch (expected: NoSuchAlgorithmException) {
+    null
+}
+
+internal fun ByteArray.toHex(): String =
+    joinToString(separator = "") { eachByte -> "%02x".format(eachByte) }
