@@ -21,6 +21,7 @@ import android.util.Base64
 import com.kevlar.antipiracy.KevlarAntipiracy
 import com.kevlar.integrity.KevlarIntegrity
 import com.kevlar.integrity.dsl.attestation.IntegrityAttestation
+import com.kevlar.integrity.hardcoded.FingerprintHashType
 import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedFingerprint
 import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedSignatures
 import com.kevlar.integrity.hardcoded.HardcodedPackageName
@@ -49,12 +50,21 @@ class IntegrityRepository @Inject constructor(
         base64EncodedSignatures = listOf("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
     )
 
+    private val sha1FingerprintHardCodedSignatures = listOf(
+        "04b253d4677f3438b900bf0f5c324dba0c7f1fb8"
+    )
+
+    private val sha1Base64SignatureFingerprints = listOf(
+        "MDRiMjUzZDQ2NzdmMzQzOGI5MDBiZjBmNWMzMjRkYmEwYzdmMWZiOA=="
+    )
+
 
     /**
      * Base64 obfuscated
      * */
     private val base64PackageName = """Y29tLmtldmxhci5zaG93Y2FzZQ==""".toByteArray(Charsets.UTF_8)
-    private val base64Signature = """SitucVhMZnVJTzhCMkFtaGtNWUhHRTRqRHl3PQ==""".toByteArray(Charsets.UTF_8)
+    private val base64Signature =
+        """SitucVhMZnVJTzhCMkFtaGtNWUhHRTRqRHl3PQ==""".toByteArray(Charsets.UTF_8)
 
 
     private val base64ObfuscatedHardcodedPackageName = HardcodedPackageName(
@@ -77,7 +87,10 @@ class IntegrityRepository @Inject constructor(
     private val encryptedSignature = """tqMJquO3D+EKx1rx4R7/qzmsuEgpp1bKwxXe9AeB/WU=""".toByteArray(Charsets.UTF_8)
 
     private val aes256EncryptedHardcodedPackageName = HardcodedPackageName(
-        packageName = EncryptionUtil.decrypt(encryptedPackageName, EncryptionUtil.generateKey(key256))
+        packageName = EncryptionUtil.decrypt(
+            encryptedPackageName,
+            EncryptionUtil.generateKey(key256)
+        )
     )
 
     private val aes256EncryptedHardcodedSignatures = HardcodedBase64EncodedSignatures(
@@ -87,10 +100,9 @@ class IntegrityRepository @Inject constructor(
     )
 
 
-    private val g = HardcodedBase64EncodedFingerprint(
-        listOf(
-            ""
-        )
+    private val hardcodedBase64EncodedFingerprint = HardcodedBase64EncodedFingerprint(
+        sha1Base64SignatureFingerprints,
+        FingerprintHashType.SHA1,
     )
 
 
@@ -101,7 +113,7 @@ class IntegrityRepository @Inject constructor(
         checks {
             signature {
                 hardcodedSignatures(aes256EncryptedHardcodedSignatures)
-                hardcodedFingerprints(g)
+                hardcodedFingerprints(hardcodedBase64EncodedFingerprint)
             }
             packageName{
                 hardcodedPackageName(aes256EncryptedHardcodedPackageName)

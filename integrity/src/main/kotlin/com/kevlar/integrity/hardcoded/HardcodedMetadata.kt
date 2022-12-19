@@ -61,14 +61,14 @@ public data class HardcodedBase64EncodedSignatures(
     }
 }
 
-
 /**
  * List of ++trusted++ signing certificate fingerprints for the current application (usually it's only one)
  *
  * @param base64EncodedFingerprints The list of trusted fingerprints, encoded as base-64 strings
  * */
 public data class HardcodedBase64EncodedFingerprint(
-    val base64EncodedFingerprints: List<String>
+    val base64EncodedFingerprints: List<String>,
+    val type: FingerprintHashType,
 ) {
     /**
      * Whether the current hardcoded data holder contains valid data, and thus needs to be processed
@@ -77,6 +77,13 @@ public data class HardcodedBase64EncodedFingerprint(
         get() = base64EncodedFingerprints.isNotEmpty()
 
     internal companion object {
-        fun getDefaultInvalid() = HardcodedBase64EncodedFingerprint(listOf())
+        fun getDefaultInvalid() = HardcodedBase64EncodedFingerprint(
+            base64EncodedFingerprints = listOf(),
+            type = FingerprintHashType.MD5
+        )
     }
+}
+
+public enum class FingerprintHashType {
+    SHA1, MD5, SHA256;
 }
