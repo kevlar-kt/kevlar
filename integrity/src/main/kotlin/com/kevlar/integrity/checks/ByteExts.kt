@@ -1,5 +1,5 @@
-/**
- * Designed and developed by Kevlar Contributors
+/*
+ * Designed and developed by Kevlar Contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,16 +12,22 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
-package com.kevlar.rooting
 
-import com.google.common.truth.Truth.assertThat
-import org.junit.Test
+package com.kevlar.integrity.checks
 
-public class Test {
+import android.content.pm.Signature
+import android.util.Base64
+import java.security.MessageDigest
 
-    @Test
-    public fun `True that`() {
-        assertThat(true).isTrue()
+
+internal fun Signature.encodeAsBase64() = toByteArray().encodeAsBase64()
+
+internal fun ByteArray.encodeAsBase64(): String {
+    val md = MessageDigest.getInstance("SHA").apply md@{
+        update(this@encodeAsBase64)
     }
+
+    return Base64.encodeToString(md.digest(), Base64.NO_WRAP)
 }

@@ -17,7 +17,10 @@
 package com.kevlar.integrity.attestator
 
 import android.content.Context
-import com.kevlar.integrity.checks.*
+import com.kevlar.integrity.checks.debug.isDebugBuild
+import com.kevlar.integrity.checks.installer.matchesAllowedInstallerPackageNames
+import com.kevlar.integrity.checks.packagename.matchesHardcodedPackageName
+import com.kevlar.integrity.checks.signature.matchesHardcodedSignature
 import com.kevlar.integrity.dataset.IntegrityElement
 import com.kevlar.integrity.dsl.attestation.IntegrityAttestation
 import com.kevlar.integrity.dsl.settings.IntegritySettings
@@ -53,14 +56,13 @@ internal object IntegrityAttestator {
         val specters: MutableList<CheckOutputSpecter> = mutableListOf()
 
         // Here we run all the checks and see which ones fail
-        val signatureAndFingerprint: Deferred<CheckOutputSpecter> = async {
+        val signature: Deferred<CheckOutputSpecter> = async {
             if (checkSettings.signature.enabled) {
                 // If enabled is true, we can assume that at least one check has been requested
 
                 val hardcodedSignature = checkSettings.signature.hardcodedBase64EncodedSignatures
-                val hardcodedFingerprint = checkSettings.signature.hardcodedBase64EncodedFingerprints
 
-                assert(hardcodedSignature.valid || hardcodedFingerprint.valid) {
+                assert(hardcodedSignature.valid) {
                     "Invalid configuration detected: both hardcoded signature and fingerprint data are invalid."
                 }
 
@@ -73,15 +75,6 @@ internal object IntegrityAttestator {
                     true // Signature test has not been requested
                 }
 
-                val matchesFingerprint = if (hardcodedFingerprint.valid) {
-                    matchesHardcodedFingerprint(
-                        hardcodedBase64EncodedFingerprints = hardcodedFingerprint,
-                        context
-                    )
-                } else {
-                    true // Fingerprint test has not been requested
-                }
-
 
                 /*
                 * One check is enabled, so we return isEnabled to true,
@@ -91,13 +84,13 @@ internal object IntegrityAttestator {
                 * are able to detect that.
                 * */
                 CheckOutputSpecter(
-                    IntegrityElement.MATCH_HARDCODED_SIGNATURE_OR_FINGERPRINT,
-                    hasPassedTest = matchesSignature && matchesFingerprint,
+                    IntegrityElement.MATCH_HARDCODED_SIGNATURE,
+                    hasPassedTest = matchesSignature,
                     isEnabled = true
                 )
             } else {
                 CheckOutputSpecter(
-                    IntegrityElement.MATCH_HARDCODED_SIGNATURE_OR_FINGERPRINT,
+                    IntegrityElement.MATCH_HARDCODED_SIGNATURE,
                     hasPassedTest = true,
                     isEnabled = false
                 )
@@ -169,11 +162,11 @@ internal object IntegrityAttestator {
             }
         }
 
-        awaitAll(signatureAndFingerprint, packageName, debug, installer)
+        awaitAll(signature, packageName, debug, installer)
 
         specters.addAll(
             listOf(
-                signatureAndFingerprint.await(), packageName.await(), debug.await(), installer.await()
+                signature.await(), packageName.await(), debug.await(), installer.await()
             )
         )
 

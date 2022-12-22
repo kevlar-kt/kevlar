@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.kevlar.integrity.checks
+package com.kevlar.integrity.checks.installer
 
 import android.content.Context
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 
 /**

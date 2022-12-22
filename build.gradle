@@ -3,7 +3,7 @@ apply plugin: 'io.github.gradle-nexus.publish-plugin'
 
 buildscript {
     ext {
-        kotlin_version = "1.7.20"
+        kotlin_version = "1.7.22"
     }
     
     repositories {
@@ -14,10 +14,10 @@ buildscript {
     }
     
     dependencies {
-        classpath "com.android.tools.build:gradle:7.3.0"
+        classpath "com.android.tools.build:gradle:7.3.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.42.0"
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.42'
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.44.0"
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.44.2'
         classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
     }
 }

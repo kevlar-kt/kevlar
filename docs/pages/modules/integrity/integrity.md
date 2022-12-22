@@ -38,13 +38,21 @@ To [implement](implementation.md) this, you initialize `KevlarIntegrity` and pro
 ??? note "Empty & default settings"
     The settings on `integrity` are additive. If you leave a blank DSL, nothing will be detected, because no checks will be run, because the settings are empty.
 
+    By default, only `debug` and `installer` checks are enbabled, since you need to provide additional arguments to enable `signature` and `packageName`
+
     If you do not pass a DSL at all, the default settings will be used (they scan for signature, package name, and debug).
 
-    ```kotlin title="Custom"
+    ```kotlin title="Custom (simplified)"
     private val integrity = KevlarIntegrity {
         checks {
-            signature()
-            packageName()
+            signature() {
+                // Allowed package name
+                hardcodedPackageName("com.kevlar.showcase")
+            }
+            packageName() {
+                // Allowed signature
+                hardcodedSignatures("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
+            }
             debug()
             installer()
         }

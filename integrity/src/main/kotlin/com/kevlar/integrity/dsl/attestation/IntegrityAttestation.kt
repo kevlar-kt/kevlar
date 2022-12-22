@@ -24,7 +24,7 @@ import com.kevlar.integrity.dsl.settings.scan.CheckResult
 public sealed class IntegrityAttestation {
 
     /**
-     * Attestation has *not* been verified yet.
+     * Attestation **has not** been verified yet.
      * This state does not carry any information.
      * */
     public data class Blank(

@@ -12,18 +12,15 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
-package com.kevlar.integrity.checks
+package com.kevlar.integrity.checks.signature
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
-import android.content.pm.Signature
-import android.os.Build
-import android.util.Base64
+import com.kevlar.integrity.checks.encodeAsBase64
 import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedSignatures
-import java.security.MessageDigest
 
 /**
  * Checks the application signature(s) and matches them against the hardcoded one.
@@ -35,16 +32,20 @@ internal fun matchesHardcodedSignature(
     hardcodedBase64EncodedSignatures: HardcodedBase64EncodedSignatures,
     context: Context
 ): Boolean {
+    // The list of signatures which are allowed by the application security policy
+    // to have signed the application binary.
+    // They are base64-encoded.
     val allowedSignatures = hardcodedBase64EncodedSignatures.base64EncodedSignatures
 
     return try {
-        val signatures = context.getPackageSignatures()
+        // The list of signatures the current running binary has been signed with (usually only one)
+        val runtimeSignatureList = extractPackageSignatures(context)
 
         /**
          * We are guaranteed to have at least one signature, even if it is for debug
          * */
-        signatures.forEach { signature ->
-            val runtimeSignature = signature.toByteArray().encodeAsBase64()
+        for (signature in runtimeSignatureList) {
+            val runtimeSignature = signature.encodeAsBase64()
 
             // If any of the given valid signatures matches the current one
             if (allowedSignatures.contains(runtimeSignature)) {
@@ -53,46 +54,11 @@ internal fun matchesHardcodedSignature(
         }
 
         false
-    } catch (expected: Exception) {
+    } catch (_: RuntimeException) {
         false
     }
 }
 
 internal fun obtainBase64EncodedSignatures(
     context: Context
-): List<String> = context.getPackageSignatures().map { it.toByteArray().encodeAsBase64() }
-
-internal fun ByteArray.encodeAsBase64(): String {
-    val md = MessageDigest.getInstance("SHA").apply {
-        update(this@encodeAsBase64)
-    }
-
-    return Base64.encodeToString(md.digest(), Base64.NO_WRAP)
-}
-
-@Suppress("DEPRECATION", "PackageManagerGetSignatures")
-internal fun Context.getPackageSignatures(): List<Signature> {
-    return when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> {
-            packageManager.getPackageInfo(
-                packageName,
-                PackageManager.PackageInfoFlags.of(PackageManager.GET_SIGNING_CERTIFICATES.toLong()),
-            ).signingInfo.signingCertificateHistory
-        }
-
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.P -> {
-            @Suppress("DEPRECATION")
-            packageManager.getPackageInfo(
-                packageName,
-                PackageManager.GET_SIGNING_CERTIFICATES
-            ).signingInfo.signingCertificateHistory
-        }
-
-        else -> {
-            packageManager.getPackageInfo(
-                packageName,
-                PackageManager.GET_SIGNATURES
-            ).signatures
-        }
-    }.filterNotNull()
-}
+): List<String> = extractPackageSignatures(context).map { it.encodeAsBase64() }

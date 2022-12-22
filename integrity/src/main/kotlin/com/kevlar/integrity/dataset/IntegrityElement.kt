@@ -22,11 +22,23 @@ package com.kevlar.integrity.dataset
  * */
 public enum class IntegrityElement {
     /**
-     * At least one between the signature or the fingerprint test.
+     * Checks that the signature the binary is signed with matches the hardcoded data provided to kevlar.
      * */
-    MATCH_HARDCODED_SIGNATURE_OR_FINGERPRINT,
+    MATCH_HARDCODED_SIGNATURE,
 
+    /**
+     * Checks that the package name the binary is executing with matches the hardcoded data provided to kevlar.
+     * */
     MATCH_HARDCODED_PACKAGE_NAME,
+
+    /**
+     * Checks whether there are signs of debug build on the current binary.
+     * */
     DEBUG_BUILD,
+
+    /**
+     * Checks, if available, the installation source of the current binary and matches it across
+     * the allowed installer packages data provided to kevlar.
+     * */
     UNAUTHORIZED_INSTALLER;
 }

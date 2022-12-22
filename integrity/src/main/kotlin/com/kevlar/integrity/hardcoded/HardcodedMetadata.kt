@@ -17,12 +17,14 @@
 package com.kevlar.integrity.hardcoded
 
 /**
- * Hardcoded data holder.
+ * Hardcoded data holder, used to encode application data, to be used
+ * internally by kevlar to check against the actual application runtime data.
  *
  * Keep in mind that data should come in a intelligible form inside this
  * class, as they will be used to match against the running application
  * ones. You should obfuscate their bytecode serialization, not the data itself.
  * */
+
 
 /**
  * The theoretically correct package name for the current app.
@@ -43,9 +45,9 @@ public data class HardcodedPackageName(
 
 
 /**
- * List of **trusted** package signatures for the current application (usually it's only one)
+ * List of **trusted** package signatures for the current application (most times it's only one signature)
  *
- * @param base64EncodedSignatures The list of trusted signatures, encoded as base-64 strings
+ * @param base64EncodedSignatures The list of trusted signature(s), encoded as base-64 strings
  * */
 public data class HardcodedBase64EncodedSignatures(
     val base64EncodedSignatures: List<String>
@@ -61,29 +63,12 @@ public data class HardcodedBase64EncodedSignatures(
     }
 }
 
+
 /**
- * List of ++trusted++ signing certificate fingerprints for the current application (usually it's only one)
- *
- * @param base64EncodedFingerprints The list of trusted fingerprints, encoded as base-64 strings
+ * Useful function in case you only have one signature.
  * */
-public data class HardcodedBase64EncodedFingerprint(
-    val base64EncodedFingerprints: List<String>,
-    val type: FingerprintHashType,
-) {
-    /**
-     * Whether the current hardcoded data holder contains valid data, and thus needs to be processed
-     * */
-    internal val valid: Boolean
-        get() = base64EncodedFingerprints.isNotEmpty()
+public fun HardcodedBase64EncodedSignature(
+    base64EncodedSignature: String
+): HardcodedBase64EncodedSignatures =
+    HardcodedBase64EncodedSignatures(listOf(base64EncodedSignature))
 
-    internal companion object {
-        fun getDefaultInvalid() = HardcodedBase64EncodedFingerprint(
-            base64EncodedFingerprints = listOf(),
-            type = FingerprintHashType.MD5
-        )
-    }
-}
-
-public enum class FingerprintHashType {
-    SHA1, MD5, SHA256;
-}

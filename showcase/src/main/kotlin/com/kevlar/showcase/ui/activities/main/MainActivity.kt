@@ -15,7 +15,7 @@
  */
 
 /**
- * Designed and developed by Andrea Cioccarelli (@cioccarellia)
+ * Designed and developed by Kevlar Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,9 +33,11 @@ package com.kevlar.showcase.ui.activities.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.kevlar.integrity.KevlarIntegrity
 import com.kevlar.showcase.R
 import com.kevlar.showcase.databinding.ActivityMainBinding
 import com.kevlar.showcase.ui.activities.antipiracy.AntipiracyActivity
@@ -73,5 +75,7 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
+
+        Log.d("Signatures", KevlarIntegrity.obtainCurrentAppSignatures(applicationContext).toString())
     }
 }

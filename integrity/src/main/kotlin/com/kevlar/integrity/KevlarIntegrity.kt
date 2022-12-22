@@ -18,7 +18,7 @@ package com.kevlar.integrity
 
 import android.content.Context
 import com.kevlar.integrity.attestator.IntegrityAttestator
-import com.kevlar.integrity.checks.obtainBase64EncodedSignatures
+import com.kevlar.integrity.checks.signature.obtainBase64EncodedSignatures
 import com.kevlar.integrity.dsl.attestation.IntegrityAttestation
 import com.kevlar.integrity.dsl.settings.IntegritySettings
 import com.kevlar.integrity.dsl.settings.IntegritySettingsBuilder
@@ -46,6 +46,7 @@ public class KevlarIntegrity(
          * */
         public fun blankAttestation(index: Int = 0): IntegrityAttestation = IntegrityAttestation.Blank(index)
 
+
         /**
          * Returns the current running application (oldest) signature.
          * */
@@ -56,21 +57,16 @@ public class KevlarIntegrity(
          * */
         public fun obtainCurrentAppSignatures(context: Context): List<String> = obtainBase64EncodedSignatures(context)
 
-
-        /**
-         * Returns the current running application fingerprint.
-         * */
-        public fun obtainCurrentAppFingerprint(context: Context): String = obtainCurrentAppFingerprint(context)
     }
 }
 
 public val DefaultIntegritySettings: IntegritySettingsBuilder.() -> Unit = {
     this.run {
         checks {
-            signature()
-            packageName()
+            // signature()
+            // packageName()
             debug()
-            // installer()
+            installer()
         }
     }
 }

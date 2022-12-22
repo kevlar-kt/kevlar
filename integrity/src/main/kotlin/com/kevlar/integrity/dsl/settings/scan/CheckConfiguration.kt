@@ -18,9 +18,6 @@ package com.kevlar.integrity.dsl.settings.scan
 
 import com.kevlar.integrity.dsl.language.DslBuilder
 import com.kevlar.integrity.dsl.language.IntegrityDslMarker
-import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedFingerprint
-import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedSignatures
-import com.kevlar.integrity.hardcoded.HardcodedPackageName
 
 public class CheckConfiguration(
     public val signature: SignatureCheck,

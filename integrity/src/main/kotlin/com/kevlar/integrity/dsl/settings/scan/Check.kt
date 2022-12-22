@@ -18,8 +18,6 @@ package com.kevlar.integrity.dsl.settings.scan
 
 import com.kevlar.integrity.constants.IntegrityConstants
 import com.kevlar.integrity.dsl.language.IntegrityDslMarker
-import com.kevlar.integrity.hardcoded.FingerprintHashType
-import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedFingerprint
 import com.kevlar.integrity.hardcoded.HardcodedBase64EncodedSignatures
 import com.kevlar.integrity.hardcoded.HardcodedPackageName
 
@@ -33,14 +31,12 @@ public abstract class Check {
 public data class SignatureCheck(
     override val enabled: Boolean,
     val hardcodedBase64EncodedSignatures: HardcodedBase64EncodedSignatures,
-    val hardcodedBase64EncodedFingerprints: HardcodedBase64EncodedFingerprint,
 ) : Check() {
 
     internal companion object {
         fun default(): SignatureCheck = SignatureCheck(
             enabled = false,
             hardcodedBase64EncodedSignatures = HardcodedBase64EncodedSignatures.getDefaultInvalid(),
-            hardcodedBase64EncodedFingerprints = HardcodedBase64EncodedFingerprint.getDefaultInvalid()
         )
     }
 }
@@ -86,9 +82,6 @@ public class SignatureCheckBuilder {
     private var hardcodedBase64EncodedSignatures: HardcodedBase64EncodedSignatures =
         HardcodedBase64EncodedSignatures(listOf())
 
-    private var hardcodedBase64EncodedFingerprints: HardcodedBase64EncodedFingerprint =
-        HardcodedBase64EncodedFingerprint(listOf(), FingerprintHashType.MD5)
-
     internal fun enable() {
         enabled = true
     }
@@ -101,14 +94,9 @@ public class SignatureCheckBuilder {
         this.hardcodedBase64EncodedSignatures = hardcodedBase64EncodedSignatures
     }
 
-    public fun hardcodedFingerprints(hardcodedBase64EncodedFingerprints: HardcodedBase64EncodedFingerprint) {
-        this.hardcodedBase64EncodedFingerprints = hardcodedBase64EncodedFingerprints
-    }
-
     public fun build(): SignatureCheck = SignatureCheck(
         enabled,
-        hardcodedBase64EncodedSignatures,
-        hardcodedBase64EncodedFingerprints
+        hardcodedBase64EncodedSignatures
     )
 }
 

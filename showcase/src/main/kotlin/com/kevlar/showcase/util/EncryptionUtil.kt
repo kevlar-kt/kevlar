@@ -16,16 +16,20 @@
 
 package com.kevlar.showcase.util
 
+import android.annotation.SuppressLint
 import android.util.Base64
+import java.nio.charset.Charset
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
 
+@Suppress("SpellCheckingInspection")
+@SuppressLint("GetInstance")
 object EncryptionUtil {
-    private const val algorithm = "AES"
-    private const val transformation = "AES/ECB/PKCS5Padding"
+    private const val algorithm = """AES"""
+    private const val transformation = """AES/ECB/PKCS5Padding"""
 
-    fun generateKey(key: String): SecretKey = SecretKeySpec(key.toByteArray(), algorithm)
+    fun generateKey(key: String, charset: Charset = Charsets.UTF_8): SecretKey = SecretKeySpec(key.toByteArray(charset), algorithm)
 
     fun encrypt(text: ByteArray, secret: SecretKey): String {
         val cipher: Cipher = Cipher.getInstance(transformation).apply {
@@ -35,11 +39,11 @@ object EncryptionUtil {
         return Base64.encodeToString(cipher.doFinal(text), Base64.NO_WRAP) ?: ""
     }
 
-    fun decrypt(ciphertext: ByteArray, secret: SecretKey): String {
+    fun decrypt(ciphertext: ByteArray, secret: SecretKey, charset: Charset = Charsets.UTF_8): String {
         val cipher: Cipher = Cipher.getInstance(transformation).apply {
             init(Cipher.DECRYPT_MODE, secret)
         }
 
-        return String(cipher.doFinal(Base64.decode(ciphertext, Base64.NO_WRAP)), Charsets.UTF_8)
+        return String(cipher.doFinal(Base64.decode(ciphertext, Base64.NO_WRAP)), charset)
     }
 }

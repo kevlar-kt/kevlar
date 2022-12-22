@@ -18,6 +18,11 @@ package com.kevlar.integrity.dsl.settings.scan
 
 import com.kevlar.integrity.dataset.IntegrityElement
 
+/**
+ * Result from a kevlar attestation.
+ * Contains the elements which failed the text, and thus have been detected as security
+ * environment violations, in compliance with the data provided to kevlar.
+ * */
 public data class CheckResult(
     val detectedElements: Set<IntegrityElement>
 ) {
