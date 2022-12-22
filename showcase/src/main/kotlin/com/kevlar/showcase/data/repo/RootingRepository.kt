@@ -50,7 +50,7 @@ class RootingRepository @Inject constructor(
             }
         }
 
-        allowRootCheck()
+        allowExplicitRootCheck()
     }
 
     /**
@@ -61,7 +61,6 @@ class RootingRepository @Inject constructor(
     suspend fun attestateRoot(): TargetRootingAttestation = withContext(externalDispatcher) {
         rooting.attestateTargets(context)
     }
-
 
     suspend fun attestateStatus(): StatusRootingAttestation = withContext(externalDispatcher) {
         rooting.attestateStatus()

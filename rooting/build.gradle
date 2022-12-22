@@ -84,7 +84,7 @@ dependencies {
     
     // libsu
     implementation("com.github.topjohnwu.libsu:core:5.0.3") {
-        exclude group: 'androidx.annotation', module: 'annotation'
+        // exclude group: 'androidx.annotation', module: 'annotation'
     }
     implementation "androidx.annotation:annotation:1.5.0"
 }

@@ -89,7 +89,7 @@ internal object TargetsAttestator {
             if (targets.root.enabled) {
                 TargetOutputDump(
                     DetectableSystemTarget.ROOT,
-                    CombinedBinaryDump("su", context.packageName, settings.allowRootCheck),
+                    CombinedBinaryDump("su", context.packageName, settings.allowExplicitRootCheck),
                     isDumpEnabled = true
                 )
             } else {
@@ -101,7 +101,7 @@ internal object TargetsAttestator {
             if (targets.magisk.enabled) {
                 TargetOutputDump(
                     DetectableSystemTarget.MAGISK,
-                    CombinedBinaryDump("magisk", context.packageName, settings.allowRootCheck),
+                    CombinedBinaryDump("magisk", context.packageName, settings.allowExplicitRootCheck),
                     isDumpEnabled = true
                 )
             } else {
@@ -113,7 +113,7 @@ internal object TargetsAttestator {
             if (targets.busybox.enabled) {
                 TargetOutputDump(
                     DetectableSystemTarget.BUSYBOX,
-                    CombinedBinaryDump("busybox", context.packageName, settings.allowRootCheck),
+                    CombinedBinaryDump("busybox", context.packageName, settings.allowExplicitRootCheck),
                     isDumpEnabled = true
                 )
             } else {
@@ -125,7 +125,7 @@ internal object TargetsAttestator {
             if (targets.toybox.enabled) {
                 TargetOutputDump(
                     DetectableSystemTarget.TOYBOX,
-                    CombinedBinaryDump("toybox", context.packageName, settings.allowRootCheck),
+                    CombinedBinaryDump("toybox", context.packageName, settings.allowExplicitRootCheck),
                     isDumpEnabled = true
                 )
             } else {

@@ -27,14 +27,15 @@ import com.kevlar.rooting.dsl.settings.target.SystemTargetsBuilder
  * Holds settings for [com.kevlar.rooting.KevlarRooting].
  *
  * Current available settings include:
- * - System targets (allows to target the detection of specific system modifications)
- * - System status (allows to detect system conditions)
- * - Allow root check (whether kevlar will try to acquire root access to detect certain targets)
+ * - System targets                 (allows to target the detection of specific system modifications)
+ * - System status                  (allows to detect system conditions)
+ * - Allow explicit root check      (whether kevlar will try to acquire explicit root access to detect
+ *                                  certain targets, instead of using just passive reconnaissance)
  * */
 public data class RootingSettings(
     val systemTargets: SystemTargets,
     val systemStatus: SystemStatus,
-    val allowRootCheck: Boolean
+    val allowExplicitRootCheck: Boolean
 )
 
 /**
@@ -48,7 +49,7 @@ public data class RootingSettings(
 public class RootingSettingsBuilder : DslBuilder<RootingSettings>() {
     private var systemTargets: SystemTargets = SystemTargets.default()
     private var systemStatus: SystemStatus = SystemStatus.default()
-    private var allowRootCheck: Boolean = false
+    private var allowExplicitRootCheck: Boolean = false
 
     public fun targets(block: SystemTargetsBuilder.() -> Unit) {
         systemTargets = SystemTargetsBuilder().apply(block).build()
@@ -58,9 +59,16 @@ public class RootingSettingsBuilder : DslBuilder<RootingSettings>() {
         systemStatus = SystemStatusBuilder().apply(block).build()
     }
 
-    public fun allowRootCheck() {
-        allowRootCheck = true
+    /**
+     * By default kevlar does not run the `su` binary. Instead, it passively analyzes the
+     * system environment to detect root access.
+     *
+     * If you don't mind having your application ask for root permission, you can enable this
+     * flag, so that kevlar will be trying to acquire root access as an additional check.
+     * */
+    public fun allowExplicitRootCheck() {
+        allowExplicitRootCheck = true
     }
 
-    override fun build(): RootingSettings = RootingSettings(systemTargets, systemStatus, allowRootCheck)
+    override fun build(): RootingSettings = RootingSettings(systemTargets, systemStatus, allowExplicitRootCheck)
 }

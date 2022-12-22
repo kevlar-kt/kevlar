@@ -24,6 +24,13 @@ internal enum class SelinuxGetenforceStatus {
     DISABLED, PERMISSIVE, ENFORCING;
 }
 
+/**
+ * This command may fail under different circumstances.
+ * We want to have no false positives. Thus, in case of unknown output
+ * we assume that the status is set to enforcing.
+ * Only if we find evidence of selinux being either disabled or permissive
+ * we can infer some information.
+ * */
 internal suspend fun detectSelinux(): SelinuxGetenforceStatus = withContext(Dispatchers.IO) {
     when (Shell.cmd("getenforce").exec().out.joinToString().lowercase()) {
         "disabled" -> SelinuxGetenforceStatus.DISABLED

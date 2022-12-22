@@ -26,27 +26,27 @@ import kotlinx.coroutines.withContext
 
 
 /**
- * We make 3 passes with different permission levels, and for each one
+ * We make 3 asynchronous passes with different permission levels, and for each one
  * we test commands and infer whether root access is installed on the device
  * */
 internal suspend fun CombinedBinaryDump(
     binaryName: String,
     packageName: String,
-    allowRootCheck: Boolean
+    allowExplicitRootCheck: Boolean
 ): CombinedBinaryDump = withContext(Dispatchers.IO) {
     val appDump = async {
-        BinaryDump(binaryName, packageName, ExecutionLevel.APP, allowRootCheck)
+        BinaryDump(binaryName, packageName, ExecutionLevel.APP, allowExplicitRootCheck)
     }
 
     val binDump = async {
-        BinaryDump(binaryName, packageName, ExecutionLevel.SH, allowRootCheck)
+        BinaryDump(binaryName, packageName, ExecutionLevel.SH, allowExplicitRootCheck)
     }
 
     val suDump = async {
-        BinaryDump(binaryName, packageName, ExecutionLevel.SU, allowRootCheck)
+        BinaryDump(binaryName, packageName, ExecutionLevel.SU, allowExplicitRootCheck)
     }
 
-    //awaitAll(appDump, binDump, suDump)
+    awaitAll(appDump, binDump, suDump)
 
     CombinedBinaryDump(appDump.await(), binDump.await(), suDump.await())
 }
@@ -55,7 +55,7 @@ internal suspend fun BinaryDump(
     binaryName: String,
     packageName: String,
     level: ExecutionLevel,
-    allowRootCheck: Boolean
+    allowExplicitRootCheck: Boolean
 ): BinaryDump = withContext(Dispatchers.IO) {
     when (level) {
         // App-level check
@@ -114,7 +114,7 @@ internal suspend fun BinaryDump(
             )
         }
         ExecutionLevel.SU -> {
-            if (allowRootCheck) {
+            if (allowExplicitRootCheck) {
                 val shellId = async {
                     // We execute the `id` command as root
                     Shell.su("id").exec()
