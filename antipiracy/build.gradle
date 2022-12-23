@@ -42,7 +42,7 @@ project.ext.set("module_${ext.module_name}", new ModuleArtifactCoordinates(
         "antipiracy",
         
         // PUBLISH_VERSION
-        "1.0.0",
+        "1.1.0",
         
         // PUBLISH_ARTIFACT_DESC
         "Kevlar Antipiracy",
@@ -60,7 +60,7 @@ apply from: rootProject.file("scripts/commons/library_config.gradle")
  * */
 android {
     defaultConfig {
-        versionName "1.0.0-kevlar-antipiracy"
+        versionName "1.1.0-kevlar-antipiracy"
         versionCode 1
     }
 }
