@@ -42,6 +42,41 @@ You go ahead and request whichever attestation(s) you need. The will produce two
 We go ahead and create a working single-attestation example (for system modifications aka targets). For two attestations refer to the sample code in the `:showcase` module of the github repository.
 
 
+## Configuration
+As we said, the kinds of checks you can run are divided in two different categories, `targets` and `status`.
+The first is to check for eventual system modification, the former to check for eventual in-system status.
+
+The following complete configuration runs every check that kevlar disposes.
+
+In details:
+
+- `flagPermissive()`, if enabled, will report `DetectableSystemStatus.SELINUX` also if selinux status is set to permissive status (which is a stricter criteria), while by default it will only trip if selinux is disabled;
+- `allowExplicitRootCheck()`, if enabled, will use more aggressive checks to determine if any of the required targets is installed, including explicitly trying to acquire root access.
+
+
+```kotlin
+private val rooting = KevlarRooting {
+    targets {
+        root()
+        magisk()
+        busybox()
+        toybox()
+        xposed()
+    }
+
+    allowExplicitRootCheck()
+
+    status {
+        testKeys()
+        emulator()
+        selinux {
+            flagPermissive()
+        }
+    }
+}
+```
+
+
 ## In-Place
 This is the most concise way to implement rooting.
 

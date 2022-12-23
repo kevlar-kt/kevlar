@@ -24,6 +24,9 @@ internal enum class SelinuxGetenforceStatus {
     DISABLED, PERMISSIVE, ENFORCING;
 }
 
+private const val SX_DISABLED = """disabled"""
+private const val SX_PERMISSIVE = """permissive"""
+
 /**
  * This command may fail under different circumstances.
  * We want to have no false positives. Thus, in case of unknown output
@@ -32,9 +35,9 @@ internal enum class SelinuxGetenforceStatus {
  * we can infer some information.
  * */
 internal suspend fun detectSelinux(): SelinuxGetenforceStatus = withContext(Dispatchers.IO) {
-    when (Shell.cmd("getenforce").exec().out.joinToString().lowercase()) {
-        "disabled" -> SelinuxGetenforceStatus.DISABLED
-        "permissive" -> SelinuxGetenforceStatus.PERMISSIVE
+    when (Shell.cmd("getenforce").exec().out.joinToString().lowercase().trim()) {
+        SX_DISABLED -> SelinuxGetenforceStatus.DISABLED
+        SX_PERMISSIVE -> SelinuxGetenforceStatus.PERMISSIVE
         else -> SelinuxGetenforceStatus.ENFORCING
     }
 }

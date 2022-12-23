@@ -68,7 +68,7 @@ To [implement](implementation.md) this, you initialize `KevlarRooting` and provi
             }
         }
 
-        allowRootCheck()
+        allowExplicitRootCheck()
     }
     ```
 

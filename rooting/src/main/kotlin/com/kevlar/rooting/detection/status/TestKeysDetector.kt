@@ -18,6 +18,9 @@ package com.kevlar.rooting.detection.status
 
 import android.os.Build
 
+/**
+ * Simply detects whether test keys are present in the build tags.
+ * */
 internal fun detectTestKeys(): Boolean {
     val buildTags = Build.TAGS
     return buildTags != null && buildTags.contains("test-keys")

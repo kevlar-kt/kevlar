@@ -53,11 +53,6 @@ class RootingRepository @Inject constructor(
         allowExplicitRootCheck()
     }
 
-    /**
-     * This uses the default settings, only targets/root and status/emulator
-     * */
-    private val defaultRooting = KevlarRooting()
-
     suspend fun attestateRoot(): TargetRootingAttestation = withContext(externalDispatcher) {
         rooting.attestateTargets(context)
     }

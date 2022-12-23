@@ -29,8 +29,6 @@ import com.kevlar.rooting.dsl.settings.target.SystemTargetsBuilder
  * Current available settings include:
  * - System targets                 (allows to target the detection of specific system modifications)
  * - System status                  (allows to detect system conditions)
- * - Allow explicit root check      (whether kevlar will try to acquire explicit root access to detect
- *                                  certain targets, instead of using just passive reconnaissance)
  * */
 public data class RootingSettings(
     val systemTargets: SystemTargets,

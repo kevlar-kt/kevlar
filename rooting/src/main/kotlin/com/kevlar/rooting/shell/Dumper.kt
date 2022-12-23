@@ -75,7 +75,7 @@ internal suspend fun BinaryDump(
                 Shell.sh("run-as $packageName $binaryName").exec()
             }
 
-            //awaitAll(shellId, binaryPathExtraction, binaryTest)
+            awaitAll(shellId, binaryPathExtraction, binaryTest)
 
             BinaryDump(
                 binaryName = binaryName,

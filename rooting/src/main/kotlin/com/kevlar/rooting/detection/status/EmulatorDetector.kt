@@ -20,6 +20,10 @@ package com.kevlar.rooting.detection.status
 
 import android.os.Build
 
+/**
+ * Analyzes environment DEVICE, FINGERPRINT, HARDWARE, MODEL, MANUFACTURER and PRODUCT to
+ * search for some specific emulator characteristics
+ * */
 internal fun detectEmulator(): Boolean =
     (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
             || Build.FINGERPRINT.startsWith("generic")

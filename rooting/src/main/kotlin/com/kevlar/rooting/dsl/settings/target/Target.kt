@@ -53,6 +53,7 @@ public data class XposedTarget(
 @RootingDslMarker
 public class RootTargetBuilder {
     private var enabled: Boolean = false
+    private var allowExplicitRootCheck: Boolean = false
 
     internal fun enable() {
         enabled = true
@@ -60,6 +61,17 @@ public class RootTargetBuilder {
 
     internal fun disable() {
         enabled = false
+    }
+
+    /**
+     * By default kevlar does not run the `su` binary. Instead, it passively analyzes the
+     * system environment to detect root access.
+     *
+     * If you don't mind having your application ask for root permission, you can enable this
+     * flag, so that kevlar will be trying to acquire root access as an additional check.
+     * */
+    public fun allowExplicitRootCheck() {
+        allowExplicitRootCheck = true
     }
 
     public fun build(): RootTarget = RootTarget(enabled)
