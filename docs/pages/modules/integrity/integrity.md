@@ -45,11 +45,11 @@ To [implement](implementation.md) this, you initialize `KevlarIntegrity` and pro
     ```kotlin title="Custom (simplified)"
     private val integrity = KevlarIntegrity {
         checks {
-            signature() {
+            packageName() {
                 // Allowed package name
                 hardcodedPackageName("com.kevlar.showcase")
             }
-            packageName() {
+            signature() {
                 // Allowed signature
                 hardcodedSignatures("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
             }

@@ -72,6 +72,7 @@ nav:
           - 'Technical Material': pages/overview/material.md
     - Antipiracy:
           - 'Overview' : pages/modules/antipiracy/antipiracy.md
+          - 'Reference' : pages/modules/antipiracy/reference.md
           - 'Implementation' : pages/modules/antipiracy/implementation.md
           - 'Detection' : pages/modules/antipiracy/detection.md
           - 'Database' : pages/modules/antipiracy/database.md
@@ -83,6 +84,7 @@ nav:
           - 'Internals' : pages/modules/rooting/internals.md
     - 'Integrity':
           - 'Overview': pages/modules/integrity/integrity.md
+          - 'Reference': pages/modules/integrity/reference.md
           - 'Implementation': pages/modules/integrity/implementation.md
           - 'Hardcoding': pages/modules/integrity/hardcoding.md
 

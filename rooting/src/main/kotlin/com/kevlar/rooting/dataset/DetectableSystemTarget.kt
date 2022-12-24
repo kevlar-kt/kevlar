@@ -17,9 +17,62 @@
 package com.kevlar.rooting.dataset
 
 /**
- * This is a target element, which can be targeted, analyzed and detected in the running system.
- * It signals the presence of a single system modification (target).
+ * This enumeration contains all the possible issues that kevlar may report in an attestation result.
+ *
+ * They are used to pinpoint checks that kevlar can run, and they are included in the attestation to
+ * signify that a specific test has produced a negative result.
+ *
+ * Keep in mind that kevlar will run **only** the checks you explicitly requested in its configuration.
+ *
+ * ```kotlin
+ * targets {
+ *     root()
+ *     busybox()
+ * }
+ * ```
+ *
+ * This means that you have to enable a specific option (see documentation) in order to tell kevlar to
+ * actually run the check for it, which will eventually be reported here (if it is found to be present
+ * on the host system).
  * */
 public enum class DetectableSystemTarget {
-    ROOT, BUSYBOX, TOYBOX, MAGISK, XPOSED;
+    /**
+     * Device emulation status.
+     *
+     * This item will be included in your attestation if the system your application is running in
+     * is thought to be rooted.
+     * */
+    ROOT,
+
+    /**
+     * Device emulation status.
+     *
+     * This item will be included in your attestation if the system your application is running in
+     * is thought to have busybox binaries installed.
+     * */
+    BUSYBOX,
+
+    /**
+     * Device emulation status.
+     *
+     * This item will be included in your attestation if the system your application is running in
+     * is thought to have magisk installed.
+     * */
+    MAGISK,
+
+    /**
+     * Device emulation status.
+     *
+     * This item will be included in your attestation if the system your application is running in
+     * is thought to have xposed installed.
+     * */
+    XPOSED,
+
+    /**
+     * Device emulation status.
+     *
+     * This item will be included in your attestation if the system your application is running in
+     * is thought to have toybox binaries installed.
+     * */
+    TOYBOX;
 }

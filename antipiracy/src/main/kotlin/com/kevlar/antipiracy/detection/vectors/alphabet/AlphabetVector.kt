@@ -26,8 +26,4 @@ internal class AlphabetVector(inputVector: InputVector) : AntipiracyVector(input
 
         return OutputVector(matchingDataset = null)
     }
-
-    companion object {
-        private const val TAG = "AlphabetVector"
-    }
 }

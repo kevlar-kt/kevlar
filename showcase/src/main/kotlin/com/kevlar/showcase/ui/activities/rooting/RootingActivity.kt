@@ -95,7 +95,7 @@ class RootingActivity : AppCompatActivity() {
                                 appendLine("Failed attestation")
                                 appendLine()
 
-                                it.status.detectedStatus.forEachIndexed { i, it: DetectableSystemStatus ->
+                                it.status.detectedStatuses.forEachIndexed { i, it: DetectableSystemStatus ->
                                     appendLine("[$i] $it")
                                 }
 

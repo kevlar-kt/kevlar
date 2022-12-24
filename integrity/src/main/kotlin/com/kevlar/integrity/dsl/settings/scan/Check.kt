@@ -28,6 +28,7 @@ public abstract class Check {
     public abstract val enabled: Boolean
 }
 
+
 public data class SignatureCheck(
     override val enabled: Boolean,
     val hardcodedBase64EncodedSignatures: HardcodedBase64EncodedSignatures,
@@ -41,7 +42,6 @@ public data class SignatureCheck(
     }
 }
 
-
 public data class PackageNameCheck(
     override val enabled: Boolean,
     val hardcodedPackageName: HardcodedPackageName
@@ -54,7 +54,6 @@ public data class PackageNameCheck(
         )
     }
 }
-
 
 public data class InstallerCheck(
     override val enabled: Boolean,
@@ -73,6 +72,8 @@ public data class DebuggableCheck(
         fun default(): DebuggableCheck = DebuggableCheck(enabled = false)
     }
 }
+
+
 
 
 @IntegrityDslMarker

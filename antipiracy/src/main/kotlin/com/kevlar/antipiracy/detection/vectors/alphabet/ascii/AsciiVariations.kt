@@ -16,6 +16,10 @@
 
 package com.kevlar.antipiracy.detection.vectors.alphabet.ascii
 
+/**
+ * Maps a single character to a set of characters which may be used
+ * to disguise a certain alphabet element.
+ * */
 @Suppress("SpellCheckingInspection")
 internal object AsciiVariations {
     val a = charArrayOf(

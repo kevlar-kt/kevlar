@@ -19,8 +19,10 @@ package com.kevlar.rooting.dsl.settings.target
 import com.kevlar.rooting.dataset.DetectableSystemTarget
 
 /**
- * Holds the found system modifications.
- * This will be included in failed [RootingAttestation]s.
+ * Data holder returned as an attestation result.
+ *
+ * @param detectedTargets   A [Set] containing all the [DetectableSystemTarget]s which have been found on the
+ *                          system through kevlar's checks.
  * */
 public data class TargetResult(
     val detectedTargets: Set<DetectableSystemTarget>

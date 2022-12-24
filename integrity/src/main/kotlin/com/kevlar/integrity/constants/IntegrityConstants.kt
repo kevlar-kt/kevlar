@@ -16,6 +16,7 @@
 
 package com.kevlar.integrity.constants
 
+@Suppress("SpellCheckingInspection")
 internal object IntegrityConstants {
-    const val PSPN = """com.android.vending"""
+    internal const val PSPN = """com.android.vending"""
 }

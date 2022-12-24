@@ -17,9 +17,47 @@
 package com.kevlar.rooting.dataset
 
 /**
- * This is a status element, which can be targeted, analyzed and detected in the running system.
- * It signals the presence of a single system condition (status).
+ * This enumeration contains all the possible issues that kevlar may report in an attestation result.
+ *
+ * They are used to pinpoint checks that kevlar can run, and they are included in the attestation to
+ * signify that a specific test has produced a negative result.
+ *
+ * Keep in mind that kevlar will run **only** the checks you explicitly requested in its configuration.
+ *
+ * ```kotlin
+ * status {
+ *     testKeys()
+ *     emulator()
+ * }
+ * ```
+ *
+ * This means that you have to enable a specific option (see documentation) in order to tell kevlar to
+ * actually run the check for it, which will eventually be reported here (if it is found to be present
+ * on the host system).
  * */
+
 public enum class DetectableSystemStatus {
-    EMULATOR, TEST_KEYS, SELINUX;
+    /**
+     * Device emulation status.
+     *
+     * This item will be included in your attestation if the system your application is running in
+     * is thought to be an emulator.
+     * */
+    EMULATOR,
+
+    /**
+     * Device emulation status.
+     *
+     * This item will be included in your attestation if your application is thought to be running
+     * on a system with test keys.
+     * */
+    TEST_KEYS,
+
+    /**
+     * Device emulation status.
+     *
+     * This item will be included in your attestation if your application is thought to be running
+     * on a system with improper selinux status.
+     * */
+    SELINUX;
 }

@@ -63,7 +63,7 @@ To [implement](implementation.md) this, you initialize `KevlarRooting` and provi
 
         status {
             emulator()
-            SELinux {
+            selinux {
                 flagPermissive()
             }
         }

@@ -19,7 +19,11 @@ package com.kevlar.antipiracy.dsl.settings.scan
 import com.kevlar.antipiracy.dataset.DatasetEntry
 
 /**
- * Holds the found pirate software.
+ * Data holder returned as an attestation result.
+ * Contains the found pirate software, if any.
+ *
+ * @param detectedEntries   A [Set] containing all the [DatasetEntry]s which have been found on the
+ *                          system through kevlar's checks.
  * */
 public data class ScanResult(
     val detectedEntries: Set<DatasetEntry>

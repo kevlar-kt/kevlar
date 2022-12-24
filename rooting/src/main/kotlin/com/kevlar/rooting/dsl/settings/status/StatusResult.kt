@@ -14,23 +14,24 @@
  * limitations under the License.
  */
 
-package com.kevlar.integrity.dsl.settings.scan
+package com.kevlar.rooting.dsl.settings.status
 
-import com.kevlar.integrity.dataset.IntegrityElement
+import com.kevlar.rooting.dataset.DetectableSystemStatus
 
 /**
- * Result from a kevlar attestation.
- * Contains the elements which failed the text, and thus have been detected as security
- * environment violations, in compliance with the data provided to kevlar.
+ * Data holder returned as an attestation result.
+ *
+ * @param detectedStatuses  A [Set] containing all the [DetectableSystemStatus]s which have been found on the
+ *                          system through kevlar's checks.
  * */
-public data class CheckResult(
-    val detectedElements: Set<IntegrityElement>
+public data class StatusResult(
+    val detectedStatuses: Set<DetectableSystemStatus>
 ) {
-    public constructor(detectedEntries: List<IntegrityElement>) : this(detectedEntries.toSet())
+    public constructor(list: List<DetectableSystemStatus>) : this(list.toSet())
+
+    public fun isClear(): Boolean = detectedStatuses.isEmpty()
 
     public companion object {
-        public fun empty(): CheckResult = CheckResult(setOf())
+        public fun empty(): StatusResult = StatusResult(setOf())
     }
-
-    public fun isClear(): Boolean = detectedElements.isEmpty()
 }

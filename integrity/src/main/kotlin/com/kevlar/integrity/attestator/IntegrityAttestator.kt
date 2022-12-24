@@ -30,19 +30,27 @@ import kotlinx.coroutines.*
 internal object IntegrityAttestator {
 
     /**
-     * Holds the pair check result and element
+     * Holds the pair check result and element.
      * */
     data class CheckOutputSpecter(
+        /**
+         * The [IntegrityElement] kevlar is checking for.
+         * */
         val element: IntegrityElement,
 
         /**
          * Whether the given element has passed the test (it checks out, everything is
          * as normal) or not (and we have to report it.
+         *
+         * This is internally used to filter out tests which have not been requested.
+         * If a test isn't requested, then we consider that it has automatically passed,
+         * as its result will not be included in the attestation.
          * */
         val hasPassedTest: Boolean,
 
         /**
          * Whether the check has been run or not.
+         * Used to tell passed test from non-requested ones apart.
          * */
         val isEnabled: Boolean,
     )
@@ -77,12 +85,12 @@ internal object IntegrityAttestator {
 
 
                 /*
-                * One check is enabled, so we return isEnabled to true,
-                * If one test has not been requested, its result is true
-                * which when and-ed with the other(s) has no effect.
-                * If one test has been requested, and fails, then we
-                * are able to detect that.
-                * */
+                 * One check is enabled, so we return isEnabled to true,
+                 * If one test has not been requested, its result is true
+                 * which when and-ed with the other(s) has no effect.
+                 * If one test has been requested, and fails, then we
+                 * are able to detect that.
+                 * */
                 CheckOutputSpecter(
                     IntegrityElement.MATCH_HARDCODED_SIGNATURE,
                     hasPassedTest = matchesSignature,

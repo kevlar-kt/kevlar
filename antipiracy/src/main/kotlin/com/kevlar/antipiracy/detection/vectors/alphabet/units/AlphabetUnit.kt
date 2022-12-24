@@ -46,6 +46,7 @@ internal enum class AlphabetUnit(val asciiLower: Char, val asciiUpper: Char) {
     X('x', 'X'),
     Y('y', 'Y'),
     Z('z', 'Z'),
+
     SEPARATOR(' ', ' '),
     NOT_EXHAUSTIVE('?', '?');
 }

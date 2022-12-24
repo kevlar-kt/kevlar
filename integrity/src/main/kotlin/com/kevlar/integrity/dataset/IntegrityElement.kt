@@ -17,28 +17,64 @@
 package com.kevlar.integrity.dataset
 
 /**
- * A single check which can be run from kevlar.
- * Only requested tests are ran.
+ * This enumeration contains all the possible issues that kevlar may report in an attestation result.
+ *
+ * They are used to pinpoint checks that kevlar can run, and they are included in the attestation to
+ * signify that a specific test has produced a negative result
+ *
+ * Keep in mind that kevlar will run **only** the checks you explicitly requested in its configuration.
+ *
+ * ```kotlin
+ * checks {
+ *     packageName {
+ *         hardcodedPackageName(packageNameData)
+ *     }
+ *
+ *     signature {
+ *         hardcodedSignatures(signatureData)
+ *     }
+ *
+ *     installer()
+ *     debug()
+ * }
+ * ```
+ *
+ * This means that you have to enable a specific option (see documentation) in order to tell kevlar to
+ * actually run the check for it, which will eventually be reported here (if it is found to be present
+ * on the host system).
  * */
 public enum class IntegrityElement {
     /**
-     * Checks that the signature the binary is signed with matches the hardcoded data provided to kevlar.
+     * Signature check element.
+     *
+     * This item will be included in your attestation if your running binary's signature does not match
+     * the hardcoded signature you passed inside kevlar's configuration.
      * */
     MATCH_HARDCODED_SIGNATURE,
 
     /**
-     * Checks that the package name the binary is executing with matches the hardcoded data provided to kevlar.
+     * Package name element.
+     *
+     * This item will be included in your attestation if your running binary's package name does not match
+     * the hardcoded package name you passed inside kevlar's configuration.
      * */
     MATCH_HARDCODED_PACKAGE_NAME,
 
     /**
-     * Checks whether there are signs of debug build on the current binary.
+     * Debug element.
+     *
+     * This item will be included in your attestation if your running binary is found to have debug
+     * configurations turned on.
      * */
     DEBUG_BUILD,
 
     /**
-     * Checks, if available, the installation source of the current binary and matches it across
-     * the allowed installer packages data provided to kevlar.
+     * Original package installer element.
+     *
+     * This item will be included in your attestation if your running binary's installer is not
+     * in the allowed installer list.
+     * By default only the Google Play Store is set as an allowed installer, but you can pass
+     * additional allowed installer packages whihc will be whitelisted while running this check.
      * */
     UNAUTHORIZED_INSTALLER;
 }

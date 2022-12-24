@@ -21,10 +21,7 @@ package com.kevlar.antipiracy.dataset
 /**
  * Synthetizes a targetable software, along with its essential metadata.
  * */
-public enum class DatasetEntry(
-    public val type: DatasetType,
-    public val softwareName: String
-) {
+public enum class DatasetEntry(public val type: DatasetType, public val softwareName: String) {
     // Pirate apps
     ACTION_LAUNCHER_PATCHER(DatasetType.PIRATE_APP, "Action Launcher Patcher"),
     AGK(DatasetType.PIRATE_APP, "AGK App Killer"),
