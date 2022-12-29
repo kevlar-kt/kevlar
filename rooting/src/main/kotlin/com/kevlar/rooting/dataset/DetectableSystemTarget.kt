@@ -37,7 +37,7 @@ package com.kevlar.rooting.dataset
  * */
 public enum class DetectableSystemTarget {
     /**
-     * Device emulation status.
+     * Root binary detection.
      *
      * This item will be included in your attestation if the system your application is running in
      * is thought to be rooted.
@@ -45,7 +45,7 @@ public enum class DetectableSystemTarget {
     ROOT,
 
     /**
-     * Device emulation status.
+     * Busybox binary detection.
      *
      * This item will be included in your attestation if the system your application is running in
      * is thought to have busybox binaries installed.
@@ -53,7 +53,7 @@ public enum class DetectableSystemTarget {
     BUSYBOX,
 
     /**
-     * Device emulation status.
+     * Magisk installation detection.
      *
      * This item will be included in your attestation if the system your application is running in
      * is thought to have magisk installed.
@@ -61,7 +61,7 @@ public enum class DetectableSystemTarget {
     MAGISK,
 
     /**
-     * Device emulation status.
+     * Xposed hook detection.
      *
      * This item will be included in your attestation if the system your application is running in
      * is thought to have xposed installed.
@@ -69,7 +69,7 @@ public enum class DetectableSystemTarget {
     XPOSED,
 
     /**
-     * Device emulation status.
+     * Toybox detection.
      *
      * This item will be included in your attestation if the system your application is running in
      * is thought to have toybox binaries installed.
