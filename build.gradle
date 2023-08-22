@@ -1,9 +1,11 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 apply from: rootProject.file("scripts/custom/versions.gradle")
 apply plugin: 'io.github.gradle-nexus.publish-plugin'
 
 buildscript {
     ext {
-        kotlin_version = "1.7.22"
+        kotlin_version = "1.9.0"
     }
     
     repositories {
@@ -14,10 +16,10 @@ buildscript {
     }
     
     dependencies {
-        classpath "com.android.tools.build:gradle:7.3.1"
+        classpath 'com.android.tools.build:gradle:8.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.github.ben-manes:gradle-versions-plugin:0.44.0"
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.44.2'
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.47'
         classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
     }
 }
@@ -32,16 +34,16 @@ allprojects {
 }
 
 subprojects {
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    tasks.withType(KotlinCompile).configureEach {
         // Kotlin compiler JVM-target version (as string)
         kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_1_8
+            // jvmTarget = JavaVersion.VERSION_11
             freeCompilerArgs += ["-module-name", project.path.replace(':', '')]
         }
     
         // Kotlin compiler JVM-target version (as int)
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        // sourceCompatibility = JavaVersion.VERSION_11
+        // targetCompatibility = JavaVersion.VERSION_11
     }
 }
 

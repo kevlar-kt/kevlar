@@ -15,6 +15,7 @@
  */
 
 import com.buildconfig.internal.model.ModuleArtifactCoordinates
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
  * Module identifier, used across the project to reference this module.
@@ -63,6 +64,7 @@ android {
         versionName "1.1.0-kevlar-antipiracy"
         versionCode 1
     }
+    namespace 'com.kevlar.antipiracy'
 }
 
 
@@ -71,7 +73,7 @@ android {
  * */
 dependencies {
     // Kotlin dependencies
-    compileOnly "androidx.annotation:annotation:1.5.0"
+    compileOnly "androidx.annotation:annotation:1.6.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
     
@@ -84,7 +86,7 @@ dependencies {
 }
 
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         // Explicit API Mode
         freeCompilerArgs += [
