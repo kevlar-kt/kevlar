@@ -13,7 +13,7 @@ apply from: rootProject.file("scripts/commons/app_config.gradle")
  * */
 android {
     defaultConfig {
-        versionName "1.1.0-app-showcase"
+        versionName "1.1.1-app-showcase"
         versionCode 1
         multiDexEnabled true
     }
@@ -62,7 +62,7 @@ dependencies {
         implementation project(':rooting')
         implementation project(':integrity')
     } else {
-        def kevlar_version = "1.1.0"
+        def kevlar_version = "1.1.1"
     
         implementation "io.github.kevlar-kt:antipiracy:$kevlar_version"
         implementation "io.github.kevlar-kt:rooting:$kevlar_version"

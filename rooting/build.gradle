@@ -43,7 +43,7 @@ project.ext.set("module_${ext.module_name}", new ModuleArtifactCoordinates(
         "rooting",
         
         // PUBLISH_VERSION
-        "1.1.0",
+        "1.1.1",
         
         // PUBLISH_ARTIFACT_DESC
         "Kevlar Rooting",
@@ -61,7 +61,7 @@ apply from: rootProject.file("scripts/commons/library_config.gradle")
  * */
 android {
     defaultConfig {
-        versionName "1.1.0-kevlar-rooting"
+        versionName "1.1.1-kevlar-rooting"
         versionCode 1
     }
     namespace 'com.kevlar.rooting'

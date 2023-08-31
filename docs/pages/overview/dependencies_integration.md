@@ -26,7 +26,7 @@ repositories {
 
 	``` java
 	dependencies {
-    	implementation "io.github.kevlar-kt:antipiracy:1.1.0"
+    	implementation "io.github.kevlar-kt:antipiracy:1.1.1"
 	}
 	```
 
@@ -34,7 +34,7 @@ repositories {
 
 	``` kotlin
 	dependencies {
-	    implementation("io.github.kevlar-kt:antipiracy:1.1.0")
+	    implementation("io.github.kevlar-kt:antipiracy:1.1.1")
 	}
 	```
 
@@ -44,7 +44,7 @@ repositories {
 	<dependency>
 	    <groupId>io.github.kevlar-kt</groupId>
 	    <artifactId>antipiracy</artifactId>
-	    <version>1.1.0</version>
+	    <version>1.1.1</version>
 	    <type>pom</type>
 	</dependency>
 	```
@@ -55,7 +55,7 @@ repositories {
 
 	``` java
 	dependencies {
-    	implementation "io.github.kevlar-kt:rooting:1.1.0"
+    	implementation "io.github.kevlar-kt:rooting:1.1.1"
 	}
 	```
 
@@ -63,7 +63,7 @@ repositories {
 
 	``` kotlin
 	dependencies {
-	    implementation("io.github.kevlar-kt:rooting:1.1.0")
+	    implementation("io.github.kevlar-kt:rooting:1.1.1")
 	}
 	```
 
@@ -73,7 +73,7 @@ repositories {
 	<dependency>
 	    <groupId>io.github.kevlar-kt</groupId>
 	    <artifactId>rooting</artifactId>
-	    <version>1.1.0</version>
+	    <version>1.1.1</version>
 	    <type>pom</type>
 	</dependency>
 	```
@@ -85,7 +85,7 @@ repositories {
 
 	``` java
 	dependencies {
-    	implementation "io.github.kevlar-kt:integrity:1.1.0"
+    	implementation "io.github.kevlar-kt:integrity:1.1.1"
 	}
 	```
 
@@ -93,7 +93,7 @@ repositories {
 
 	``` kotlin
 	dependencies {
-	    implementation("io.github.kevlar-kt:integrity:1.1.0")
+	    implementation("io.github.kevlar-kt:integrity:1.1.1")
 	}
 	```
 
@@ -103,7 +103,7 @@ repositories {
 	<dependency>
 	    <groupId>io.github.kevlar-kt</groupId>
 	    <artifactId>integrity</artifactId>
-	    <version>1.1.0</version>
+	    <version>1.1.1</version>
 	    <type>pom</type>
 	</dependency>
 	```
