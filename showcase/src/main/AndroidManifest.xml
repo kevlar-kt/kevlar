@@ -4,21 +4,69 @@
 
     <!-- <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
-        tools:ignore="QueryAllPackagesPermission" /> -->
+        tools:ignore="QueryAllPackagesPermission" />
 
     <uses-permission
         android:name="android.permission.INSTALL_PACKAGES"
-        tools:ignore="ProtectedPermissions" />
+        tools:ignore="ProtectedPermissions" /> -->
 
 
     <queries>
+        <package android:name="uret.jasi2169.patcher" />
+        <package android:name="zone.jasi2169.uretpatcher" />
+        <package android:name="org.creeplays.hack" />
+        <package android:name="apps.zhasik007.hack" />
+        <package android:name="com.leo.playcard" />
+        <package android:name="com.appsara.app" />
+        <package android:name="com.xmodgame" />
+        <package android:name="org.sbtools.gamehack" />
+        <package android:name="com.zune.gamekiller" />
+        <package android:name="com.killerapp.gamekiller" />
+        <package android:name="cn.lm.sq" />
+        <package android:name="com.aag.killer" />
+        <package android:name="com.github.oneminusone.disablecontentguard" />
+        <package android:name="com.oneminusone.disablecontentguard" />
+        <package android:name="madkite.freedom" />
+        <package android:name="jase.freedom" />
+        <package android:name="cc.jase.freedom" />
+        <package android:name="cc.madkite.freedom" />
+        <package android:name="cc.cz.madkite.freedom" />
+        <package android:name="com.devadvance.rootcloak" />
+        <package android:name="com.devadvance.rootcloakplus" />
+        <package android:name="com.formyhm.hideroot" />
+        <package android:name="com.formyhm.hiderootpremium" />
+        <package android:name="com.amphoras.hidemyroot" />
+        <package android:name="com.amphoras.hidemyrootadfree" />
+        <package android:name="com.zachspong.temprootremovejb" />
+        <package android:name="cm.aptoide.pt" />
+        <package android:name="com.happymod.apk" />
+        <package android:name="happygames.io" />
+        <package android:name="org.blackmart.market" />
+        <package android:name="com.blackmartalpha" />
+        <package android:name="com.mobogenie" />
+        <package android:name="me.onemobile.android" />
+        <package android:name="com.repodroid.app" />
+        <package android:name="com.getjar.reward" />
+        <package android:name="com.slideme.sam.manager" />
+        <package android:name="ac.market.store" />
+        <package android:name="net.appcake" />
+        <package android:name="com.appcake" />
+        <package android:name="com.zmapp" />
+        <package android:name="org.mobilism.android" />
+        <package android:name="com.allinone.free" />
+        <package android:name="com.chelpus.lackypatch" />
+        <package android:name="com.dimonvideo.luckypatcher" />
+        <package android:name="com.forpda.lp" />
+        <package android:name="com.android.vendinc" />
+        <package android:name="com.android.vending.licensing.ILicensingService" />
+        <package android:name="com.android.vending.billing.InAppBillingService.LOCK" />
+
         <intent>
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
-
                 <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-
                 <data android:mimeType="*/*" />
         </intent>
+
     </queries>
 
 
