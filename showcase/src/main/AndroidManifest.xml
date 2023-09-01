@@ -2,11 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
-        tools:ignore="QueryAllPackagesPermission" />
+    <!-- <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" /> -->
 
-    <uses-permission android:name="android.permission.INSTALL_PACKAGES"
+    <uses-permission
+        android:name="android.permission.INSTALL_PACKAGES"
         tools:ignore="ProtectedPermissions" />
+
+
+    <queries>
+        <intent>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+
+                <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+
+                <data android:mimeType="*/*" />
+        </intent>
+    </queries>
+
 
     <application
         android:name="com.kevlar.showcase.App"

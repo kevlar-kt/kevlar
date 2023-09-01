@@ -1,7 +1,7 @@
 ---
 name: Bug report
-about: Report a bug/crash/unexpected behaviour with any of the packages of the library (rooting, integrityo or antipiracy)
-title: "[package(s)][BUG]"
+about: Report a bug/crash/unexpected behaviour with any of the packages of the library (rooting, integrity or antipiracy)
+title: "[package][BUG]"
 labels: 'Type: Bug'
 assignees: ''
 

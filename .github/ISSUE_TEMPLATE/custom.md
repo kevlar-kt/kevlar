@@ -1,7 +1,7 @@
 ---
 name: Custom issue template
 about: Freeform issue
-title: ''
+title: '[package]'
 labels: ''
 assignees: ''
 
