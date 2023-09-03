@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Discuss an idea/feature/improvement for any of the packages of the library (rooting, integrity or antipiracy)
-title: "[package][FR]"
+title: "[FR][package]"
 labels: 'Type: Feature'
 assignees: ''
 
