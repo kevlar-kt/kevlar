@@ -5,6 +5,7 @@
 <h1 align="center">Kevlar</h1>
 
 <p align="center">
+  
   <a href="https://github.com/kevlar-kt/kevlar/releases"><img src="https://img.shields.io/github/v/tag/kevlar-kt/kevlar" alt="Latest tag" /></a>
   <a href="https://github.com/kevlar-kt/kevlar/actions?query=workflow%3A%22Build%22"><img src="https://github.com/kevlar-kt/kevlar/actions/workflows/push-debug-build.yaml/badge.svg" alt="Android CI" /></a>
   <a href="https://source.android.com/setup/start/build-numbers"><img src="https://img.shields.io/badge/minSdk-19-00E676.svg" alt="Android Min Sdk"></a>
@@ -115,7 +116,9 @@ For stricter scenarios where higher fidelity and accuracy are required, you shou
 
 ## Dependencies
 
-### Antipiracy
+### Antipiracy 
+<a href="https://search.maven.org/artifact/io.github.kevlar-kt/antipiracy"><img src="https://img.shields.io/maven-central/v/io.github.kevlar-kt/antipiracy.svg?label=Antipiracy" alt="Download from MavenCentral"></a>
+  
 
 ```gradle
 dependencies {
@@ -123,7 +126,8 @@ dependencies {
 }
 ```
 
-### Rooting
+### Rooting  
+<a href="https://search.maven.org/artifact/io.github.kevlar-kt/rooting"><img src="https://img.shields.io/maven-central/v/io.github.kevlar-kt/rooting?label=Rooting" alt="Download from MavenCentral"></a>
 
 ```gradle
 dependencies {
@@ -132,7 +136,8 @@ dependencies {
 ```
 
 
-### Integrity
+### Integrity 
+<a href="https://search.maven.org/artifact/io.github.kevlar-kt/integrity"><img src="https://img.shields.io/maven-central/v/io.github.kevlar-kt/integrity?label=Integrity" alt="Download from MavenCentral"></a>
 
 ```gradle
 dependencies {
