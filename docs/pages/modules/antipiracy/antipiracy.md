@@ -26,7 +26,7 @@ It then compiles the results into an attestation (it can either be uninitialized
 
 To [implement](implementation.md) this, you initialize `KevlarAntipiracy` and provide your desired settings (which influence what is to be detected and what not). Then you can submit attestation requests (which will be executed according to your settings).
 
-Each attestation request will cause Kevlar to grab the package list, run the appropriate checks and compile an attestation.
+Each attestation request will cause Kevlar to grab the package list, run the appropriate checks and return an attestation.
 
 The settings you provide influence what will be included in the attestation.
 
@@ -61,13 +61,13 @@ The settings you provide influence what will be included in the attestation.
 ## Attestation process overview
 When you require an attestation (through `antipiracy.attestate(context)`), kevlar executes the following operations:
 
-1. The installed package list is queried from the `PackageManager`. Make sure to [have the right permissions](privacy.md) to do that;
+1. The installed package list is queried from the `PackageManager`. Make sure to [have the right permissions](privacy.md) to do that, since from Android 11 you need to add queries in your app's manifest, see the [implement](implementation.md) page;
 2. The test battery is initialized (to match your scan parameters) and ran on all packages, against the precompiled dataset onboard the library;
-3. The results are collected, processed, filtered, and returned.
+3. The results are collected, processed, filtered, and returned in an `AntipiracyAttestation`.
 
 There is only one type of attestation that can be produced.
 
-The attestation is returned in `AntipiracyAttestation` (it is a sealed class), which depending on the detection status can be of three types:
+The attestation is returned in `AntipiracyAttestation` (sealed class), which depending on the detection status can be of three types:
 
 - `Blank`: This is a non-processed status. It should not be interpreted, as it does not carry any meaning about the attestation result. It is not to be interpreted as `Clear`;
 - `Clear`: The attestation has passed. There is nothing to report. This means that no installed software has triggered the detection from the battery of tests that have been executed, in compliance with the given scan parameters;
@@ -85,4 +85,6 @@ Scan settings are taken into account intelligently to analyze and run the batter
 
 !!! tip "Timing"
 	
-	The full attestation process takes from start to finish ≈ 75-200ms for my devices and emulators. It is mainly influenced by the processing power of the device, the number of apps installed, and your scan configuration. It is moderately fast.
+	The full attestation process takes from start to finish ≈ 75-200ms for my devices and emulators (assuming the full app list is returned, which it won't for Android 11+ [which is actually good news for performance, since the time taken for computing the whole attestation is linearly proportional to the number of applications returned by `PackageManager`]). It is mainly influenced by the processing power of the device, the number of apps installed, and your scan configuration.
+
+	It is decently fast, given that it will be run in the background before business-critical transactions (e.g. when the user clicks "purchase", we first check that the device is clean and then actually contact Google Play to initiate the transaction).

@@ -1,7 +1,7 @@
 # Database
 Kevlar comes pre-packaged with definitions for the most common pirate software.
 
-A simplified summary is reported in the following table:
+A brief summary is reported in the following table:
 
 - `Software` is the common name of the given pirate software;
 - `Internal Code` is what kevlar uses to reference and report a specific software;

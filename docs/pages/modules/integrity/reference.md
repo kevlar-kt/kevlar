@@ -106,6 +106,8 @@ private val integrity = KevlarIntegrity {
 }
 ```
 
+If debug flags are found on your application it will be reported.
+
 
 ## Installer check
 The `installer()` function tells kevlar to enable installer checks.

@@ -7,8 +7,7 @@ It should be stated that all checks are run against the local dataset (what kevl
 
 	Writing good self-obfuscating software is hard. 
 	There are a few ways, but essentially you need an installer package that carries the payload and an algorithm to insert the actual software in a randomized stub.
-	If you do it well, there is no way to characterize your package and it is, therefore, more difficult (if not borderline impossible) to detect automatically ([MagiskHide](https://github.com/topjohnwu/Magisk) did this exceptionally well, to the point that it is almost useless to try to achieve without switching to aggressive detection which kinda defeats the purpose)
-	Doing slightly less than perfection will lead to detection.
+	If you do it well enough, there is no way to *easily* characterize your package and becomes more difficult (if not borderline unfeasible) to detect automatically. [MagiskHide](https://github.com/topjohnwu/Magisk) did this exceptionally well, to the point that it is almost useless to try to achieve fast detection. It can be done switching to more aggressive detection techniques, which kinda defeats the purpose of kevlar.
 
 
 ## String matching
@@ -42,24 +41,26 @@ For FSA people, this is like having multiple arcs from one state to the next, wi
 
 !!! info "Sneaky characters"
 
-	The usual roll includes characters from Latin fullwidth, Cyrillic, greek, a lot of weird uncategorized characters, and like 20 variations of the symbols /, _ and -.
+	The usual roll includes characters from Latin fullwidth, Cyrillic, Greek, a lot of weird uncategorized characters, and like 20 variations of the symbols `/`, `_` and `-`.
 	You can go check out the full list at [`AsciiVariations.kt`](https://github.com/kevlar-kt/kevlar/blob/master/antipiracy/src/main/kotlin/com/kevlar/antipiracy/detection/vectors/alphabet/ascii/AsciiVariations.kt). I'd advise doing so on an empty stomach.
+
+	These characters can be extracted from the installer package of said self-camouflaging pirate software.
 
 
 ## Collateral tools
-Some techniques may have non-zero false positive rates, and they are disabled by default. Kevlar's objective is to achieve accurate detection, with a non-zero false-negative rate, but a zero false-positive rate.
+Some techniques may have non-zero false positive rates, and they are disabled by default. Kevlar's objective is to achieve accurate detection, with a non-zero false-negative rate, but a zero false-positive rate. You can think of it as the [judgement in a court trial](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors#Statistical_background): the defendant (package) is presumed to be innocent until proven guilty. And without using collateral techniques, we know we won't wrongly classify a normal package as a pirate one.
 
-Enabling collateral tools is a form of aggressive detection, and it should be used in scenarios where you are willing to accept some risk to get (very) slightly better detection for the price of non-zero false positives.
+Enabling collateral tools is a form of aggressive detection, and it should be used in scenarios where you are willing to accept some (little) risk to get stronger detection against self-obfuscating, for the price of non-zero false positives.
 
 The detection works because we know how some specific software tries to obfuscate/randomize its stub. 
-We can therefore match for the distribution of those values in all installed packages, and if one matches then it may be what we are looking for. 
+We can therefore match for the distribution of those values in all installed packages, and if one matches then it may be what we are looking for. It may also be something else. By default we assume it is innocuous, but enabling these checks will treat these matches as hits, and will be included in the attestation.
 
 !!! info "Collateral example in package name randomization"
 
 	The easiest example to illustrate this technique is with [Lucky Patcher](database.md). 
 	Its installer generates a randomized stub, inserts the payload (the actual pirate software), and installs it. 
 
-	While the stub's package name _has_ random bits, it is not completely random. It always starts with "ru.", followed by 8 random characters, followed by a ".", followed by another 9 random characters.
+	While the stub's package name _has_ random bits, it is not completely random. It always starts with "ru.", followed by 8 random characters, followed by a ".", followed by another 9 random characters. And we can form a pattern-detection test detecting these fixed occourrences. Here's a FSM:
 
 	```mermaid
 	stateDiagram-v2

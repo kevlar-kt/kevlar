@@ -12,14 +12,19 @@ more privacy-friendly (less intrusive) methods for querying apps.
 Those don't work as well with pirate app detection because usually pirate software actively 
 tries to hide its presence with [camouflage techniques](detection.md)
 
-A not-so-elegant but 100% functional solution is to add the `QUERY_ALL_PACKAGES` permission 
-in the manifest, so that your app has clearance to query the whole app spectrum, enabling
-pirate apps detection.
+A nice technique is declaring the appropriate queries in the app's manifest, so that the
+list given to kevlar, although not complete, will contain all the packages referenced by
+the queries. And since kevlar searches for known pirate apps/stores (and thus packages),
+we can add these as packages we're interested in receiving, and we're set.
 
-```xml
-<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
-    tools:ignore="QueryAllPackagesPermission" />
-```
+It gets a little more complex for packages which actively try to hide themselves / randomize their 
+properties to avoid detections, but it can be done.
+
+You can find the guide on how to add that to the manifest in the [implementation](implementation.md) page.
+
+!!! example "Unintentional Computational Speedup"
+	By limiting the amount of packages returned by the package manager, the battery of checks (which has to be ran for each package), will take less, and therefore further reduce the execution time for the attestation. So not bad news after all!
+
 
 ## User Privacy & Attitude
 Another delicate aspect of querying installed packages is the way you communicate to the user that

@@ -149,8 +149,6 @@ That's the reference string you need to give to kevlar (which will extract the r
 !!! example "Android debug signature"
     Every android application is signed with some key. 
     When an application is signed as "debug", it simply means that it is signed with a special key, which is known to be the debug key.
-    
-    That key has always signature `J+nqXLfuIO8B2AmhkMYHGE4jDyw=`
 
 
 !!! warning "Signature extraction & Google Play App Signing API"
@@ -185,7 +183,7 @@ We then have to convert it in a string form (like that we have the raw hex bytes
 In this case the conversion (you can use online tools to do this) yields `J+nqXLfuIO8B2AmhkMYHGE4jDyw=`.
 
 !!! fail "Play Signing"
-    Since we don't have access to the keystore file if we use Play Signing, this method is not viable in that case, and you have to resort to uploading a dummy version of the app to have it signed and spit out the signature.
+    Since we don't have access to the keystore file if we use Play Signing, this method is not viable in that case, and you have to resort to uploading a dummy version of the app, download its play-signed version through the releases page, and extract the signature from that APK file.
 
 
 ## Obfuscating metadata

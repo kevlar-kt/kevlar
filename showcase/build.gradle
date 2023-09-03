@@ -68,7 +68,6 @@ dependencies {
         implementation "io.github.kevlar-kt:integrity:$kevlar_version"
     
     
-    
         implementation "io.github.kevlar-kt:rooting:$kevlar_version"
         
         // needed for :rooting module

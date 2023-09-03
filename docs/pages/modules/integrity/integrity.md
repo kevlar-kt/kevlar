@@ -35,6 +35,7 @@ It is capable of detecting:
 
 To [implement](implementation.md) this, you initialize `KevlarIntegrity` and provide your desired settings (which influence what is to be checked and what not). Then you can submit attestation requests (which will be executed according to your settings).
 
+
 ??? note "Empty & default settings"
     The settings on `integrity` are additive. If you leave a blank DSL, nothing will be detected, because no checks will be run, because the settings are empty.
 

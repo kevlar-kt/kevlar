@@ -31,6 +31,21 @@ A working example for the rooting module can be found in the github repository u
 	</dependency>
 	```
 
+
+
+The rooting module uses [libsu](https://github.com/topjohnwu/libsu) to execute shell commands. You may need to include it in your app's dependencies like so:
+
+???+ info "libsu dependency"
+	``` groovy
+	dependencies {
+		def libsuVersion = "5.2.0"
+		implementation "com.github.topjohnwu.libsu:core:${libsuVersion}"
+	}
+	```
+
+
+
+
 ## Initialization & Attestations
 You need to create a `KevlarRooting` instance (which is the way you will be requesting attestations), along with your desired parameters (either global, local or in your repository layer, if you are using MVVM/MVC).
 
