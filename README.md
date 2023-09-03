@@ -65,7 +65,7 @@ If you don't explicitly instruct kevlar to check for a feature, then that featur
 
 
 ## Design
-Each kevlar package contains custom implementations for what it has to scan for, but they all share the same overall structure to make it easy to work with. Once you learn how to use a package, then you can transfer that knowledge to the other ones.
+Each kevlar package contains custom implementations for what it has to scan for, but they all share the same overall structure, to make it easy to work with. Once you learn how to use a package, then you can transfer that knowledge to the other ones.
 
 ``` mermaid
 graph LR
@@ -77,11 +77,13 @@ graph LR
   NP --> ARES
 ```
 
-The idea is of a flow of attestations. You initialize the package through its entry class, passing to it your settings (what you cant to check for), and then you can go ahead and start requesting attestations. An attestation can either be Clear (passed) or Failed (non-passed), according to your detection settings.
+The founding idea is a flow of attestations. You initialize the package passing to it your settings (what you want to check for). Then you can go ahead and start requesting attestations. An attestation can either be Clear (passed) or Failed (non passed), according to your detection settings.
 
-There may be one or more types of attestation you can request, and you can choose what you want to give granular control and run efficiently.
+There may be one or more types of attestation you can request, and you can choose what you want by requesting different ones, to enforce granular control and run efficiently.
 
-Under the hood, each package will call its implementations and run those checks against the operative system/current app, but you'll eventually get an `Attestation` back, so you only have to check whether it is clear or not.
+Under the hood, each package will call its implementations and run those checks against the operating system/current app, but you'll eventually get an `Attestation` back, so your only job is to check whether it is clear or not.
+
+This makes security declarative: you express your constraints and requirements once while configuring kevlar, which will then take care of - when asked -  producing a report (attestation) for your specific configuration, telling you what was found. And finally you can analyze this report and act accordingly, repeating the process as many times as needed.
 
 ## Use Cases
 Common use cases for security environment checks are applications managing sensitive resources, such as in-app purchases and subscriptions, valuable server-side resources or APIs, financial transactions, and anything that has a value that gets managed through your app/client.
