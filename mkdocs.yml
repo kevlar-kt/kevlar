@@ -57,8 +57,6 @@ plugins:
           lang: en
     - redirects:
           redirect_maps:
-    - minify:
-          minify_html: true
 
 
 nav:
