@@ -50,7 +50,7 @@ android {
     namespace 'com.kevlar.showcase'
 }
 
-def local = false
+def local = true
 
 dependencies {
     /**

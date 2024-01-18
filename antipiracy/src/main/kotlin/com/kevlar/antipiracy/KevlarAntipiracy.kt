@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * Main class for `:antipiracy` package.
  * */
 public class KevlarAntipiracy(
-    block: AntipiracySettingsBuilder.() -> Unit = DefaultAntipiracySettings
+    block: AntipiracySettingsBuilder.() -> Unit
 ) {
     private val settings: AntipiracySettings = AntipiracySettingsBuilder().apply(block).build()
 
@@ -47,12 +47,60 @@ public class KevlarAntipiracy(
          * */
         public fun blankAttestation(index: Int = 0): AntipiracyAttestation = AntipiracyAttestation.Blank(index)
     }
-}
 
-public val DefaultAntipiracySettings: AntipiracySettingsBuilder.() -> Unit = {
-    this.run {
-        scan {
-            pirate()
+    /**
+     * Contains relevant pre-packaged configurations for automatically configuring [KevlarAntipiracy].
+     * */
+    @Suppress("FunctionName")
+    public object Defaults {
+        public fun Full(): KevlarAntipiracy = KevlarAntipiracy(fullAntipiracySettingsDsl)
+        public fun JustPirateApps(): KevlarAntipiracy = KevlarAntipiracy(pirateOnlyAntipiracySettingsDsl)
+        public fun JustStores(): KevlarAntipiracy = KevlarAntipiracy(storeOnlyAntipiracySettingsDsl)
+        public fun PirateAndStore(): KevlarAntipiracy = KevlarAntipiracy(pirateAndStoreAntipiracySettingsDsl)
+        public fun Empty(): KevlarAntipiracy = KevlarAntipiracy(emptyAntipiracySettingsDsl)
+
+
+        private val fullAntipiracySettingsDsl: AntipiracySettingsBuilder.() -> Unit = {
+            this.run {
+                scan {
+                    pirate()
+                    store()
+                    collateral()
+                }
+            }
+        }
+
+        private val pirateOnlyAntipiracySettingsDsl: AntipiracySettingsBuilder.() -> Unit = {
+            this.run {
+                scan {
+                    pirate()
+                }
+            }
+        }
+
+        private val storeOnlyAntipiracySettingsDsl: AntipiracySettingsBuilder.() -> Unit = {
+            this.run {
+                scan {
+                    store()
+                }
+            }
+        }
+
+        private val pirateAndStoreAntipiracySettingsDsl: AntipiracySettingsBuilder.() -> Unit = {
+            this.run {
+                scan {
+                    pirate()
+                    store()
+                }
+            }
+        }
+
+        private val emptyAntipiracySettingsDsl: AntipiracySettingsBuilder.() -> Unit = {
+            this.run {
+                scan {
+                    // No scan parameters
+                }
+            }
         }
     }
 }

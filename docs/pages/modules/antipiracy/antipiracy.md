@@ -30,32 +30,12 @@ Each attestation request will cause Kevlar to grab the package list, run the app
 
 The settings you provide influence what will be included in the attestation.
 
-??? note "Empty & default settings"
-	The settings on `antipiracy` are additive. If you leave a blank DSL, nothing will be detected, because no checks will be run, because the settings are empty. 
 
-	If you do not pass a DSL at all, the default settings will be used (they only scan for pirate apps, not stores nor collateral).
 
-	```kotlin title="Custom"
-    private val antipiracy = KevlarAntipiracy {
-        scan {
-            pirate()
-            store()
-            collateral()
-        }
-    }
-	```
 
-	```kotlin title="Empty"
-    private val antipiracy = KevlarAntipiracy {
-        scan {
 
-		}
-    }
-	```
 
-	```kotlin title="Default"
-    private val antipiracy = KevlarAntipiracy()
-	```
+
 
 
 ## Attestation process overview
@@ -87,4 +67,41 @@ Scan settings are taken into account intelligently to analyze and run the batter
 	
 	The full attestation process takes from start to finish ≈ 75-200ms for my devices and emulators (assuming the full app list is returned, which it won't for Android 11+ [which is actually good news for performance, since the time taken for computing the whole attestation is linearly proportional to the number of applications returned by `PackageManager`]). It is mainly influenced by the processing power of the device, the number of apps installed, and your scan configuration.
 
-	It is decently fast, given that it will be run in the background before business-critical transactions (e.g. when the user clicks "purchase", we first check that the device is clean and then actually contact Google Play to initiate the transaction).
+	It is decently fast, given that it is intended to be run quickly in the background before business-critical transactions (e.g. when the user clicks "purchase", we first check that the device is clean and then actually contact Google Play to initiate the high-value transaction).
+
+
+
+
+
+
+
+
+# Configuring `KevlarAntipiracy`
+The antipiracy module is easy to configure, since it works automatically: you just have to choose which search criteria is used.
+
+You may choose to configure the antipiracy module manually (using the dedicated DSL, more flexibility), or just using one of the default configurations.
+
+
+```kotlin title="Default Configurations"
+private val antipiracy = KevlarAntipiracy.Defaults.Full()
+```
+
+```kotlin title="Manual DSL"
+private val antipiracy = KevlarAntipiracy {
+    scan {
+        pirate()
+        collateral()
+    }
+}
+```
+
+You can find more information about each individual item in the [reference](reference.md) page.
+
+
+The settings are additive. If you leave a blank DSL, nothing will be detected, because no checks will be run, because the settings are empty.
+
+```kotlin title="Empty"
+private val antipiracy = KevlarAntipiracy {
+    scan {}
+}
+```

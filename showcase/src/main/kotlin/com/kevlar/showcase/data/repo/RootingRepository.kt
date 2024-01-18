@@ -33,12 +33,13 @@ class RootingRepository @Inject constructor(
     @ApplicationContext val context: Context,
     @IoDispatcher val externalDispatcher: CoroutineDispatcher
 ) {
+    private val rootingAuto = KevlarRooting.Defaults.JustRootingExplicit()
+
     private val rooting = KevlarRooting {
         targets {
             root()
             magisk()
             busybox()
-            toybox()
             xposed()
         }
 

@@ -31,6 +31,7 @@
  */
 package com.kevlar.showcase.ui.activities.main
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -44,6 +45,7 @@ import com.kevlar.showcase.ui.activities.antipiracy.AntipiracyActivity
 import com.kevlar.showcase.ui.activities.integrity.IntegrityActivity
 import com.kevlar.showcase.ui.activities.rooting.RootingActivity
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -76,6 +79,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        Log.d("Signatures", KevlarIntegrity.obtainCurrentAppSignatures(applicationContext).toString())
+        Timber.tag("Signatures").d(KevlarIntegrity.obtainCurrentAppSignatures(applicationContext).toString())
     }
 }

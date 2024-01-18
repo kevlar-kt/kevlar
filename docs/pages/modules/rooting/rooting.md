@@ -22,16 +22,16 @@ It produces two different kinds of attestations: one searching for system modifi
 
 It is capable of detecting the following system modifications (through the `targets` attestation)
 
-- root access;
-- magisk installations (not hidden);
-- busybox binaries;
-- toybox binaries;
+- Root access;
+- Magisk installations (not hidden);
+- Busybox binaries;
+- Toybox binaries;
 - Xposed framework.
 
 And the following system conditions (through the `status` attestation)
 
-- emulator execution;
-- test keys;
+- Emulator execution;
+- Test keys;
 - SELinux status.
 
 
@@ -48,40 +48,11 @@ Depending on what you need to check, you may choose one or run both.
 
 To [implement](implementation.md) this, you initialize `KevlarRooting` and provide your desired settings (which influence what is to be checked and what not). Then you can submit attestation requests of whichever kind you prefer (which will be executed according to your settings).
 
-??? note "Empty & default settings"
-    The settings on `rooting` are additive. If you leave a blank DSL, nothing will be detected, because no checks will be run, because the settings are empty.
 
-    If you do not pass a DSL at all, the default settings will be used (they only scan for root access and emulator + SELinux).
 
-    ```kotlin title="Custom"
-    private val rooting = KevlarRooting {
-        targets {
-            root()
-            magisk()
-            busybox()
-        }
 
-        status {
-            emulator()
-            selinux {
-                flagPermissive()
-            }
-        }
 
-        allowExplicitRootCheck()
-    }
-    ```
 
-    ```kotlin title="Empty"
-    private val rooting = KevlarRooting {
-        targets {}
-        status {}
-    }
-    ```
-
-    ```kotlin title="Default"
-    private val rooting = KevlarRooting()
-    ```
 
 
 ## Attestation process overview
@@ -96,7 +67,7 @@ When you require an attestation, kevlar performs the following operations:
 
 - for the **status attestation** (through `rooting.attestateStatus()`):
     
-    1.  Depending on what system condition you selected, the appropriate check for that system status flag is initialized and ran;
+    1. Depending on what system condition you selected, the appropriate check for that system status flag is initialized and ran;
     2. The results are collected, processed, filtered, and returned.
 
 
@@ -109,6 +80,61 @@ The attestation is returned either in `TargetRootingAttestation` or `StatusRooti
 
 !!! warning
     `Blank` is completely different from `Clear` (or `Failed`). It means that the software is initialized but that nothing has been done yet. Do not mix them up.
+
+
+
+## Configuring `KevlarRooting`
+Configuring the rooting module requires a bit of android technical knowledge, since you have to be aware of which items you are enabling.
+
+You may choose to configure the rooting module manually (using the dedicated DSL, more flexibility), or just grabbing one of the default configurations (which are the most commonly used and don't need DSL configuration)
+
+```kotlin title="Manual DSL Configuration"
+private val rooting = KevlarRooting {
+    targets {
+        root()
+        magisk()
+        busybox()
+    }
+
+    status {
+        emulator()
+        selinux {
+            flagPermissive()
+        }
+    }
+
+    allowExplicitRootCheck()
+}
+```
+
+
+```kotlin title="Default Configuration"
+private val rooting = KevlarRooting.Defaults.Standard()
+```
+
+You can find more information about each individual item in the [reference](reference.md) page.
+
+
+The settings are additive. If you leave a blank DSL, nothing will be detected, because no checks will be run, because the settings are empty.
+
+```kotlin title="Empty"
+private val rooting = KevlarRooting {
+    targets {}
+    status {}
+}
+```
+
+```kotlin title="Default"
+private val rooting = KevlarRooting()
+```
+
+
+
+
+
+
+
+
 
 
 ## Use cases

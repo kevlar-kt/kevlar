@@ -29,7 +29,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * Entry class for `:rooting` package.
  * */
 public class KevlarRooting(
-    block: RootingSettingsBuilder.() -> Unit = DefaultRootingSettings
+    block: RootingSettingsBuilder.() -> Unit
 ) {
     private val settings: RootingSettings = RootingSettingsBuilder().apply(block).build()
 
@@ -68,21 +68,91 @@ public class KevlarRooting(
          * */
         public fun blankStatusAttestation(index: Int = 0): StatusRootingAttestation = StatusRootingAttestation.Blank(index)
     }
-}
 
 
-/**
- * Default settings for [KevlarRooting].
- * */
-public val DefaultRootingSettings: RootingSettingsBuilder.() -> Unit = {
-    this.run {
-        targets {
-            root()
+
+    /**
+     * Contains relevant pre-packaged configurations for automatically configuring [KevlarRooting].
+     * */
+    @Suppress("FunctionName", "ObjectPrivatePropertyName")
+    public object Defaults {
+        public fun Standard(): KevlarRooting = KevlarRooting(stdRootingSettingsDsl)
+        public fun JustRooting(): KevlarRooting = KevlarRooting(rootSettingsDsl(explicit = false))
+        public fun JustRootingExplicit(): KevlarRooting = KevlarRooting(rootSettingsDsl(explicit = true))
+        public fun JustEmulator(): KevlarRooting = KevlarRooting(emulatorSettingsDsl)
+        public fun Empty(): KevlarRooting = KevlarRooting(emptyRootingSettingsDsl)
+        private fun Exhaustive(): KevlarRooting = KevlarRooting(__exhaustiveRootingSettingsDsl)
+
+
+        private val stdRootingSettingsDsl: RootingSettingsBuilder.() -> Unit = {
+            this.run {
+                targets {
+                    root()
+                    magisk()
+                }
+
+                status {
+                    emulator()
+                    selinux {
+                        flagPermissive()
+                    }
+                    testKeys()
+                }
+            }
         }
 
-        status {
-            emulator()
-            selinux()
+        private fun rootSettingsDsl(explicit: Boolean): RootingSettingsBuilder.() -> Unit = {
+            this.run {
+                targets {
+                    root()
+                    magisk()
+                }
+
+                status {}
+
+                if (explicit) {
+                    allowExplicitRootCheck()
+                }
+            }
+        }
+
+        private val emulatorSettingsDsl: RootingSettingsBuilder.() -> Unit = {
+            this.run {
+                targets {}
+
+                status {
+                    emulator()
+                    testKeys()
+                }
+            }
+        }
+
+        private val emptyRootingSettingsDsl: RootingSettingsBuilder.() -> Unit = {
+            this.run {
+                targets {}
+                status {}
+            }
+        }
+
+        private val __exhaustiveRootingSettingsDsl: RootingSettingsBuilder.() -> Unit = {
+            this.run {
+                targets {
+                    root()
+                    magisk()
+                    busybox()
+                    xposed()
+                }
+
+                status {
+                    testKeys()
+                    emulator()
+                    selinux {
+                        flagPermissive()
+                    }
+                }
+
+                allowExplicitRootCheck()
+            }
         }
     }
 }

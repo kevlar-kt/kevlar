@@ -57,6 +57,14 @@ plugins:
           lang: en
     - redirects:
           redirect_maps:
+    - minify:
+          minify_html: true
+          minify_js: true
+          minify_css: true
+          htmlmin_opts:
+              remove_comments: true
+          cache_safe: true
+
 
 
 nav:
@@ -78,6 +86,7 @@ nav:
           - 'Tradeoffs' : pages/modules/antipiracy/tradeoffs.md
     - 'Rooting':
           - 'Overview' : pages/modules/rooting/rooting.md
+          - 'Reference' : pages/modules/rooting/reference.md
           - 'Implementation' : pages/modules/rooting/implementation.md
           - 'Internals' : pages/modules/rooting/internals.md
     - 'Integrity':
@@ -102,7 +111,7 @@ markdown_extensions:
     - abbr
     - admonition
     - pymdownx.emoji:
-          emoji_index: !!python/name:materialx.emoji.twemoji
+          emoji_index: !!python/name:material.extensions.emoji.twemoji
           emoji_generator: !!python/name:materialx.emoji.to_svg
     - def_list
     - md_in_html

@@ -16,6 +16,7 @@
 
 package com.kevlar.showcase.ui.activities.rooting
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -43,6 +44,7 @@ class RootingActivity : AppCompatActivity() {
 
     private lateinit var binding: RootingActivityBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.rooting_activity)
@@ -52,16 +54,16 @@ class RootingActivity : AppCompatActivity() {
                 vm.rootAttestation.collectLatest {
                     when (it) {
                         is TargetRootingAttestation.Blank -> {
-                            binding.debugText1.text = "Blank attestation"
+                            binding.debugText1.text = "Blank Rooting attestation\n"
                             binding.progressBar.visibility = View.VISIBLE
                         }
                         is TargetRootingAttestation.Clear -> {
-                            binding.debugText1.text = "Clear attestation"
+                            binding.debugText1.text = "Clear Rooting attestation\n"
                             binding.progressBar.visibility = View.GONE
                         }
                         is TargetRootingAttestation.Failed -> {
                             binding.debugText1.text = buildString {
-                                appendLine("Failed attestation")
+                                appendLine("Failed Rooting attestation")
                                 appendLine()
 
                                 it.detectedTargets.detectedTargets.forEachIndexed { i, it: DetectableSystemTarget ->
@@ -83,16 +85,16 @@ class RootingActivity : AppCompatActivity() {
                 vm.statusAttestation.collectLatest {
                     when (it) {
                         is StatusRootingAttestation.Blank -> {
-                            binding.debugText2.text = "Blank attestation"
+                            binding.debugText2.text = "Blank Status attestation\n"
                             binding.progressBar.visibility = View.VISIBLE
                         }
                         is StatusRootingAttestation.Clear -> {
-                            binding.debugText2.text = "Clear attestation"
+                            binding.debugText2.text = "Clear Status attestation\n"
                             binding.progressBar.visibility = View.GONE
                         }
                         is StatusRootingAttestation.Failed -> {
                             binding.debugText2.text = buildString {
-                                appendLine("Failed attestation")
+                                appendLine("Failed Status attestation")
                                 appendLine()
 
                                 it.status.detectedStatuses.forEachIndexed { i, it: DetectableSystemStatus ->
@@ -109,6 +111,9 @@ class RootingActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Main).launch {
             vm.requestAttestationRoot()
+        }
+
+        CoroutineScope(Dispatchers.Main).launch {
             vm.requestAttestationStatus()
         }
     }

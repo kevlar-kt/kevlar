@@ -36,41 +36,9 @@ It is capable of detecting:
 To [implement](implementation.md) this, you initialize `KevlarIntegrity` and provide your desired settings (which influence what is to be checked and what not). Then you can submit attestation requests (which will be executed according to your settings).
 
 
-??? note "Empty & default settings"
-    The settings on `integrity` are additive. If you leave a blank DSL, nothing will be detected, because no checks will be run, because the settings are empty.
 
-    By default, only `debug` and `installer` checks are enbabled, since you need to provide additional arguments to enable `signature` and `packageName`
 
-    If you do not pass a DSL at all, the default settings will be used (they scan for signature, package name, and debug).
 
-    ```kotlin title="Custom (simplified)"
-    private val integrity = KevlarIntegrity {
-        checks {
-            packageName() {
-                // Allowed package name
-                hardcodedPackageName("com.kevlar.showcase")
-            }
-            signature() {
-                // Allowed signature
-                hardcodedSignatures("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
-            }
-            debug()
-            installer()
-        }
-    }
-    ```
-
-    ```kotlin title="Empty"
-    private val integrity = KevlarIntegrity {
-        checks {
-
-        }
-    }
-    ```
-
-    ```kotlin title="Default"
-    private val integrity = KevlarIntegrity()
-    ```
 
 
 ## Attestation process overview
@@ -89,6 +57,53 @@ The attestation is returned in `IntegrityAttestation` (it is a sealed class), wh
 
 !!! warning
     `Blank` is completely different from `Clear` (or `Failed`). It means that the software is initialized but that nothing has been done yet. Do not mix them up.
+
+
+
+
+
+
+
+## Configuring `KevlarIntegrity`
+The integrity module requires attentive and detailed configuration (since kevlar needs the "real" data that will be compared at against the runtime values when your app executes). 
+You can find details on the process of configuring and retrieving the necessary data in the [implementation](implementation.md) page.
+
+Thus there are no default configuration: you have to manually specify each item through the DSL.
+
+```kotlin title="Manual configuration (simplified)"
+private val integrity = KevlarIntegrity {
+    checks {
+        packageName() {
+            // Allowed package name
+            hardcodedPackageName("com.kevlar.showcase")
+        }
+        signature() {
+            // Allowed signature
+            hardcodedSignatures("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
+        }
+        debug()
+        installer()
+    }
+}
+```
+
+You can find more information about each individual item in the [reference](reference.md) page.
+
+The settings are additive. If you leave a blank DSL, nothing will be detected, because no checks will be run, because the settings are empty.
+
+```kotlin title="Empty"
+private val integrity = KevlarIntegrity {
+    checks {}
+}
+```
+
+
+
+
+
+
+
+
 
 ## Use cases
 This is a pretty typical scenario for any application where it is critical to preserve self-integrity and run unmodified code.

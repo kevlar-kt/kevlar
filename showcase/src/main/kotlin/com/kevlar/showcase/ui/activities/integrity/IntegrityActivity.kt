@@ -16,6 +16,7 @@
 
 package com.kevlar.showcase.ui.activities.integrity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -45,6 +46,7 @@ class IntegrityActivity : AppCompatActivity() {
 
     private lateinit var binding: IntegrityActivityBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.integrity_activity)

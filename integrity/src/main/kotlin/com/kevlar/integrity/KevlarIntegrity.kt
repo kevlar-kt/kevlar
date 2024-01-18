@@ -25,7 +25,7 @@ import com.kevlar.integrity.dsl.settings.IntegritySettingsBuilder
 import java.util.concurrent.atomic.AtomicInteger
 
 public class KevlarIntegrity(
-    block: IntegritySettingsBuilder.() -> Unit = DefaultIntegritySettings
+    block: IntegritySettingsBuilder.() -> Unit
 ) {
     private val settings: IntegritySettings = IntegritySettingsBuilder().apply(block).build()
 
@@ -46,7 +46,6 @@ public class KevlarIntegrity(
          * */
         public fun blankAttestation(index: Int = 0): IntegrityAttestation = IntegrityAttestation.Blank(index)
 
-
         /**
          * Returns the current running application (oldest) signature.
          * */
@@ -56,17 +55,5 @@ public class KevlarIntegrity(
          * Returns the current running application signatures.
          * */
         public fun obtainCurrentAppSignatures(context: Context): List<String> = obtainBase64EncodedSignatures(context)
-
-    }
-}
-
-public val DefaultIntegritySettings: IntegritySettingsBuilder.() -> Unit = {
-    this.run {
-        checks {
-            // signature()
-            // packageName()
-            debug()
-            installer()
-        }
     }
 }

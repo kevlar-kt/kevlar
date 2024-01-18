@@ -16,6 +16,7 @@
 
 package com.kevlar.showcase.ui.activities.antipiracy
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -41,6 +42,7 @@ class AntipiracyActivity : AppCompatActivity() {
 
     private lateinit var binding: AntipiracyActivityBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.antipiracy_activity)

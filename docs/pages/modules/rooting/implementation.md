@@ -75,7 +75,6 @@ private val rooting = KevlarRooting {
         root()
         magisk()
         busybox()
-        toybox()
         xposed()
     }
 

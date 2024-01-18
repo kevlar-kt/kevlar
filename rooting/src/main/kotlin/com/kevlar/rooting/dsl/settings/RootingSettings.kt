@@ -47,6 +47,10 @@ public data class RootingSettings(
 public class RootingSettingsBuilder : DslBuilder<RootingSettings>() {
     private var systemTargets: SystemTargets = SystemTargets.default()
     private var systemStatus: SystemStatus = SystemStatus.default()
+
+    /**
+     * Whether root access can be requested directly through shell commands
+     * */
     private var allowExplicitRootCheck: Boolean = false
 
     public fun targets(block: SystemTargetsBuilder.() -> Unit) {
@@ -58,11 +62,13 @@ public class RootingSettingsBuilder : DslBuilder<RootingSettings>() {
     }
 
     /**
-     * By default kevlar does not run the `su` binary. Instead, it passively analyzes the
-     * system environment to detect root access.
+     * By default kevlar does not run the `su` binary.
+     * Instead, it passively analyzes the system environment to detect root access.
      *
      * If you don't mind having your application ask for root permission, you can enable this
      * flag, so that kevlar will be trying to acquire root access as an additional check.
+     *
+     * It is an aggressive type of detection. Use with care.
      * */
     public fun allowExplicitRootCheck() {
         allowExplicitRootCheck = true

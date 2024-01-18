@@ -32,7 +32,9 @@ class AntipiracyRepository @Inject constructor(
     @ApplicationContext val context: Context,
     @IoDispatcher val externalDispatcher: CoroutineDispatcher
 ) {
-    private val antipiracy = KevlarAntipiracy {
+    private val antipiracyAuto = KevlarAntipiracy.Defaults.JustPirateApps()
+
+    private val antipiracyManual = KevlarAntipiracy {
         scan {
             pirate()
             store()
@@ -41,6 +43,6 @@ class AntipiracyRepository @Inject constructor(
     }
 
     suspend fun attestate(): AntipiracyAttestation = withContext(externalDispatcher) {
-        antipiracy.attestate(context)
+        antipiracyManual.attestate(context)
     }
 }
