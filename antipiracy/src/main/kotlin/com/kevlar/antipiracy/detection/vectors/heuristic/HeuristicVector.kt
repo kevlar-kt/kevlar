@@ -17,6 +17,7 @@
 package com.kevlar.antipiracy.detection.vectors.heuristic
 
 import android.content.pm.ApplicationInfo
+import com.kevlar.antipiracy.dataset.DatasetEntry
 import com.kevlar.antipiracy.detection.vectors.AntipiracyVector
 import com.kevlar.antipiracy.detection.vectors.InputVector
 import com.kevlar.antipiracy.detection.vectors.OutputVector
@@ -27,21 +28,35 @@ internal class HeuristicVector(private val inputVector: InputVector) : Antipirac
         applicationInfo: ApplicationInfo,
         targets: List<MatchableHeuristicDatasetEntry>
     ): OutputVector {
+        val whitelist = inputVector.scanConfiguration.whitelist
+        val blacklist = inputVector.scanConfiguration.blacklist
+
+        if (whitelist.contains(applicationInfo.packageName)) {
+            return OutputVector(matchingDataset = null)
+        }
+
+        if (blacklist.contains(applicationInfo.packageName)) {
+            return OutputVector(matchingDataset = DatasetEntry.BLACKLIST)
+        }
+
         targets.forEach { dataSetUnit ->
+
             // Can have multiple detection policies
             dataSetUnit.detectionPolicies.forEach { detectionPolicy ->
+                val matchingDataset = dataSetUnit.datasetEntry
+
                 when (detectionPolicy) {
                     is DetectionPolicy.PackageNameDetection -> {
                         // We match the blacklisted package names and check if any is present in applicationInfo
                         if (detectionPolicy.packageNames.any { it == applicationInfo.packageName }) {
-                            return OutputVector(dataSetUnit.datasetEntry)
+                            return OutputVector(matchingDataset)
                         }
                     }
 
                     is DetectionPolicy.PackageNameRegex -> {
                         // We match (with a regex) the blacklisted package name and check if any is present in applicationInfo
                         if (detectionPolicy.regex.toRegex().matches(applicationInfo.packageName)) {
-                            return OutputVector(dataSetUnit.datasetEntry)
+                            return OutputVector(matchingDataset)
                         }
                     }
 
@@ -52,7 +67,7 @@ internal class HeuristicVector(private val inputVector: InputVector) : Antipirac
                         if (className != null && detectionPolicy.regex.toRegex()
                                 .matches(applicationInfo.className)
                         ) {
-                            return OutputVector(dataSetUnit.datasetEntry)
+                            return OutputVector(matchingDataset)
                         }
                     }
 
@@ -61,7 +76,7 @@ internal class HeuristicVector(private val inputVector: InputVector) : Antipirac
                         if (detectionPolicy.regex.toRegex()
                                 .matches(applicationInfo.nonLocalizedLabel)
                         ) {
-                            return OutputVector(dataSetUnit.datasetEntry)
+                            return OutputVector(matchingDataset)
                         }
                     }
                 }

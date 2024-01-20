@@ -39,6 +39,8 @@ class AntipiracyRepository @Inject constructor(
             pirate()
             store()
             collateral()
+
+            blacklist("com.kevlar.showcase")
         }
     }
 

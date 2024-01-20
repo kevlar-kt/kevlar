@@ -53,5 +53,8 @@ public enum class DatasetEntry(public val type: DatasetType, public val software
     MOB_GENIE(DatasetType.PIRATE_STORE, "Mobogenie"),
     ONE_MOBILE(DatasetType.PIRATE_STORE, "1Mobile"),
     SLIDE_ME(DatasetType.PIRATE_STORE, "Slide Me"),
-    Z_MARKET(DatasetType.PIRATE_STORE, "Z Market");
+    Z_MARKET(DatasetType.PIRATE_STORE, "Z Market"),
+
+    // Whitelisting / Blacklisting
+    BLACKLIST(DatasetType.PIRATE_APP, "Manual Blacklist")
 }

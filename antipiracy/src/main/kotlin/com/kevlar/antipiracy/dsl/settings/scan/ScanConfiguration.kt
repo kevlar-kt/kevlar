@@ -27,14 +27,18 @@ public class ScanConfiguration(
     public val stores: PirateStoreScan,
     public val collateral: CollateralScan,
     public val custom: CustomScan,
+    public val whitelist: Set<String>,
+    public val blacklist: Set<String>,
 ) {
 
     public companion object {
         public fun default(): ScanConfiguration = ScanConfiguration(
-            PirateSoftwareScan(enabled = false),
-            PirateStoreScan(enabled = false),
-            CollateralScan(enabled = false),
-            CustomScan(enabled = false)
+            pirate = PirateSoftwareScan(enabled = false),
+            stores = PirateStoreScan(enabled = false),
+            collateral = CollateralScan(enabled = false),
+            custom = CustomScan(enabled = false),
+            whitelist = setOf(),
+            blacklist = setOf()
         )
     }
 }
@@ -46,6 +50,9 @@ public class ScanConfigurationBuilder : DslBuilder<ScanConfiguration>() {
     private var store = PirateStoreScan(enabled = false)
     private var collateral = CollateralScan(enabled = false)
     private var custom = CustomScan(enabled = false)
+
+    private var whitelist: MutableSet<String> = mutableSetOf()
+    private var blacklist: MutableSet<String> = mutableSetOf()
 
     public fun pirate(block: PirateSoftwareScanBuilder.() -> Unit = {}) {
         pirate = PirateSoftwareScanBuilder().apply {
@@ -76,8 +83,34 @@ public class ScanConfigurationBuilder : DslBuilder<ScanConfiguration>() {
         }.build()
     }
 
+
+    @Synchronized
+    public fun whitelist(packageName: String) {
+        assert(!blacklist.contains(packageName)) { "Can't add $packageName to whitelist=$whitelist: it is already contained in blacklist=$blacklist" }
+        whitelist.add(packageName)
+    }
+
+    @Synchronized
+    public fun whitelist(packageNameList: List<String>) {
+        packageNameList.forEach(::whitelist)
+    }
+
+
+
+    @Synchronized
+    public fun blacklist(packageName: String) {
+        assert(!whitelist.contains(packageName)) { "Can't add $packageName to blacklist=$blacklist: it is already contained in whitelist=$whitelist" }
+        blacklist.add(packageName)
+    }
+
+    @Synchronized
+    public fun blacklist(packageNameList: List<String>) {
+        packageNameList.forEach(::blacklist)
+    }
+
+
     /**
      * Builds the scan configuration
      * */
-    override fun build(): ScanConfiguration = ScanConfiguration(pirate, store, collateral, custom)
+    override fun build(): ScanConfiguration = ScanConfiguration(pirate, store, collateral, custom, whitelist, blacklist)
 }

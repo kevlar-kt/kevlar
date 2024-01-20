@@ -76,7 +76,7 @@ Scan settings are taken into account intelligently to analyze and run the batter
 
 
 
-# Configuring `KevlarAntipiracy`
+## Configuring `KevlarAntipiracy`
 The antipiracy module is easy to configure, since it works automatically: you just have to choose which search criteria is used.
 
 You may choose to configure the antipiracy module manually (using the dedicated DSL, more flexibility), or just using one of the default configurations.

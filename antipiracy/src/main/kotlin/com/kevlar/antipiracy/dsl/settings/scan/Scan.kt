@@ -28,19 +28,19 @@ public abstract class Scan {
 
 
 public data class PirateSoftwareScan(
-    override val enabled: Boolean
+    override val enabled: Boolean,
 ) : Scan()
 
 public data class PirateStoreScan(
-    override val enabled: Boolean
+    override val enabled: Boolean,
 ): Scan()
 
 public data class CollateralScan(
-    override val enabled: Boolean
+    override val enabled: Boolean,
 ): Scan()
 
 public data class CustomScan(
-    override val enabled: Boolean
+    override val enabled: Boolean,
 ): Scan()
 
 
