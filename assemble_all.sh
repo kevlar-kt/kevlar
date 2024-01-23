@@ -17,6 +17,6 @@
 
 # if this fails with a warning about java version incompatibility, add a parameter after ./gradlew to change the java home, to a version that works: -Dorg.gradle.java.home=/Library/Java/...
 
-./gradlew antipiracy:publishReleasePublicationToSonatypeRepository
-./gradlew rooting:publishReleasePublicationToSonatypeRepository
-./gradlew integrity:publishReleasePublicationToSonatypeRepository
+./gradlew antipiracy:assembleRelease --warning-mode all
+./gradlew rooting:assembleRelease --warning-mode all
+./gradlew integrity:assembleRelease --warning-mode all

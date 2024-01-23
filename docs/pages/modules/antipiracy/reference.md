@@ -40,6 +40,8 @@ withContext(externalDispatcher) {
 
 You can find all the details about what software is regarded as pirate in the [database](database.md) page.
 
+## Reference
+Here is a list of all the flags and their specification:
 
 ### Pirate Apps 
 The `pirate()` function tells kevlar to scan the application list, and match it against the local dataset for pirate applications.

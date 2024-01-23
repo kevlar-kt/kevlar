@@ -94,7 +94,7 @@ public class KevlarRooting(
                 status {
                     emulator()
                     selinux {
-                        flagPermissive()
+                        // flagPermissive()
                     }
                     testKeys()
                 }

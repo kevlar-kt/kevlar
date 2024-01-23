@@ -8,7 +8,7 @@ A working example for the rooting module can be found in the github repository u
 
 	``` java
 	dependencies {
-    	implementation "io.github.kevlar-kt:rooting:1.1.1"
+    	implementation "io.github.kevlar-kt:rooting:1.2.0"
 	}
 	```
 
@@ -16,7 +16,7 @@ A working example for the rooting module can be found in the github repository u
 
 	``` kotlin
 	dependencies {
-	    implementation("io.github.kevlar-kt:rooting:1.1.1")
+	    implementation("io.github.kevlar-kt:rooting:1.2.0")
 	}
 	```
 
@@ -26,7 +26,7 @@ A working example for the rooting module can be found in the github repository u
 	<dependency>
 	    <groupId>io.github.kevlar-kt</groupId>
 	    <artifactId>rooting</artifactId>
-	    <version>1.1.1</version>
+	    <version>1.2.0</version>
 	    <type>pom</type>
 	</dependency>
 	```

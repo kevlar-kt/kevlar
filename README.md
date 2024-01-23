@@ -123,7 +123,7 @@ For stricter scenarios where higher fidelity and accuracy are required, you shou
 
 ```gradle
 dependencies {
-    implementation 'com.github.kevlar-kt:antipiracy:1.1.1'
+    implementation 'com.github.kevlar-kt:antipiracy:1.2.0'
 }
 ```
 
@@ -132,7 +132,7 @@ dependencies {
 
 ```gradle
 dependencies {
-    implementation 'com.github.kevlar-kt:rooting:1.1.1'
+    implementation 'com.github.kevlar-kt:rooting:1.2.0'
 }
 ```
 
@@ -142,7 +142,7 @@ dependencies {
 
 ```gradle
 dependencies {
-    implementation 'com.github.kevlar-kt:integrity:1.1.1'
+    implementation 'com.github.kevlar-kt:integrity:1.2.0'
 }
 ```
 

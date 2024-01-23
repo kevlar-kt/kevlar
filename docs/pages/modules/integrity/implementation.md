@@ -25,7 +25,7 @@ the `:showcase` module.
 
 	``` java
 	dependencies {
-    	implementation "io.github.kevlar-kt:integrity:1.1.1"
+    	implementation "io.github.kevlar-kt:integrity:1.2.0"
 	}
 	```
 
@@ -33,7 +33,7 @@ the `:showcase` module.
 
 	``` kotlin
 	dependencies {
-	    implementation("io.github.kevlar-kt:integrity:1.1.1")
+	    implementation("io.github.kevlar-kt:integrity:1.2.0")
 	}
 	```
 
@@ -43,7 +43,7 @@ the `:showcase` module.
 	<dependency>
 	    <groupId>io.github.kevlar-kt</groupId>
 	    <artifactId>integrity</artifactId>
-	    <version>1.1.1</version>
+	    <version>1.2.0</version>
 	    <type>pom</type>
 	</dependency>
 	```
