@@ -6,12 +6,13 @@ graph LR
   DB([Android OS]) === K
   AR1[Target Attestation Requests] --> K
   AR2[Status Attestation Requests] --> K
-  K --> |Clear| P[Passed];
-  K --> |Failed| NP[Not Passed];
-  P --> A1[TargetAssestation]
-  NP --> A1
-  P --> A2[StatusAttestation]
-  NP --> A2
+  K --> A1[TargetAssestation]
+  K --> A2[StatusAttestation]
+  A1 --> |Clear| P[Passed];
+  A2 --> |Clear| P[Passed];
+  A1 --> |Failed| NP[Not Passed];
+  A2 --> |Failed| NP[Not Passed];
+  
 ```
 
 The rooting package contains tools for the detection of system modifications that may be active on the device running your app.

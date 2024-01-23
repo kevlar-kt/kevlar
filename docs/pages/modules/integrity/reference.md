@@ -1,15 +1,15 @@
 # Reference
 
-The complete integrity configuration is as follows.
+The complete integrity configuration is as follows:
 
 ```kotlin title="Complete settings"
 private val integrity = KevlarIntegrity {
     checks {
-        packageName() {
+        packageName {
             // Allowed package name
             hardcodedPackageName("com.kevlar.showcase")
         }
-        signature() {
+        signature {
             // Allowed signature
             hardcodedSignatures("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
         }
@@ -38,11 +38,11 @@ Once kevlar has all the required data it is able to differentiate between genuin
 ```kotlin hl_lines="3-6"
 private val integrity = KevlarIntegrity {
     checks {
-        packageName() {
+        packageName {
             // Allowed package name
             hardcodedPackageName("com.kevlar.showcase")
         }
-        signature() {
+        signature {
             // Allowed signature
             hardcodedSignatures("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
         }
@@ -53,7 +53,7 @@ private val integrity = KevlarIntegrity {
 }
 ```
 
-You can find instruction on where to find the right parameters in [implementation](implementation.md).
+You can find instruction on how to derive the right parameters for your app in [implementation](implementation.md).
 In this case you simply have to pass in the package name of your app, so kevlar knows what is the right package.
 
 
@@ -61,16 +61,17 @@ In this case you simply have to pass in the package name of your app, so kevlar 
 The `signature()` function tells kevlar to enable the integrity checks for the application signature.
 
 This is a parametric setting, since kevlar needs to know what is the "right" application signature is.
-Once kevlar has all the required data it is able to differentiate between genuine and tampered binaries.
+
+Once kevlar has all the required data, it is able to differentiate between genuine and tampered binaries (by checking the hardcoded data against the runtime-provided information).
 
 ```kotlin hl_lines="7-10"
 private val integrity = KevlarIntegrity {
     checks {
-        packageName() {
+        packageName {
             // Allowed package name
             hardcodedPackageName("com.kevlar.showcase")
         }
-        signature() {
+        signature {
             // Allowed signature
             hardcodedSignatures("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
         }
@@ -81,7 +82,7 @@ private val integrity = KevlarIntegrity {
 }
 ```
 
-You can find instruction on where to find the right parameters in [implementation](implementation.md).
+You can find instruction on how to derive the right parameters for your app in [implementation](implementation.md).
 
 
 
@@ -91,11 +92,11 @@ The `debug()` function tells kevlar to enable integrity debug checks.
 ```kotlin hl_lines="12"
 private val integrity = KevlarIntegrity {
     checks {
-        packageName() {
+        packageName {
             // Allowed package name
             hardcodedPackageName("com.kevlar.showcase")
         }
-        signature() {
+        signature {
             // Allowed signature
             hardcodedSignatures("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
         }
@@ -106,33 +107,32 @@ private val integrity = KevlarIntegrity {
 }
 ```
 
-If debug flags are found on your application it will be reported.
+If any debug flag is found on your application, it will be reported.
 
 
 ## Installer check
 The `installer()` function tells kevlar to enable installer checks.
 
-Since android R, google introduced APIs to check the original installer of a certain package.
-With this check, you can instruct kevlar to analyze that installer (if available) and detect
-whether it is allowed or not by your security policy.
+Since android R, google introduced new APIs to check for the original installer of a certain package.
 
-In this case, the only allowed installer package is the Google Play Store, but you can always
-add more through the `allowInstaller` function.
+With this check, you can instruct kevlar to analyze (if available) which software installed your application, and detect whether it is allowed or not by your security policy.
+
+In this case, the only allowed installer package is the Google Play Store, but you can always add more (whitelist) through the `allowInstaller` function.
 
 ```kotlin hl_lines="13-15"
 private val integrity = KevlarIntegrity {
     checks {
-        packageName() {
+        packageName {
             // Allowed package name
             hardcodedPackageName("com.kevlar.showcase")
         }
-        signature() {
+        signature {
             // Allowed signature
             hardcodedSignatures("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
         }
         
         debug()
-        installer() {
+        installer {
             allowInstaller("com.sec.android.app.samsungapps")
         }
     }

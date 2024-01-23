@@ -5,10 +5,9 @@ graph LR
   I[Inizialization] -.Settings..-> K{KevlarIntegrity};
   DB([Hardcoded & Obfuscated Metadata]) === K
   AR1[Attestation Requests] --> K
-  K --> |Clear| P[Passed];
-  K --> |Failed| NP[Not Passed];
-  P --> A[IntegrityAssestation]
-  NP --> A
+  A --> |Clear| P[Passed];
+  A --> |Failed| NP[Not Passed];
+  K --> A[IntegrityAssestation]
 ```
 
 The integrity package contains tools for the detection of tampering attempts against your app.
@@ -30,7 +29,7 @@ It is capable of detecting:
 
 !!! warning Automatic vs Specific attack
     This package is the best defense against automatic and/or unskilled attacks. 
-    If implemented well, it will kill off most of them
+    If implemented well, it will kill off most of them.
 
 
 To [implement](implementation.md) this, you initialize `KevlarIntegrity` and provide your desired settings (which influence what is to be checked and what not). Then you can submit attestation requests (which will be executed according to your settings).
@@ -73,11 +72,11 @@ Thus there are no default configuration: you have to manually specify each item 
 ```kotlin title="Manual configuration (simplified)"
 private val integrity = KevlarIntegrity {
     checks {
-        packageName() {
+        packageName {
             // Allowed package name
             hardcodedPackageName("com.kevlar.showcase")
         }
-        signature() {
+        signature {
             // Allowed signature
             hardcodedSignatures("J+nqXLfuIO8B2AmhkMYHGE4jDyw=")
         }

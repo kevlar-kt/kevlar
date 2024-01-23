@@ -69,9 +69,9 @@ debug check.
 
 The hardcoded metadata you need to find is the following:
 
-- Your application **package name**: Will check that the running binary's package name matches the
+- Your application **package name**: Will be used to check that the running binary's package name matches the
   hardcoded package name;
-- Your application **signature**: Will check that the running binary's signature is the same as the
+- Your application **signature**: Will be used to check that the running binary's signature is the same as the
   hardcoded signature.
 
 Additionally, you should consider enabling the other two kinds of checks:
@@ -115,7 +115,7 @@ integrity.attestate(context)
 ```
 
 
-!!! fail "Do not"
+!!! danger "Do not"
     Maybe, just maybe, you may be tempted to so something like this:
 
 	```kotlin title="VERY_BAD_hardcoded_metadata.kt"
@@ -136,15 +136,18 @@ For the signature, it's not so straightforward to extract because it depends on 
 You have two different ways to get your keystore signature. In the examples we will find the debug signature, but you need to find the signature of the keystore you use to sign your application when publishing on google play.
 
 #### Direct application extraction
-The most practical way to read your keystore it is to put the following line of code in your app, to then sign the application with the key you are interested in acquiring the signature string of, and run it.
+The most practical way to read your keystore it is to put the following line of code in your app (it is a courtesy method provided by kevlar to do just that), to then sign the application with the key you are interested in acquiring the signature string of, and run it.
 
 ```kotlin
 // This returns the signature of the current running application.
 val signature: String = KevlarIntegrity.obtainCurrentAppSignature(context)
+
+// Log it to the console for extracting the signature
+Log.d("SIGNATURE", signature)
 ```
 
 This will output the current app signature. 
-That's the reference string you need to give to kevlar (which will extract the runtime signature of your app and match it against that string).
+That's the reference string you need to give to kevlar through `hardcodedSignatures()` (which, once an attestation is requested, will extract the runtime signature of your app _(which may be tampered with, if someone recompiled your application)_ and match it against that string you just extracted).
 
 !!! example "Android debug signature"
     Every android application is signed with some key. 
@@ -154,7 +157,7 @@ That's the reference string you need to give to kevlar (which will extract the r
 !!! warning "Signature extraction & Google Play App Signing API"
     If you are using Google Play App Signing, the key you sign your application with is not the one your app is distributed with (See the [official docs](https://developer.android.com/studio/publish/app-signing) regarding the matter, and a relevant [issue](https://github.com/kevlar-kt/kevlar/issues/1) in kevlar).
     
-    In this case the easiest way to get your actual signature would be to upload a dummy version of your app (which logs the runtime signature) through google play store, let the backend process and sign it, download it (through the archive manager on the play console), install & run it locally on an emulator/device, and save the runtime signature. Once you have done this (quite tedious) procedure, you have your signature and can pass it to kevlar.
+    In this case the easiest way to get your actual signature would be to upload a dummy version of your app (which logs the runtime signature) through google play store, let the backend process and sign it, download it (through the archive manager on the play console), install & run it locally on an emulator/device, and save the runtime signature. Once you have done this (quite tedious, but once-in-a-lifetime) procedure, you have your signature and can pass it to kevlar.
 
 #### Android studio extraction
 Running `./gradlew signingReport` will spit out all the details for all the different keystores in your project.
@@ -180,22 +183,22 @@ Alias: null
 ```
 
 We then have to convert it in a string form (like that we have the raw hex bytes, we want a base64 encoding of the binary signature).
-In this case the conversion (you can use online tools to do this) yields `J+nqXLfuIO8B2AmhkMYHGE4jDyw=`.
+In my case the conversion (you can use [sha1_to_base64](https://emn178.github.io/online-tools/base64_encode.html) online tools to do this) yields `J+nqXLfuIO8B2AmhkMYHGE4jDyw=`.
 
-!!! fail "Play Signing"
-    Since we don't have access to the keystore file if we use Play Signing, this method is not viable in that case, and you have to resort to uploading a dummy version of the app, download its play-signed version through the releases page, and extract the signature from that APK file.
+!!! danger "Incompatible With Play Signing"
+    Since we don't have access to the "real" keystore file if we're using use Play Signing, this method is not viable in that case, and you have to resort to uploading a dummy version of the app, download its play-signed version through the releases page, and extract the signature from that APK file.
 
 
 ## Obfuscating metadata
 The second step (optional but recommended) is obfuscating the metadata you just gathered, so that it
-is **saved** in an obfuscated form (in your bytecode, so that automatic tools / unskilled attackers can't easily find it), but passed to kevlar deobfuscated (so that we have the original truth values at run time).
+is **stored** in an obfuscated form (in your bytecode, so that automatic tools / unskilled attackers can't easily find it), but passed to kevlar deobfuscated (obviously kevlar has to receive the real, intended value, so that we have the original truth values. The idea is to perform the deobfuscation/decryption just at run time, not leaving a trace of the actual plaintext signature in the application code).
 
-This means that we ship with out app the obfuscated data and the way to convert that obfuscated data back to plaintext to feed kevlar.
+This means that we'll ship with our app the obfuscated data, and then at runtime (when kevlar is invoked) we will convert that obfuscated data back to plaintext to feed kevlar.
 
-There are a few different ways to do it, all of them are fully implemented in the `:showcase` module:
+There are a few different ways to do it, all of them are fully implemented in the `:showcase` module for you check out:
 
 ### No obfuscation (not recommended)
-In this case you just save the values as they are, and pass them in `HardcodedMetadata`
+In this case you just save the values as they are, and pass them in `HardcodedMetadata`:
 
 ```kotlin title="unobfuscated_hardcoded_metadata.kt"
 private const val packageName = HardcodedPackageName("com.kevlar.showcase")

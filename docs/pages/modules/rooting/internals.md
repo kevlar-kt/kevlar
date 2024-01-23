@@ -13,4 +13,3 @@ Xposed framework requires a specific check on a system file to determine whether
 ## Notes
 The `rooting` module relies on [libsu](https://github.com/topjohnwu/libsu) for shell command execution. 
 This may be a debatable choice, but it is one of the only well-written libraries and it works both efficiently and reliably.
-The alternative would have been implementing a custom shell execution mechanism, which is not hard to do, but it is hard to do *well*.

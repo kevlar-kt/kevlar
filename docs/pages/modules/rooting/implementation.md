@@ -59,37 +59,15 @@ We go ahead and create a working single-attestation example (for system modifica
 
 ## Configuration
 As we said, the kinds of checks you can run are divided in two different categories, `targets` and `status`.
-The first is to check for eventual system modification, the former to check for eventual in-system status.
+The first is to check for system modification, the former to check for eventual in-system status.
 
-The following complete configuration runs every check that kevlar disposes.
+The following is the default (most commonly chosen) configuration.
 
-In details:
-
-- `flagPermissive()`, if enabled, will report `DetectableSystemStatus.SELINUX` also if selinux status is set to permissive status (which is a stricter criteria), while by default it will only trip if selinux is disabled;
-- `allowExplicitRootCheck()`, if enabled, will use more aggressive checks to determine if any of the required targets is installed, including explicitly trying to acquire root access.
-
-
-```kotlin
-private val rooting = KevlarRooting {
-    targets {
-        root()
-        magisk()
-        busybox()
-        xposed()
-    }
-
-    allowExplicitRootCheck()
-
-    status {
-        testKeys()
-        emulator()
-        selinux {
-            flagPermissive()
-        }
-    }
-}
+```kotlin title="Automatic settings"
+private val antipiracy = KevlarRooting.Defaults.Standard()
 ```
 
+You can find more information for configuring the rooting module configuration in the [reference](reference.md).
 
 ## In-Place
 This is the most concise way to implement rooting.

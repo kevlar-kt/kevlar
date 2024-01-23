@@ -5,10 +5,9 @@ graph LR
   I[Inizialization] -.Settings..-> K{KevlarAntipiracy};
   DB[(Dataset)] === K
   AREQ[Attestation Requests] --> K
-  K --> |Clear| P[Passed];
-  K --> |Failed| NP[Not Passed];
-  P --> ARES[AntipiracyAttestation]
-  NP --> ARES
+  ARES --> |Clear| P[Passed];
+  ARES --> |Failed| NP[Not Passed];
+  K --> ARES[AntipiracyAttestation]
 ```
 
 The antipiracy package contains tools for the detection of different categories of pirate software that may be installed and running on target devices. 

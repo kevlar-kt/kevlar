@@ -53,7 +53,7 @@ and **app-wise** security (tampering, recompiling, changed signature & metadata)
 
 
 ## Flexibility
-Kevlar does not automatically detect a "standard" unsafe environment and gives a 0/1 answer.
+Kevlar does not automatically detect a "standard" unsafe environment and give a 0/1 answer.
 The kind of environment that is acceptable for your app to run in can be configured in each package individually.
 
 You may be indifferent to some things (e.g. root detection) and very sensitive about others (e.g. app tampering & piracy detection).
@@ -66,14 +66,14 @@ If you don't explicitly instruct kevlar to check for a feature, then that featur
 ## Design
 Each kevlar package contains custom implementations for what it has to scan for, but they all share the same overall structure, to make it easy to work with. Once you learn how to use a package, then you can transfer that knowledge to the other ones.
 
+
 ``` mermaid
 graph LR
   I[Inizialization] -.Settings..-> K{Kevlar};
   AREQ[Attestation Requests] --> K
-  K --> |Clear| P[Passed];
-  K --> |Failed| NP[Not Passed];
-  P --> ARES[Attestation Result]
-  NP --> ARES
+  K --> ARES[Attestation Result]
+  ARES --> |Clear| P[Passed];
+  ARES --> |Failed| NP[Not Passed];
 ```
 
 The founding idea is a flow of attestations. You initialize the package passing to it your settings (what you want to check for). Then you can go ahead and start requesting attestations. An attestation can either be Clear (passed) or Failed (non passed), according to your detection settings.

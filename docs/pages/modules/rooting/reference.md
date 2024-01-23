@@ -78,8 +78,6 @@ They return their own attestation, each containing the security environment disc
 ## Reference
 Here is a list of all the flags and their specification:
 
-⚠️ Work In Progress, you can find the code responsible for executing the system checks [here](https://github.com/kevlar-kt/kevlar/blob/master/rooting/src/main/kotlin/com/kevlar/rooting/attestator/TargetsAttestator.kt)
-
 ### Targets
 
 All of the following flags constitute the targets configuration, which can be requested through `rooting.attestateTargets(context)`, returning a `TargetRootingAttestation`, which can be either `Clear`, `Blank`, `Failed`. In the latter, you have access to the list of targets that you specified in your configuration and that have actually been detected on the host system.
@@ -109,3 +107,121 @@ private val rooting = KevlarRooting {
     allowExplicitRootCheck()
 }
 ```
+
+
+#### Magisk Installation
+
+Magisk checks are enabled through the following flag:
+
+```kotlin title="Complete Rooting settings" hl_lines="3"
+private val rooting = KevlarRooting {
+    targets {
+        magisk()
+    }
+}
+```
+
+This will run a series of checks to determine whether [Magisk](https://github.com/topjohnwu/Magisk) is installed the host system.
+
+
+
+#### Busybox
+
+Busybox checks are enabled through the following flag:
+
+```kotlin title="Complete Rooting settings" hl_lines="3"
+private val rooting = KevlarRooting {
+    targets {
+        busybox()
+    }
+}
+```
+
+This will run a series of checks to determine whether any busybox custom binaries are installed in the host system.
+
+
+
+#### Xposed
+
+Xposed framework checks are enabled through the following flag:
+
+```kotlin title="Complete Rooting settings" hl_lines="3"
+private val rooting = KevlarRooting {
+    targets {
+        xposed()
+    }
+}
+```
+
+
+### Status
+
+All of the following flags constitute the status configuration, which can be requested through `rooting.attestateStatus()`, returning a `StatusRootingAttestation`, which can be either `Clear`, `Blank`, `Failed`. In the latter, you have access to the list of statuses that you specified in your configuration and that have actually been detected on the host system.
+
+#### Emulator
+
+Emulation checks are enabled through the following flag:
+
+```kotlin title="Complete Rooting settings" hl_lines="3"
+private val rooting = KevlarRooting {
+    status {
+        emulator()
+    }
+}
+```
+
+
+#### Emulator
+
+Test keys checks are enabled through the following flag:
+
+```kotlin title="Complete Rooting settings"  hl_lines="3"
+private val rooting = KevlarRooting {
+    status {
+        testKeys()
+    }
+}
+```
+
+
+
+
+
+
+
+#### SELinux
+
+SELinux checks are enabled through the following flag:
+
+```kotlin title="Complete Rooting settings"  hl_lines="3"
+private val rooting = KevlarRooting {
+    status {
+        selinux()
+    }
+}
+```
+
+SELinux status can be in one of the following states:
+- `disabled`
+- `permissive`
+- `enforcing`
+
+The default state should be `enforcing`.
+
+- If it is detected as `disabled`, it will be reported in the attestation.
+- If it is detected as `permissive`, it will be reported in the attestation if the `flagPermissive()` modifier has been added:
+
+
+```kotlin title="Complete Rooting settings"  hl_lines="4"
+private val rooting = KevlarRooting {
+    status {
+        selinux {
+            flagPermissive()
+        }
+    }
+}
+```
+
+
+
+
