@@ -5,7 +5,7 @@ apply plugin: 'io.github.gradle-nexus.publish-plugin'
 
 buildscript {
     ext {
-        kotlin_version = "1.9.20"
+        kotlin_version = "1.9.22"
     }
     
     repositories {
@@ -16,7 +16,7 @@ buildscript {
     }
     
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.1'
+        classpath 'com.android.tools.build:gradle:8.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.github.ben-manes:gradle-versions-plugin:0.51.0"
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.50'

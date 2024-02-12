@@ -8,7 +8,7 @@
   <a href="https://github.com/kevlar-kt/kevlar/releases"><img src="https://img.shields.io/github/v/tag/kevlar-kt/kevlar" alt="Latest tag" /></a>
   <a href="https://github.com/kevlar-kt/kevlar/actions?query=workflow%3A%22Build%22"><img src="https://github.com/kevlar-kt/kevlar/actions/workflows/push-debug-build.yaml/badge.svg" alt="Android CI" /></a>
   <a href="https://source.android.com/setup/start/build-numbers"><img src="https://img.shields.io/badge/minSdk-19-00E676.svg" alt="Android Min Sdk"></a>
-  <a href="https://kotlinlang.org/docs/releases.html"><img src="https://img.shields.io/badge/kotlin-1.9.20-orange.svg" alt="Kotlin"></a>
+  <a href="https://kotlinlang.org/docs/releases.html"><img src="https://img.shields.io/badge/kotlin-1.9.22-orange.svg" alt="Kotlin"></a>
   <a href="https://androidweekly.net/issues/issue-528"><img src="https://img.shields.io/badge/AndroidWeekly-528-5bb3e2" alt="AndroidWeekly Issue"></a>
   <a href="https://us12.campaign-archive.com/?u=f39692e245b94f7fb693b6d82&id=15eb56d1f5"><img src="https://img.shields.io/badge/KotlinWeekly-315-%238a78e8" alt="Kotlin"></a>
   <a href="https://github.com/kevlar-kt/kevlar/blob/master/LICENSE.md"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License"></a>
