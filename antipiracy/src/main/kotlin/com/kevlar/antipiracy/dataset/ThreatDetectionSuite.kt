@@ -14,16 +14,11 @@
  * limitations under the License.
  */
 
-package com.kevlar.antipiracy.detection.vectors.heuristic
-
-import com.kevlar.antipiracy.dataset.DatasetEntry
-import com.kevlar.antipiracy.dataset.MatchableDatasetEntry
+package com.kevlar.antipiracy.dataset
 
 /**
- * Associates a [DatasetEntry] with a list of [DetectionPolicy]
- * for heuristic scans.
+ * Parent class for [com.kevlar.antipiracy.detection.vectors.heuristic.HeuristicThreatDetectionSuite] and [com.kevlar.antipiracy.detection.vectors.alphabet.AlphabetThreatDetectionSuite]
  * */
-internal data class MatchableHeuristicDatasetEntry(
-    override val datasetEntry: DatasetEntry,
-    val detectionPolicies: List<DetectionPolicy>
-) : MatchableDatasetEntry()
+internal abstract class ThreatDetectionSuite {
+    abstract val threat: Threat
+}

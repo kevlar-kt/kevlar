@@ -25,8 +25,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.kevlar.antipiracy.dataset.ScanEntry
 import com.kevlar.antipiracy.dsl.attestation.AntipiracyAttestation
-import com.kevlar.antipiracy.dataset.DatasetEntry
+import com.kevlar.antipiracy.dataset.Threat
 import com.kevlar.showcase.R
 import com.kevlar.showcase.databinding.AntipiracyActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,7 +65,7 @@ class AntipiracyActivity : AppCompatActivity() {
                                 appendLine("Failed attestation")
                                 appendLine()
 
-                                it.scanResult.detectedEntries.forEachIndexed { i, it: DatasetEntry ->
+                                it.scanResult.detectedEntries.forEachIndexed { i, it: ScanEntry ->
                                     appendLine("[$i] $it")
                                 }
 

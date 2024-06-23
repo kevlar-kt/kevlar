@@ -17,7 +17,7 @@
 package com.kevlar.antipiracy.detection.vectors.alphabet.units
 
 /**
- * Models an abstract alphabet element (unit).
+ * Models a discrete, abstract alphabet element (unit).
  * */
 internal enum class AlphabetUnit(val asciiLower: Char, val asciiUpper: Char) {
     A('a', 'A'),

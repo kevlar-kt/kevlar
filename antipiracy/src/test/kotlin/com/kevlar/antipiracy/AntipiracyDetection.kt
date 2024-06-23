@@ -1,0 +1,331 @@
+/*
+ * Designed and developed by Kevlar Contributors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+package com.kevlar.antipiracy
+
+import com.google.common.truth.Truth
+import org.junit.Test
+
+public class AntipiracyDetection {
+
+    private val file = "package:com.theme.icondefaultshape\n" +
+            "package:com.transsion.teop\n" +
+            "package:com.google.android.providers.media.module\n" +
+            "package:com.xui.xhide\n" +
+            "package:com.google.android.overlay.modules.permissioncontroller.forframework\n" +
+            "package:com.transsion.magicfont\n" +
+            "package:com.mediatek.MtkSettingsResOverlay\n" +
+            "package:com.transsion.agingfunction\n" +
+            "package:com.transsion.repaircard\n" +
+            "package:com.android.calllogbackup\n" +
+            "package:com.transsion.kolun.assistant\n" +
+            "package:com.transsion.batterylab\n" +
+            "package:com.transsion.hamal\n" +
+            "package:com.android.wifi.mainline.resources.overlay\n" +
+            "package:com.android.providers.contacts\n" +
+            "package:com.transsion.notebook\n" +
+            "package:com.google.android.apps.nbu.files\n" +
+            "package:com.android.dreams.basic\n" +
+            "package:com.android.companiondevicemanager\n" +
+            "package:com.android.cts.priv.ctsshim\n" +
+            "package:com.android.mms.service\n" +
+            "package:com.google.android.cellbroadcastreceiver\n" +
+            "package:com.android.providers.downloads\n" +
+            "package:com.android.bluetoothmidiservice\n" +
+            "package:com.transsion.zahooc\n" +
+            "package:com.transsion.calendar\n" +
+            "package:com.android.networkstack.overlay\n" +
+            "package:com.google.android.printservice.recommendation\n" +
+            "package:com.transsion.childmode\n" +
+            "package:com.google.android.captiveportallogin\n" +
+            "package:com.google.android.networkstack\n" +
+            "package:com.mediatek.ygps\n" +
+            "package:com.android.keychain\n" +
+            "package:com.google.android.overlay.gmsconfig.asi\n" +
+            "package:com.transsion.ossettingsext\n" +
+            "package:com.google.android.apps.wellbeing\n" +
+            "package:com.transsion.compass\n" +
+            "package:com.android.shell\n" +
+            "package:com.google.android.ims\n" +
+            "package:com.google.android.adservices.api\n" +
+            "package:com.android.inputdevices\n" +
+            "package:com.google.android.ondevicepersonalization.services\n" +
+            "package:com.transsion.beez\n" +
+            "package:com.android.bookmarkprovider\n" +
+            "package:com.mediatek.FrameworkResOverlayExt\n" +
+            "package:com.smartlife.nebula\n" +
+            "package:com.google.android.onetimeinitializer\n" +
+            "package:com.mediatek.callrecorder\n" +
+            "package:com.google.android.permissioncontroller\n" +
+            "package:com.android.apps.tag\n" +
+            "package:com.transsion.calculator\n" +
+            "package:com.android.sharedstoragebackup\n" +
+            "package:com.android.imsserviceentitlement\n" +
+            "package:com.rlk.weathers\n" +
+            "package:com.mediatek.SettingsProviderResOverlay\n" +
+            "package:com.android.providers.media\n" +
+            "package:com.cdfinger.factorytest\n" +
+            "package:com.android.providers.calendar\n" +
+            "package:com.android.providers.blockednumber\n" +
+            "package:com.google.android.documentsui\n" +
+            "package:com.google.android.overlay.modules.documentsui\n" +
+            "package:com.mediatek.lbs.em2.ui\n" +
+            "package:android.autoinstalls.config.transsion.device\n" +
+            "package:com.android.proxyhandler\n" +
+            "package:com.google.android.overlay.modules.permissioncontroller\n" +
+            "package:com.mediatek\n" +
+            "package:com.android.managedprovisioning\n" +
+            "package:com.android.emergency\n" +
+            "package:com.transsion.iotservice\n" +
+            "package:com.mediatek.omacp\n" +
+            "package:com.google.android.gms.location.history\n" +
+            "package:com.silead.factorytest\n" +
+            "package:com.google.cellbroadcastuiresoverlay\n" +
+            "package:com.transsion.soundrecorder\n" +
+            "package:com.google.android.apps.googleassistant\n" +
+            "package:com.transsion.smartpanel\n" +
+            "package:com.transsion.letswitch\n" +
+            "package:com.mediatek.mdmlsample\n" +
+            "package:com.google.android.gm\n" +
+            "package:com.android.carrierdefaultapp\n" +
+            "package:com.mediatek.voicecommand\n" +
+            "package:com.transsion.carlcare\n" +
+            "package:com.android.backupconfirm\n" +
+            "package:com.google.android.apps.tachyon\n" +
+            "package:com.android.nfc\n" +
+            "package:com.android.mtp\n" +
+            "package:com.google.android.gsf\n" +
+            "package:com.google.android.overlay.modules.packageinstaller\n" +
+            "package:com.hilauncherconfig\n" +
+            "package:com.transsion.os.typeface\n" +
+            "package:com.android.internal.display.cutout.emulation.double\n" +
+            "package:com.android.theme.font.notoserifsource\n" +
+            "package:com.mediatek.frameworkresoverlay\n" +
+            "package:com.transsion.hilauncher\n" +
+            "package:com.transsion.tower\n" +
+            "package:com.google.android.syncadapters.calendar\n" +
+            "package:com.sh.smart.caller\n" +
+            "package:ru.sportmaster.app\n" +
+            "package:com.transsion.videocallenhancer\n" +
+            "package:com.transsion.magicshow\n" +
+            "package:com.android.settings.os.overlay\n" +
+            "package:com.transsion.resolver\n" +
+            "package:com.android.systemui\n" +
+            "package:com.android.wallpapercropper\n" +
+            "package:com.transsion.sk\n" +
+            "package:com.android.wifi.system.resources.overlay\n" +
+            "package:com.google.android.overlay.gmsconfig.geotz\n" +
+            "package:com.appsisle.developerassistant\n" +
+            "package:com.android.internal.systemui.navbar.gestural\n" +
+            "package:com.silead.fingerprint\n" +
+            "package:com.google.mainline.adservices\n" +
+            "package:com.transsion.filemanagerx\n" +
+            "package:com.android.settings.intelligence\n" +
+            "package:com.mediatek.simprocessor\n" +
+            "package:com.transsion.phonemanager\n" +
+            "package:ru.appbazar.aplus.start\n" +
+            "package:com.transsion.faceid\n" +
+            "package:com.transsion.quicktools\n" +
+            "package:com.transsion.aisettings\n" +
+            "package:com.transsion.screencapture\n" +
+            "package:com.herocraft.game.premium.taptapbuilder.aplus\n" +
+            "package:com.google.android.overlay.gmsconfig.personalsafety\n" +
+            "package:com.vetusmaps.vetusmapsab\n" +
+            "package:com.transsion.overlaysuw\n" +
+            "package:com.google.android.federatedcompute\n" +
+            "package:com.transsion.microintelligence\n" +
+            "package:com.google.android.webview\n" +
+            "package:com.google.android.sdksandbox\n" +
+            "package:com.android.wallpaperbackup\n" +
+            "package:com.google.android.cellbroadcastservice\n" +
+            "package:com.transsion.camera\n" +
+            "package:com.google.android.networkstack.overlay\n" +
+            "package:com.android.internal.systemui.navbar.threebutton\n" +
+            "package:com.balysv.loop.aplus\n" +
+            "package:com.android.egg\n" +
+            "package:com.transsion.tabe\n" +
+            "package:com.android.localtransport\n" +
+            "package:com.transsion.healthlife\n" +
+            "package:android\n" +
+            "package:com.mediatek.telephony\n" +
+            "package:com.mediatek.voiceunlock\n" +
+            "package:com.google.android.overlay.modules.modulemetadata.forframework\n" +
+            "package:ru.vk.store\n" +
+            "package:com.transsion.thub.res\n" +
+            "package:com.transsion.dtsaudio\n" +
+            "package:com.transsion.uxdetector\n" +
+            "package:com.transsion.deskclock\n" +
+            "package:com.transsion.mol\n" +
+            "package:com.mediatek.mdmconfig\n" +
+            "package:com.transsion.theme.icon\n" +
+            "package:com.google.android.packageinstaller\n" +
+            "package:com.android.se\n" +
+            "package:com.android.pacprocessor\n" +
+            "package:com.android.wifi.resources.overlay\n" +
+            "package:com.mediatek.gnss.nonframeworklbs\n" +
+            "package:com.transsion.overlaysuw.resoverlay\n" +
+            "package:com.google.android.safetycenter.resources\n" +
+            "package:com.android.settings.resoverlay\n" +
+            "package:com.google.android.apps.youtube.music\n" +
+            "package:com.android.stk\n" +
+            "package:com.android.settings\n" +
+            "package:com.android.bips\n" +
+            "package:com.mediatek.engineermode\n" +
+            "package:com.google.android.partnersetup\n" +
+            "package:com.android.internal.systemui.navbar.gestural_narrow_back\n" +
+            "package:com.mediatek.miravision.ui\n" +
+            "package:com.android.internal.display.cutout.emulation.tall\n" +
+            "package:com.google.android.networkstack.tethering\n" +
+            "package:com.google.android.projection.gearhead\n" +
+            "package:com.android.cameraextensions\n" +
+            "package:com.android.networkstack.inprocess.overlay\n" +
+            "package:com.mediatek.systemuiresoverlay\n" +
+            "package:ru.appbazar\n" +
+            "package:com.xemob.towerdefensethelastrealm.aplus\n" +
+            "package:com.transsion.phonemaster\n" +
+            "package:com.android.carrierconfig\n" +
+            "package:com.android.internal.systemui.navbar.gestural_wide_back\n" +
+            "package:com.transsion.powercenter\n" +
+            "package:com.google.android.videos\n" +
+            "package:com.google.android.ext.shared\n" +
+            "package:com.scorpio.securitycom\n" +
+            "package:com.google.android.feedback\n" +
+            "package:com.android.remoteprovisioner\n" +
+            "package:com.android.chrome\n" +
+            "package:ru.yandex.androidkeyboard\n" +
+            "package:com.transsion.smartmessage\n" +
+            "package:com.google.android.apps.maps\n" +
+            "package:com.funbase.xradio\n" +
+            "package:com.debug.loggerui\n" +
+            "package:com.google.android.as\n" +
+            "package:android.auto_generated_rro_product__\n" +
+            "package:com.android.musicfx\n" +
+            "package:com.google.android.inputmethod.latin\n" +
+            "package:com.google.android.marvin.talkback\n" +
+            "package:com.focaltech.fpsensormmitest\n" +
+            "package:com.android.networkstack.tethering.overlay\n" +
+            "package:com.android.providers.downloads.ui\n" +
+            "package:com.transsion.systemupdate\n" +
+            "package:com.android.ons\n" +
+            "package:com.transsion.fmradio\n" +
+            "package:com.google.android.networkstack.tethering.overlay\n" +
+            "package:com.google.android.apps.docs\n" +
+            "package:com.android.connectivity.resources.overlay\n" +
+            "package:com.android.certinstaller\n" +
+            "package:com.android.wifi.system.mainline.resources.overlay\n" +
+            "package:com.google.android.setupwizard\n" +
+            "package:com.google.android.apps.safetyhub\n" +
+            "package:com.transsion.hiparty\n" +
+            "package:studio.taawoos.shadowofnaught.aplus\n" +
+            "package:com.android.wifi.resources\n" +
+            "package:com.android.wifi.dialog\n" +
+            "package:com.transsion.plat.appupdate\n" +
+            "package:com.google.android.apps.restore\n" +
+            "package:com.transsion.multiwindow\n" +
+            "package:com.android.simappdialog\n" +
+            "package:com.android.providers.telephony\n" +
+            "package:com.tinno.productInfo\n" +
+            "package:com.android.wallpaper.livepicker\n" +
+            "package:com.ape.factory\n" +
+            "package:com.android.internal.display.cutout.emulation.waterfall\n" +
+            "package:com.android.cellbroadcast.overlay\n" +
+            "package:com.android.providers.settings\n" +
+            "package:com.android.phone\n" +
+            "package:com.google.android.overlay.modules.ext.services\n" +
+            "package:com.android.internal.systemui.navbar.gestural_extra_wide_back\n" +
+            "package:com.talpa.hiservice\n" +
+            "package:com.android.traceur\n" +
+            "package:com.google.android.as.oss\n" +
+            "package:org.telegram.messenger.web\n" +
+            "package:com.reallytek.wg\n" +
+            "package:com.transsion.magazineservice.hios\n" +
+            "package:com.transsion.scanningrecharger\n" +
+            "package:com.android.location.fused\n" +
+            "package:com.android.vpndialogs\n" +
+            "package:net.bat.store\n" +
+            "package:com.android.uwb.resources\n" +
+            "package:com.android.cellbroadcastreceiver\n" +
+            "package:com.herocraft.game.birdsonwire.aplus\n" +
+            "package:com.google.android.tts\n" +
+            "package:com.google.android.googlequicksearchbox\n" +
+            "package:com.google.android.modulemetadata\n" +
+            "package:com.mediatek.batterywarning\n" +
+            "package:me.incrdbl.android.wordbyword\n" +
+            "package:com.transsion.applock\n" +
+            "package:com.android.htmlviewer\n" +
+            "package:com.transsion.childmode.resoverlay\n" +
+            "package:com.android.vending\n" +
+            "package:com.google.android.ext.services\n" +
+            "package:com.transsnet.store\n" +
+            "package:com.google.android.configupdater\n" +
+            "package:com.transsion.nephilim\n" +
+            "package:com.google.android.overlay.modules.captiveportallogin.forframework\n" +
+            "package:com.google.android.apps.turbo\n" +
+            "package:com.trustonic.teeservice\n" +
+            "package:com.skyroam.silverhelper\n" +
+            "package:com.google.android.gms.supervision\n" +
+            "package:com.google.android.overlay.gmsconfig.gsa\n" +
+            "package:com.mediatek.capctrl.service\n" +
+            "package:com.android.networkstack.tethering.inprocess.overlay\n" +
+            "package:com.android.wallpaperpicker\n" +
+            "package:com.transsion.tranengine\n" +
+            "package:com.mediatek.ims\n" +
+            "package:com.android.providers.userdictionary\n" +
+            "package:com.android.launcher3\n" +
+            "package:com.google.android.overlay.gmsconfig.common\n" +
+            "package:com.android.cts.ctsshim\n" +
+            "package:com.google.android.apps.photos\n" +
+            "package:com.android.bluetooth\n" +
+            "package:com.mediatek.location.lppe.main\n" +
+            "package:com.android.internal.display.cutout.emulation.corner\n" +
+            "package:com.google.android.gms\n" +
+            "package:ru.appbazar.sdk.sample.sdktestapp\n" +
+            "package:com.android.storagemanager\n" +
+            "package:com.transsion.statisticalsales\n" +
+            "package:com.transsion.dualapp\n" +
+            "package:com.hoffnung\n" +
+            "package:com.mediatek.location.mtkgeofence\n" +
+            "package:com.mediatek.schpwronoff\n" +
+            "package:com.transsion.trancare\n" +
+            "package:com.android.printspooler\n" +
+            "package:com.transsion.thunderback\n" +
+            "package:com.mediatek.systemuiwmshellresoverlay\n" +
+            "package:com.android.providers.partnerbookmarks\n" +
+            "package:com.android.soundpicker\n" +
+            "package:com.gallery20\n" +
+            "package:com.mediatek.gbaservice\n" +
+            "package:com.google.mainline.telemetry\n" +
+            "package:com.android.dynsystem\n" +
+            "package:com.android.hotspot2.osulogin\n" +
+            "package:com.google.android.connectivity.resources\n" +
+            "package:com.google.android.youtube\n" +
+            "package:tech.palm.id\n" +
+            "package:com.idea.questionnaire\n" +
+            "package:com.android.externalstorage\n" +
+            "package:com.transsion\n" +
+            "package:com.android.server.telecom\n" +
+            "package:com.android.systemui.os.overlay".split("\n").map { it.replace("package:", "") }
+
+    @Test
+    public fun `Test list`() {
+
+
+
+
+
+    }
+}

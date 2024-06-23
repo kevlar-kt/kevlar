@@ -16,17 +16,18 @@
 
 package com.kevlar.antipiracy.dsl.settings.scan
 
-import com.kevlar.antipiracy.dataset.DatasetEntry
+import com.kevlar.antipiracy.dataset.Threat
+import com.kevlar.antipiracy.dataset.ScanEntry
 
 /**
  * Data holder returned as an attestation result.
  * Contains the found pirate software, if any.
  *
- * @param detectedEntries   A [Set] containing all the [DatasetEntry]s which have been found on the
+ * @param detectedEntries   A [Set] containing all the [Threat]s which have been found on the
  *                          system through kevlar's checks.
  * */
 public data class ScanResult(
-    val detectedEntries: Set<DatasetEntry>
+    val detectedEntries: Set<ScanEntry>
 ) {
     public companion object {
         public fun empty(): ScanResult = ScanResult(setOf())

@@ -23,7 +23,7 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import com.kevlar.antipiracy.dsl.settings.AntipiracySettings
-import com.kevlar.antipiracy.dataset.DatasetEntry
+import com.kevlar.antipiracy.dataset.ScanEntry
 import com.kevlar.antipiracy.detection.vectors.InputVector
 import com.kevlar.antipiracy.detection.vectors.OutputVector
 import com.kevlar.antipiracy.detection.vectors.specter.OutputSpecter
@@ -72,12 +72,12 @@ internal object AntipiracyAttestator {
         outputSpecters: List<OutputSpecter>,
         index: Int
     ): AntipiracyAttestation {
-        val detectedDatasetEntries: Set<DatasetEntry> = outputSpecters
+        val detectedDatasetEntries: Set<ScanEntry> = outputSpecters
             .asSequence()
             .filter { it.matchingVectors.any(OutputVector::isNotEmpty) }
             .map(OutputSpecter::matchingVectors)
             .flatten()
-            .mapNotNull(OutputVector::matchingDataset)
+            .mapNotNull(OutputVector::scanEntry)
             .toSet()
 
         return when {

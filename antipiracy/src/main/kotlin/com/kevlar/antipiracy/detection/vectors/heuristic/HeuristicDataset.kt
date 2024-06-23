@@ -18,7 +18,7 @@
 
 package com.kevlar.antipiracy.detection.vectors.heuristic
 
-import com.kevlar.antipiracy.dataset.DatasetEntry
+import com.kevlar.antipiracy.dataset.Threat
 
 /**
  * Dataset for heuristic piracy detection.
@@ -31,75 +31,75 @@ internal object HeuristicDataset {
      * Packages which are straightforward to pick up
      * since they don't actively try to disguise themselves
      * */
-    val identifiableHeuristicsPirateApps: Array<MatchableHeuristicDatasetEntry> = arrayOf(
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.URET_PATCHER,
-            DetectionPolicy.packageNames(
+    val identifiableHeuristicsPirateApps: Array<HeuristicThreatDetectionSuite> = arrayOf(
+        HeuristicThreatDetectionSuite(
+            Threat.URET_PATCHER,
+            DetectionStrategy.packageNames(
                 """uret.jasi2169.patcher""",
                 """zone.jasi2169.uretpatcher""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.CREEPLAYS_PATCHER,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.CREEPLAYS_PATCHER,
+            DetectionStrategy.packageNames(
                 """org.creeplays.hack"""
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.CREE_HACK,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.CREE_HACK,
+            DetectionStrategy.packageNames(
                 """apps.zhasik007.hack""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.LEO_PLAYCARDS,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.LEO_PLAYCARDS,
+            DetectionStrategy.packageNames(
                 """com.leo.playcard""",
                 /* com.hakiansatu.leohhf */
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.APP_SARA,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.APP_SARA,
+            DetectionStrategy.packageNames(
                 """com.appsara.app""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.XMG,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.XMG,
+            DetectionStrategy.packageNames(
                 """com.xmodgame""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.GAME_HACKER,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.GAME_HACKER,
+            DetectionStrategy.packageNames(
                 """org.sbtools.gamehack""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.GAME_KILLER,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.GAME_KILLER,
+            DetectionStrategy.packageNames(
                 """com.zune.gamekiller""",
                 """com.killerapp.gamekiller""",
                 """cn.lm.sq""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.AGK,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.AGK,
+            DetectionStrategy.packageNames(
                 """com.aag.killer""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.CGD,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.CGD,
+            DetectionStrategy.packageNames(
                 """com.github.oneminusone.disablecontentguard""",
                 """com.oneminusone.disablecontentguard""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.FREEDOM,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.FREEDOM,
+            DetectionStrategy.packageNames(
                 """madkite.freedom""",
                 """jase.freedom""",
                 """cc.jase.freedom""",
@@ -107,16 +107,16 @@ internal object HeuristicDataset {
                 """cc.cz.madkite.freedom""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.ROOT_CLOAK,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.ROOT_CLOAK,
+            DetectionStrategy.packageNames(
                 """com.devadvance.rootcloak""",
                 """com.devadvance.rootcloakplus"""
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.HIDE_ROOT,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.HIDE_ROOT,
+            DetectionStrategy.packageNames(
                 """com.formyhm.hideroot""",
                 """com.formyhm.hiderootpremium""",
                 """com.amphoras.hidemyroot""",
@@ -130,89 +130,89 @@ internal object HeuristicDataset {
     /**
      * Basically no store has active disguising methods
      * */
-    val identifiableHeuristicStores: Array<MatchableHeuristicDatasetEntry> = arrayOf(
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.APTOIDE,
-            DetectionPolicy.packageNames(
+    val identifiableHeuristicStores: Array<HeuristicThreatDetectionSuite> = arrayOf(
+        HeuristicThreatDetectionSuite(
+            Threat.APTOIDE,
+            DetectionStrategy.packageNames(
                 """cm.aptoide.pt""",
             )
         ),
 
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.HAPPYMOD,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.HAPPYMOD,
+            DetectionStrategy.packageNames(
                 """com.happymod.apk""",
                 """happygames.io""",
             )
         ),
 
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.BLACK_MART,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.BLACK_MART,
+            DetectionStrategy.packageNames(
                 """org.blackmart.market""",
                 """com.blackmartalpha""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.MOB_GENIE,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.MOB_GENIE,
+            DetectionStrategy.packageNames(
                 """com.mobogenie""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.ONE_MOBILE,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.ONE_MOBILE,
+            DetectionStrategy.packageNames(
                 """me.onemobile.android""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.GET_APK,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.GET_APK,
+            DetectionStrategy.packageNames(
                 """com.repodroid.app""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.GET_JAR,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.GET_JAR,
+            DetectionStrategy.packageNames(
                 """com.getjar.reward""",
             )
         ),
 
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.SLIDE_ME,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.SLIDE_ME,
+            DetectionStrategy.packageNames(
                 """com.slideme.sam.manager""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.AC_MARKET,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.AC_MARKET,
+            DetectionStrategy.packageNames(
                 """ac.market.store""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.APP_CAKE,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.APP_CAKE,
+            DetectionStrategy.packageNames(
                 """net.appcake""",
                 """com.appcake""",
             )
         ),
 
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.Z_MARKET,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.Z_MARKET,
+            DetectionStrategy.packageNames(
                 """com.zmapp""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.MOBILISM,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.MOBILISM,
+            DetectionStrategy.packageNames(
                 """org.mobilism.android""",
             )
         ),
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.AIOD,
-            DetectionPolicy.packageNames(
+        HeuristicThreatDetectionSuite(
+            Threat.AIOD,
+            DetectionStrategy.packageNames(
                 """com.allinone.free""",
             )
         ),
@@ -220,15 +220,15 @@ internal object HeuristicDataset {
 
 
     /**
-     * [MatchableHeuristicDatasetEntry]s which are harder to detect with heuristic methods, but
+     * [HeuristicThreatDetectionSuite]s which are harder to detect with heuristic methods, but
      * still do a good job at catching old versions / tertiary components
-     * associated with one [DatasetEntry]
+     * associated with one [Threat]
      * */
-    val nonIdentifiableHeuristicPirateApps: Array<MatchableHeuristicDatasetEntry> = arrayOf(
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.LUCKY_PATCHER,
+    val nonIdentifiableHeuristicPirateApps: Array<HeuristicThreatDetectionSuite> = arrayOf(
+        HeuristicThreatDetectionSuite(
+            Threat.LUCKY_PATCHER,
             listOf(
-                DetectionPolicy.PackageNameDetection(
+                DetectionStrategy.PackageNameDetection(
                     listOf(
                         // Lucky patcher app
                         """com.chelpus.lackypatch""",
@@ -240,15 +240,15 @@ internal object HeuristicDataset {
                         """com.android.vending.licensing.ILicensingService""",
                     )
                 ),
-                DetectionPolicy.PackageNameRegex(
+                DetectionStrategy.PackageNameRegex(
                     // Lucky patcher proxy server for inppp purchases
                     """com.android.vending.billing.InAppBillingService.*"""
                 ),
-                DetectionPolicy.PackageNameRegex(
+                DetectionStrategy.PackageNameRegex(
                     // Lukcy Patcher Installer
                     """ru\..?.?[a]{3,}.?.?.?.?.?\.installer"""
                 ),
-                DetectionPolicy.ClassNameNameRegex(
+                DetectionStrategy.ClassNameNameRegex(
                     // Lucky patcher app
                     """com.lp"""
                 )
@@ -257,11 +257,11 @@ internal object HeuristicDataset {
     )
 
 
-    val collateralPirateApps: Array<MatchableHeuristicDatasetEntry> = arrayOf(
-        MatchableHeuristicDatasetEntry(
-            DatasetEntry.LUCKY_PATCHER,
+    val collateralPirateApps: Array<HeuristicThreatDetectionSuite> = arrayOf(
+        HeuristicThreatDetectionSuite(
+            Threat.LUCKY_PATCHER,
             listOf(
-                DetectionPolicy.PackageNameRegex(
+                DetectionStrategy.PackageNameRegex(
                     // ru.********.*********
                     """ru\.........\.........."""
                 )

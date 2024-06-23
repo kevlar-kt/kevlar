@@ -14,23 +14,15 @@
  * limitations under the License.
  */
 
-package com.kevlar.antipiracy.detection.vectors.alphabet
+package com.kevlar.antipiracy.detection.vectors.heuristic
 
 import com.kevlar.antipiracy.dataset.Threat
-import com.kevlar.antipiracy.detection.vectors.alphabet.units.AlphabetUnit
+import com.kevlar.antipiracy.dataset.ThreatDetectionSuite
 
 /**
- * Contains all abstract alphabet entries in kevlar's dataset.
+ * Associates a [Threat] with a list of [DetectionStrategy] for heuristic scans.
  * */
-internal object AlphabetDataset {
-    val nonIdentifiable = arrayOf(
-        AlphabetThreatDetectionSuite(
-            Threat.LUCKY_PATCHER,
-            listOf(
-                AlphabetUnit.L, AlphabetUnit.U, AlphabetUnit.C, AlphabetUnit.K, AlphabetUnit.Y,
-                AlphabetUnit.SEPARATOR,
-                AlphabetUnit.P, AlphabetUnit.A, AlphabetUnit.T, AlphabetUnit.C, AlphabetUnit.H, AlphabetUnit.E, AlphabetUnit.R
-            )
-        )
-    )
-}
+internal data class HeuristicThreatDetectionSuite(
+    override val threat: Threat,
+    val detectors: List<DetectionStrategy>
+) : ThreatDetectionSuite()

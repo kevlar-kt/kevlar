@@ -14,11 +14,20 @@
  * limitations under the License.
  */
 
-package com.kevlar.antipiracy.dataset
+package com.kevlar.antipiracy.detection.vectors.alphabet
+
+import com.kevlar.antipiracy.dataset.Threat
+import com.kevlar.antipiracy.dataset.ThreatDetectionSuite
+import com.kevlar.antipiracy.detection.vectors.alphabet.units.AlphabetUnit
 
 /**
- * Differentiates functionalities between different data set targets (pirate software).
+ * Single abstract alphabet string.
+ *
+ * It is composed of a list of [AlphabetUnit]s, which
+ * model single alphabet letters, and a [Threat]
+ * associated with the given label.
  * */
-public enum class DatasetType {
-    PIRATE_APP, PIRATE_STORE;
-}
+internal data class AlphabetThreatDetectionSuite (
+    override val threat: Threat,
+    val associatedAlphabetizedLabel: List<AlphabetUnit>
+) : ThreatDetectionSuite()

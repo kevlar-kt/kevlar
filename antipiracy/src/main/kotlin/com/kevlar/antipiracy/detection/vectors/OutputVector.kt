@@ -16,14 +16,14 @@
 
 package com.kevlar.antipiracy.detection.vectors
 
-import com.kevlar.antipiracy.dataset.DatasetEntry
+import com.kevlar.antipiracy.dataset.ScanEntry
 
 /**
  * Output abstraction for vector operations
  * */
 internal data class OutputVector(
-    val matchingDataset: DatasetEntry?
+    val scanEntry: ScanEntry?
 ) {
-    fun isEmpty() = matchingDataset == null
-    fun isNotEmpty() = matchingDataset != null
+    fun isEmpty() = scanEntry == null
+    fun isNotEmpty() = scanEntry != null
 }

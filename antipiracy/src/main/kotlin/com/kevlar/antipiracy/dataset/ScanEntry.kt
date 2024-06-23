@@ -12,13 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
 package com.kevlar.antipiracy.dataset
 
-/**
- * Parent class for [MatchableAlphabetDatasetEntry] and [MatchableHeuristicDatasetEntry]
- * */
-internal abstract class MatchableDatasetEntry {
-    abstract val datasetEntry: DatasetEntry
-}
+public data class ScanEntry (
+    public val threat: Threat,
+    public val packageName: String,
+    public val detectionLog: String
+)

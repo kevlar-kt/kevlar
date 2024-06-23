@@ -16,14 +16,14 @@
 
 package com.kevlar.antipiracy.detection.vectors.heuristic
 
-import com.kevlar.antipiracy.dataset.DatasetEntry
+import com.kevlar.antipiracy.dataset.Threat
 
 /**
- * Technique used to detect a single [DatasetEntry].
+ * Technique used to detect a single [Threat].
  * */
-internal sealed class DetectionPolicy {
+internal sealed class DetectionStrategy {
     /**
-     * Package name matching.
+     * **Package name matching**.
      *
      * This has been separated from [PackageNameDetection]
      * to speed up package search (since we could match strings
@@ -32,37 +32,37 @@ internal sealed class DetectionPolicy {
      * */
     data class PackageNameDetection(
         val packageNames: List<String>
-    ) : DetectionPolicy()
+    ) : DetectionStrategy()
 
     /**
-     * Package name regex.
+     * **Package name regex**.
      *
      * Runs the regex and checks if the entire package name
      * matches with the given pattern.
      * */
     data class PackageNameRegex(
-        val regex: String
-    ) : DetectionPolicy()
+        val pnRegex: String
+    ) : DetectionStrategy()
 
     /**
-     * nonLocalizedLabel matching
+     * **Label matching**
      *
-     * Runs the regex and checks if the entire non-localized label
+     * Runs the regex and checks if the entire non-localized label (nonLocalizedLabel)
      * matches with the given pattern.
      * */
     data class LabelNameRegex(
-        val regex: String
-    ) : DetectionPolicy()
+        val lnRegex: String
+    ) : DetectionStrategy()
 
     /**
-     * Main class name matching
+     * **Main class name matching**
      *
      * Runs the regex and checks if the entire class name
      * matches with the given pattern.
      * */
     data class ClassNameNameRegex(
-        val regex: String
-    ) : DetectionPolicy()
+        val cnRegex: String
+    ) : DetectionStrategy()
 
     companion object {
         /**
